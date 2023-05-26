@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Configurações de conexão com o banco de dados -->
+        <property name="connection.url">jdbc:postgresql://localhost/AdsEnterpriseDB</property> <!-- BD Mane -->
+        <property name="connection.driver_class">org.postgresql.Driver</property> <!-- DB Driver -->
+        <property name="connection.username">postgres</property> <!-- DB User -->
+        <property name="connection.password">root</property> <!-- DB Password -->
+
+        <!-- Configurações do dialeto do PostgreSQL -->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hbm2ddl.auto">update</property> <!-- create / create-drop / update -->
+
+        <!-- Configuração do mapeamento de classes -->
+        <mapping class="org.example.models.ProdutosEntity"/>
+        <mapping resource="ProdutosEntity.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>
