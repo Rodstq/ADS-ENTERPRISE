@@ -1,26 +1,35 @@
 package org.example.util;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+import org.example.models.ProdutosEntity;
 
 public class HibernateUtil {
-    private static final SessionFactory sessionFactory;
+    public static void persistirProduto(String nome, double preco){
 
-    static {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
         try {
-            Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
-            StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                    .applySettings(configuration.getProperties()).build();
-            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-        } catch (Throwable ex) {
-            throw new ExceptionInInitializerError(ex);
+            transaction.begin();
+
+            ProdutosEntity p1 = new ProdutosEntity();
+
+            // p1.setId(1);
+            p1.setPreco(preco);
+            p1.setNome(nome);
+
+            entityManager.persist(p1);
+
+            transaction.commit();
+        } finally {
+            if(transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+            entityManagerFactory.close();
         }
     }
-
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
 }
-
