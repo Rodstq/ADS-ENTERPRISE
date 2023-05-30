@@ -15,6 +15,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
       POSTGRES_DB: AdsEnterpriseDB
+    user: ${UID}:${GID}
     ports:
       - "5432:5432"
     volumes:

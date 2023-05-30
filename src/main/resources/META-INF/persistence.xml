@@ -11,7 +11,10 @@
         <properties>
             <!-- Configurações de conexão com o banco de dados -->
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <!--
             <property name="hibernate.connection.url" value="jdbc:postgresql://172.16.238.2:5432/AdsEnterpriseDB"/>
+            -->
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/postgres"/>
             <property name="hibernate.connection.username" value="postgres" />
             <property name="hibernate.connection.password" value="root" />
 

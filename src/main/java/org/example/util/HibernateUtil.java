@@ -5,9 +5,10 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import org.example.models.ProdutosEntity;
+import java.math.BigDecimal;
 
 public class HibernateUtil {
-    public static void persistirProduto(String nome, double preco, int qntd){
+    public static void persistirProduto(String nome, double preco, int quantidade){
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -17,10 +18,9 @@ public class HibernateUtil {
 
             ProdutosEntity p1 = new ProdutosEntity();
 
-            // p1.setId(1);
-            p1.setPreco(preco);
+            p1.setPreco(BigDecimal.valueOf(preco));
             p1.setNome(nome);
-            p1.setQntd(qntd);
+            p1.setQuantidade(quantidade);
             
             entityManager.persist(p1);
 
