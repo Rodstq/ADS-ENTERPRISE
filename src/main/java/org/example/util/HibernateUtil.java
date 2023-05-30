@@ -7,7 +7,7 @@ import jakarta.persistence.Persistence;
 import org.example.models.ProdutosEntity;
 
 public class HibernateUtil {
-    public static void persistirProduto(String nome, double preco){
+    public static void persistirProduto(String nome, double preco, int qntd){
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -20,7 +20,8 @@ public class HibernateUtil {
             // p1.setId(1);
             p1.setPreco(preco);
             p1.setNome(nome);
-
+            p1.setQntd(qntd);
+            
             entityManager.persist(p1);
 
             transaction.commit();

@@ -18,7 +18,12 @@ public class ProdutosEntity {
     @Basic
     @Column(name = "Preco")
     private double preco;
-
+    
+    
+    @Basic
+    @Column(name = "Quantidade")
+    private int qntd;
+    
     public int getId() {
         return id;
     }
@@ -42,7 +47,12 @@ public class ProdutosEntity {
     public void setPreco(double preco) {
         this.preco = preco;
     }
-
+    
+    public void setQntd(int qntd) {
+    	
+    	this.qntd = qntd;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
