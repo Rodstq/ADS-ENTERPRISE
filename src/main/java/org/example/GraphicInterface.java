@@ -9,23 +9,41 @@ public class GraphicInterface {
         JFrame f = new JFrame();//instanciando JFrame
         JButton b = new JButton("Adicionar Cliente");
 
+        //adicionando campo de nome do Cliente
         final JTextField nome = new JTextField();
         nome.setBounds(50,50,150,20);
+        //adicionando Label do campo do nome do Cliente
         JLabel nomeLabel = new JLabel("Nome:");
         nomeLabel.setBounds(50,20,150,20);
 
+        //adicionando campo de cpf do cliente
         final JTextField cpf = new JTextField();
         cpf.setBounds(250,50,150,20);
+        //adicionando label do campo do cpf do cliente
         JLabel cpfLabel = new JLabel("CPF:");
         cpfLabel.setBounds(250,20,150,20);
+
+        //label mostrando nome adicionado
+        JLabel nomeAdicionado = new JLabel();
+        nomeAdicionado.setBounds(100, 150, 250,40);
+        nomeAdicionado.setLayout(null);
+
+        //label mostrando cpf adicionado
+        JLabel cpfAdicionado = new JLabel();
+        cpfAdicionado.setBounds(300, 150, 250,40);
+        cpfAdicionado.setLayout(null);
 
         //definindo tamanho e posição do botao b
         b.setBounds(100,200,250,40);
         b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                nome.setText("Cliente adicionado!!");
+                nomeAdicionado.setText(nome.getText());
+                cpfAdicionado.setText(cpf.getText());
+                double cpfDouble = Double.parseDouble(cpfAdicionado.getText());
+                System.out.println(cpfDouble);
             }
         });
+
 
         //adicionando o botao b ao JFrame
         f.add(b);
@@ -33,6 +51,8 @@ public class GraphicInterface {
         f.add(cpf);
         f.add(nomeLabel);
         f.add(cpfLabel);
+        f.add(nomeAdicionado);
+        f.add(cpfAdicionado);
 
 
         //definindo tamanho da tela
