@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GraphicInterface {
+public class Cliente {
 
     public static void main(String[] args) {
         JFrame f = new JFrame();//instanciando JFrame
@@ -40,7 +40,6 @@ public class GraphicInterface {
                 nomeAdicionado.setText(nome.getText());
                 cpfAdicionado.setText(cpf.getText());
                 double cpfDouble = Double.parseDouble(cpfAdicionado.getText());
-                System.out.println(cpfDouble);
             }
         });
 
