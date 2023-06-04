@@ -6,22 +6,17 @@
              version="2.2">
 
     <persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
-        <class>org.example.models.ProdutosEntity</class>
+        <class>org.example.model.ClientesEntity</class>
 
         <properties>
             <!-- Configurações de conexão com o banco de dados -->
-            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-            
-            <property name="hibernate.connection.url" value="jdbc:postgresql://172.16.238.2:5432/AdsEnterpriseDB"/>
-
-            <property name="hibernate.connection.username" value="postgres" />
+            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://172.16.238.2:3306/adsDb"/>
+            <property name="hibernate.connection.username" value="root" />
             <property name="hibernate.connection.password" value="root" />
 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
         </properties>
-
-
-        <!-- outras configurações -->
     </persistence-unit>
 
 </persistence>

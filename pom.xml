@@ -22,12 +22,12 @@
             <version>6.2.3.Final</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.6.0</version>
-        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mysql/mysql-connector-java -->
+     <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.27</version>
+    </dependency>
 
         <!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
         <dependency>
@@ -46,8 +46,5 @@
 
 
     </dependencies>
-
-    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-
 
 </project>
