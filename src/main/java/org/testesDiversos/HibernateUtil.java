@@ -1,4 +1,4 @@
-package org.classes.util;
+package org.testesDiversos;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -7,36 +7,32 @@ import jakarta.persistence.Persistence;
 
 import java.math.BigDecimal;
 
-import org.maptabels.models.ClientesEntity;
 import org.maptabels.models.ProdutosEntity;
 
-public class HibernateUtilCliente {
-    public static void persistirCliente(int cpf, String nome, int telefone){
+public class HibernateUtil {
+    public static void persistirProduto(String nome, double preco, int quantidade){
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
-
-        try{
+        try {
             transaction.begin();
-       
-            ClientesEntity c1 = new ClientesEntity();
 
-            c1.setCpf(cpf);
-            c1.setNomeCliente(nome);
-            c1.setTelefoneCliente(telefone);
+            ProdutosEntity p1 = new ProdutosEntity();
+
+            p1.setPreco(BigDecimal.valueOf(preco));
+            p1.setNome(nome);
+            p1.setQuantidade(quantidade);
             
-            entityManager.persist(c1);
+            entityManager.persist(p1);
 
             transaction.commit();
-            } finally {
+        } finally {
             if(transaction.isActive()) {
-                    transaction.rollback();
+                transaction.rollback();
             }
-                entityManager.close();
-                entityManagerFactory.close();
-            }
-
+            entityManager.close();
+            entityManagerFactory.close();
+        }
     }
-    
 }

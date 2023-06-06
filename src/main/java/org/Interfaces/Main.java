@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.Interfaces.ModuloClientes.moduloClientesConsulta;
+import org.Interfaces.ModuloClientes.moduloClientesCadastro;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -90,35 +90,14 @@ public class Main extends JFrame {
 		btnMduloClientes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
-              moduloClientesConsulta.moduloCliente();
+              moduloClientesCadastro.moduloCliente();
+              dispose();
          }
          });
 		
 	}
 		
 		
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
-	}
-
-	  
-
-       
-        
     
 		
 	}

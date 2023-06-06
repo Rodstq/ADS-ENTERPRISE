@@ -1,4 +1,4 @@
-package org.classes.util;
+package org.testesDiversos;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
