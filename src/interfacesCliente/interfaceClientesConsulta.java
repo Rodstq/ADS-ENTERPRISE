@@ -20,12 +20,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
+import java.util.List;
+
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollBar;
+import javax.swing.JProgressBar;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 
 public class interfaceClientesConsulta extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField inputNomeCliente;
 	private JTextField inputCpfCLiente;
+	private JTable tabelaResultadoCliente;
 
 	/**
 	 * Launch the application.
@@ -48,13 +56,13 @@ public class interfaceClientesConsulta extends JFrame {
 	 */
 	public interfaceClientesConsulta () {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 730, 481);
+		setBounds(100, 100, 962, 530);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JButton btnConsularClientes = new JButton("Consular Clientes");
-		menuBar.add(btnConsularClientes);
+		JButton btnConsultarClientes = new JButton("Consultar Clientes");
+		menuBar.add(btnConsultarClientes);
 		
 		JButton btnCadastrarClientes = new JButton("Cadastrar Clientes");
 		menuBar.add(btnCadastrarClientes);
@@ -101,13 +109,13 @@ public class interfaceClientesConsulta extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(471, 380, 117, 25);
+		btnNewButton.setBounds(685, 429, 117, 25);
 		contentPane.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Consultar");
+		JButton btnConsultarCliente = new JButton("Consultar");
 		
 		try {
-		btnNewButton_1.addActionListener(new ActionListener() {
+		btnConsultarCliente.addActionListener(new ActionListener() {
 		    public void actionPerformed  (ActionEvent e) {
 
 	
@@ -124,8 +132,61 @@ public class interfaceClientesConsulta extends JFrame {
 			
 		}
 		
-		btnNewButton_1.setBounds(600, 380, 117, 25);
-		contentPane.add(btnNewButton_1);
+		btnConsultarCliente.setBounds(814, 429, 117, 25);
+		contentPane.add(btnConsultarCliente);
+		
+		 	DefaultTableModel tabelaModel = new DefaultTableModel(new Object[][] {},
+	                new String[] { "nome do cliente", "cpf do cliente", "data de nascimento", "telefone", "estado", "cidade",
+	                        "bairro", "rua", "cep" });
+	        tabelaResultadoCliente = new JTable(tabelaModel);
+	        tabelaResultadoCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
+	        tabelaResultadoCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
+	        tabelaResultadoCliente.getColumnModel().getColumn(2).setPreferredWidth(120);
+	        tabelaResultadoCliente.getColumnModel().getColumn(3).setPreferredWidth(80);
+	        tabelaResultadoCliente.getColumnModel().getColumn(4).setPreferredWidth(80);
+	        tabelaResultadoCliente.getColumnModel().getColumn(5).setPreferredWidth(100);
+	        tabelaResultadoCliente.getColumnModel().getColumn(6).setPreferredWidth(100);
+	        tabelaResultadoCliente.getColumnModel().getColumn(7).setPreferredWidth(100);
+	        tabelaResultadoCliente.getColumnModel().getColumn(8).setPreferredWidth(80);
+		
+		JScrollPane scrollInformacoesCliente = new JScrollPane(tabelaResultadoCliente);
+		scrollInformacoesCliente.setBounds(34, 94, 897, 141);
+		contentPane.add(scrollInformacoesCliente);
+		JLabel lblInformaesDoCliente = new JLabel("Informações do cliente:");
+		lblInformaesDoCliente.setBounds(12, 80, 166, 15);
+		contentPane.add(lblInformaesDoCliente);
+		
+		JLabel lblUltimosPedidosDo = new JLabel("Ultimos pedidos do cliente:");
+		lblUltimosPedidosDo.setBounds(12, 238, 212, 29);
+		contentPane.add(lblUltimosPedidosDo);
+		
+		DefaultTableModel produtosModel = new DefaultTableModel(
+		        new Object[][] {},
+		        new String[] { "nome do produto", "quantidade", "valor", "data de compra" }
+		);
+		JTable produtosResultadoCliente = new JTable(produtosModel);
+		produtosResultadoCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
+		produtosResultadoCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
+		produtosResultadoCliente.getColumnModel().getColumn(2).setPreferredWidth(120);
+		produtosResultadoCliente.getColumnModel().getColumn(2).setPreferredWidth(120);
+		JScrollPane scrollInformacoesProduto = new JScrollPane(produtosResultadoCliente);
+		scrollInformacoesProduto.setBounds(34, 272, 897, 141);
+		contentPane.add(scrollInformacoesProduto);
+		
+		btnConsultarCliente.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	                String nomeCliente = inputNomeCliente.getText();
+	                String cpfCliente = inputCpfCLiente.getText();
+
+	                List<String[]> resultados = consultaCliente.consultaCliente(nomeCliente, cpfCliente);
+
+	                tabelaModel.setRowCount(0);
+
+	                for (String[] cliente : resultados) {
+	                    tabelaModel.addRow(cliente);
+	                }
+	            }
+	        });
 	}
 }
 

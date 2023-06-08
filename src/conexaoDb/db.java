@@ -3,6 +3,7 @@ package conexaoDb;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class db {
@@ -12,22 +13,19 @@ public class db {
     
    public static Connection con = null;
    
-    public static Connection Connect () {
+    public static Connection Connect () throws SQLException{
         try {
             con = DriverManager.getConnection(url, user, password);
             System.out.println("Sucesso ao conectar");
             
             return con;
             
-        } catch (Exception e) {
-        	throw new DbErrorException("Erro ao finalizar conexão");
+        }catch (SQLException e) {
+                throw new SQLException("Erro ao conectar ao banco de dados", e);
+            }
         	
         }
-        
-    }  
-    
-    
-    
+      
     public static void CloseDb() {
     	
     	if(con != null) {
