@@ -38,7 +38,7 @@ public class interfaceClientesCadastro extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void clienteConsulta() {
+	public static void clientesCadastro() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -61,8 +61,15 @@ public class interfaceClientesCadastro extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JButton btnConsularClientes = new JButton("Consular Clientes");
-		menuBar.add(btnConsularClientes);
+		JButton btnConsultarClientes = new JButton("Consultar Clientes");
+		menuBar.add(btnConsultarClientes);
+		btnConsultarClientes.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+            	interfaceClientesConsulta.clienteConsulta();
+              dispose();
+         }
+         });
 		
 		JButton btnCadastrarClientes = new JButton("Cadastrar Clientes");
 		menuBar.add(btnCadastrarClientes);

@@ -1,11 +1,9 @@
 Create table clientes(
 cpf varchar(15) primary  key,
 nome varchar(50),
-dataNascimento varchar(10),
+dataNascimento date,
 telefone varchar(15)
 );
-
-
 
 CREATE TABLE clientesEndereco (
   cep varchar(15),
@@ -21,14 +19,14 @@ CREATE TABLE clientesEndereco (
 CREATE TABLE produtos (
   idProduto VARCHAR(50) PRIMARY KEY NOT NULL,
   nomeProduto VARCHAR(50),
-  quantidadeProduto VARCHAR(50),
-  valorProduto VARCHAR(50),
-  dataValidade VARCHAR(50),
-  dataEntrada VARCHAR(50),
-  dataSaida VARCHAR(50)
+  quantidadeProduto int,
+  valorProduto double,
+  dataValidade date,
+  dataEntrada date,
+  dataSaida date
 );
 
-create table  cliente_produto(
+create table  clienteProdutos(
 cpf varchar (15),
 idProduto varchar(50),
 foreign key(cpf) references clientes(cpf),
