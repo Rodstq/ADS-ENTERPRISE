@@ -70,10 +70,7 @@ public class Main extends JFrame {
 		contentPane.add(btnModuloVendas);
 		
 		JButton btnMduloClientes = new JButton("Módulo de Clientes");
-		btnMduloClientes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+
 		btnMduloClientes.setBounds(272, 333, 194, 43);
 		contentPane.add(btnMduloClientes);
 		

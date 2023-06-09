@@ -18,30 +18,30 @@ public class consultaCliente {
 		
 		Statement stmt = db.Connect().createStatement();
 		
-		
-			if(!cpfCliente.isEmpty() && !nomeCliente.isEmpty()){
-			
-
-				String query = "SELECT * FROM clientes JOIN clientesEndereco ON clientes.cpf = clientesEndereco.cpf WHERE "
-				        + "clientes.cpf = '" + cpfCliente + "' AND clientes.nome = '" + nomeCliente + "'";
-
-
-			
-			ResultSet rs = stmt.executeQuery(query);
-			while(rs.next()){
-				String nome = rs.getString("nome");
-				String cpf = rs.getString("cpf");
-				Date dataNascimento = rs.getDate("dataNascimento");
-				String telefone = rs.getString("telefone");
-				String estado = rs.getString("estado");
-				String cidade = rs.getString("cidade");
-				String bairro = rs.getString("bairro");
-				String rua = rs.getString("rua");
-			
-			 Object[] cliente = { nome, cpf, dataNascimento, telefone, estado, cidade, bairro, rua };
-             resultados.add(cliente);
-		}
-		}else if(!nomeCliente.isEmpty()) {
+		//consulta clientes pelo nome e cpf
+//			if(!cpfCliente.isEmpty() && !nomeCliente.isEmpty()){
+//			
+//			String query = "SELECT * FROM clientes JOIN clientesEndereco ON clientes.cpf = clientesEndereco.cpf WHERE "
+//				        + "clientes.cpf = '" + cpfCliente + "' AND clientes.nome = '" + nomeCliente + "'";
+//		
+//			ResultSet rs = stmt.executeQuery(query);
+//			while(rs.next()){
+//				String nome = rs.getString("nome");
+//				String cpf = rs.getString("cpf");
+//				Date dataNascimento = rs.getDate("dataNascimento");
+//				String telefone = rs.getString("telefone");
+//				String estado = rs.getString("estado");
+//				String cidade = rs.getString("cidade");
+//				String bairro = rs.getString("bairro");
+//				String rua = rs.getString("rua");
+//			
+//			 Object[] cliente = { nome, cpf, dataNascimento, telefone, estado, cidade, bairro, rua };
+//             resultados.add(cliente);
+//		}
+//			
+			//consulta cliente apenas pelo nome
+//		}else 
+			if(!nomeCliente.isEmpty()) {
 			
 		String query = "SELECT * FROM clientes JOIN clientesEndereco ON clientes.cpf = clientesEndereco.cpf "
 				+ "WHERE clientes.nome = '" + nomeCliente + "'";
@@ -53,7 +53,7 @@ public class consultaCliente {
 				String nome = rs.getString("nome");
 				String cpf = rs.getString("cpf");
 				String dataNascimento = rs.getString("dataNascimento");
-				Date telefone = rs.getDate("telefone");
+				String telefone = rs.getString("telefone");
 				String estado = rs.getString("estado");
 				String cidade = rs.getString("cidade");
 				String bairro = rs.getString("bairro");
@@ -67,7 +67,10 @@ public class consultaCliente {
 
 			rs.close();
 			
-		}else if (!cpfCliente.isEmpty()) {
+			
+			
+			//consulta clientes apenas pelo cpf
+		}else 	if (!cpfCliente.isEmpty()) {
 			
 		String query = "SELECT * FROM clientes JOIN clientesEndereco ON clientes.cpf = "
 				+ "clientesEndereco.cpf WHERE clientes.cpf = '" + cpfCliente + "'";

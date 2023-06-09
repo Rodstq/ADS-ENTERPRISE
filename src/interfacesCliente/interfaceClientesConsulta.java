@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controladores.consultaCliente;
+import controladores.consultaProdutos;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -23,6 +24,9 @@ import java.awt.event.ContainerEvent;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
+
+import classesCliente.clienteConsultaTratamento;
+
 import javax.swing.JScrollBar;
 import javax.swing.JProgressBar;
 import javax.swing.JPasswordField;
@@ -66,7 +70,13 @@ public class interfaceClientesConsulta extends JFrame {
 		
 		JButton btnCadastrarClientes = new JButton("Cadastrar Clientes");
 		menuBar.add(btnCadastrarClientes);
-		
+		btnCadastrarClientes.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+            	interfaceClientesCadastro.clientesCadastro();
+              dispose();
+         }
+         });
 		JButton btnDeletarClientes = new JButton("Deletar Clientes");
 		menuBar.add(btnDeletarClientes);
 		
@@ -133,13 +143,15 @@ public class interfaceClientesConsulta extends JFrame {
 		
 		DefaultTableModel produtosModel = new DefaultTableModel(
 		        new Object[][] {},
-		        new String[] { "nome do produto", "quantidade", "valor", "data de compra" }
+		        new String[] { "id do produto", "nome do produto", "quantidade", "valor", "data de validade"}
 		);
 		JTable produtosResultadoCliente = new JTable(produtosModel);
 		produtosResultadoCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
 		produtosResultadoCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
 		produtosResultadoCliente.getColumnModel().getColumn(2).setPreferredWidth(120);
-		produtosResultadoCliente.getColumnModel().getColumn(2).setPreferredWidth(120);
+		produtosResultadoCliente.getColumnModel().getColumn(3).setPreferredWidth(120);
+		produtosResultadoCliente.getColumnModel().getColumn(4).setPreferredWidth(120);
+
 		JScrollPane scrollInformacoesProduto = new JScrollPane(produtosResultadoCliente);
 		scrollInformacoesProduto.setBounds(34, 272, 897, 141);
 		contentPane.add(scrollInformacoesProduto);
@@ -148,16 +160,40 @@ public class interfaceClientesConsulta extends JFrame {
 	            public void actionPerformed(ActionEvent e) {
 	                String nomeCliente = inputNomeCliente.getText(); //pega o que foi digitado
 	                String cpfCliente = inputCpfCLiente.getText();
+	                
+	                
+	                clienteConsultaTratamento infoCliente = new clienteConsultaTratamento();
 
-	              //o construtor recebe o texto que foi  digitado na interface        
-	                List<Object[]> resultados = consultaCliente.consultaCliente(nomeCliente, cpfCliente); 
-	                   
+	                //passa o que foi digitado na interface para a classe de tratamento de informações do cliente
+	                infoCliente.clienteInfo(nomeCliente, cpfCliente);
+	                
+	                //retorna os valores do database após passar pela classe de tratamentto de informações do cliente
+	                List<Object[]> resultadosCliente = infoCliente.retornoInfo();
+	            
+	                
+	                
+//					forma de acessar o database direto em passsar pela classe de tratamento:
+//					o construtor recebe o texto que foi  digitado na interface        
+//	                List<Object[]> resultadosCliente = consultaCliente.consultaCliente(nomeCliente, cpfCliente); 
+//	                   
 
 	                tabelaModel.setRowCount(0);
 
-	                for (Object[] cliente : resultados) {
+	                for (Object[] cliente : resultadosCliente) {
 	                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
 	                    tabelaModel.addRow(cliente); 
+	                }
+	                    
+	                    produtosModel.setRowCount(0);
+	                    
+	                    List<Object[]> resultadosProduto = consultaProdutos.consultaProdutos(nomeCliente, cpfCliente);
+	                    
+	                    for (Object[] produtos : resultadosProduto) {
+		                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
+		                    produtosModel.addRow(produtos); 
+	                   
+	                    
+	                    
 	                }
 	            }
 	        });
@@ -169,7 +205,7 @@ public class interfaceClientesConsulta extends JFrame {
 				inputNomeCliente.setText("");
 				inputCpfCLiente.setText("");
 				tabelaModel.setRowCount(0); //vai zerar a tabela quando apertar o botao consultar
-				
+				produtosModel.setRowCount(0);
 			}
 		});
 		btnNewButton.setBounds(685, 429, 117, 25);
