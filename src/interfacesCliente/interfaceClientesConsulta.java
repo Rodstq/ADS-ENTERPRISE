@@ -99,38 +99,9 @@ public class interfaceClientesConsulta extends JFrame {
 		contentPane.add(inputCpfCLiente);
 		
 		
-		JButton btnNewButton = new JButton("Limpar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
 
-				//Limpa as informações
-				inputNomeCliente.setText("");
-				inputCpfCLiente.setText("");
-				
-			}
-		});
-		btnNewButton.setBounds(685, 429, 117, 25);
-		contentPane.add(btnNewButton);
-		
 		JButton btnConsultarCliente = new JButton("Consultar");
 		
-		try {
-		btnConsultarCliente.addActionListener(new ActionListener() {
-		    public void actionPerformed  (ActionEvent e) {
-
-	
-		 consultaCliente.consultaCliente(inputNomeCliente.getText(), inputCpfCLiente.getText());
-		 
-		    	
-		//Limpa após inserir os dados
-		inputNomeCliente.setText("");
-		inputCpfCLiente.setText("");
-	
-		    	
-		    }
-		}); } catch(Exception msg){
-			
-		}
 		
 		btnConsultarCliente.setBounds(814, 429, 117, 25);
 		contentPane.add(btnConsultarCliente);
@@ -175,18 +146,35 @@ public class interfaceClientesConsulta extends JFrame {
 		
 		btnConsultarCliente.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
-	                String nomeCliente = inputNomeCliente.getText();
+	                String nomeCliente = inputNomeCliente.getText(); //pega o que foi digitado
 	                String cpfCliente = inputCpfCLiente.getText();
 
-	                List<String[]> resultados = consultaCliente.consultaCliente(nomeCliente, cpfCliente);
+	              //o construtor recebe o texto que foi  digitado na interface        
+	                List<Object[]> resultados = consultaCliente.consultaCliente(nomeCliente, cpfCliente); 
+	                   
 
 	                tabelaModel.setRowCount(0);
 
-	                for (String[] cliente : resultados) {
-	                    tabelaModel.addRow(cliente);
+	                for (Object[] cliente : resultados) {
+	                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
+	                    tabelaModel.addRow(cliente); 
 	                }
 	            }
 	        });
+		JButton btnNewButton = new JButton("Limpar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				//Limpa as informações
+				inputNomeCliente.setText("");
+				inputCpfCLiente.setText("");
+				tabelaModel.setRowCount(0); //vai zerar a tabela quando apertar o botao consultar
+				
+			}
+		});
+		btnNewButton.setBounds(685, 429, 117, 25);
+		contentPane.add(btnNewButton);
+		
 	}
 }
 

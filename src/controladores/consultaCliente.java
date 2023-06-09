@@ -2,16 +2,18 @@ package controladores;
 import conexaoDb.db;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 public class consultaCliente {
-
-	public static List<String[]> consultaCliente(String nomeCliente, String cpfCliente) {
+	
+	//é do tipo objeto porque permite armazenar qualquer outro tipo
+	public static List<Object[]> consultaCliente(String nomeCliente, String cpfCliente) {
 		
-		List<String[]> resultados = new ArrayList<>();
+		List<Object[]> resultados = new ArrayList<>();
 		try {
 		
 		Statement stmt = db.Connect().createStatement();
@@ -29,14 +31,14 @@ public class consultaCliente {
 			while(rs.next()){
 				String nome = rs.getString("nome");
 				String cpf = rs.getString("cpf");
-				String dataNascimento = rs.getString("dataNascimento");
+				Date dataNascimento = rs.getDate("dataNascimento");
 				String telefone = rs.getString("telefone");
 				String estado = rs.getString("estado");
 				String cidade = rs.getString("cidade");
 				String bairro = rs.getString("bairro");
 				String rua = rs.getString("rua");
 			
-			 String[] cliente = { nome, cpf, dataNascimento, telefone, estado, cidade, bairro, rua };
+			 Object[] cliente = { nome, cpf, dataNascimento, telefone, estado, cidade, bairro, rua };
              resultados.add(cliente);
 		}
 		}else if(!nomeCliente.isEmpty()) {
@@ -51,14 +53,14 @@ public class consultaCliente {
 				String nome = rs.getString("nome");
 				String cpf = rs.getString("cpf");
 				String dataNascimento = rs.getString("dataNascimento");
-				String telefone = rs.getString("telefone");
+				Date telefone = rs.getDate("telefone");
 				String estado = rs.getString("estado");
 				String cidade = rs.getString("cidade");
 				String bairro = rs.getString("bairro");
 				String rua = rs.getString("rua");
 				
 				
-				 String[] cliente = { nome, cpf, dataNascimento, telefone, estado, cidade, bairro, rua };
+				 Object[] cliente = { nome, cpf, dataNascimento, telefone, estado, cidade, bairro, rua };
                  resultados.add(cliente);
 
 			}
@@ -74,14 +76,14 @@ public class consultaCliente {
 			while(rs.next()){
 				String nome = rs.getString("nome");
 				String cpf = rs.getString("cpf");
-				String dataNascimento = rs.getString("dataNascimento");
+				Date dataNascimento = rs.getDate("dataNascimento");
 				String telefone = rs.getString("telefone");
 				String estado = rs.getString("estado");
 				String cidade = rs.getString("cidade");
 				String bairro = rs.getString("bairro");
 				String rua = rs.getString("rua");
 				
-				 String[] cliente = { nome, cpf, dataNascimento, telefone, estado, cidade, bairro, rua };
+				 Object[] cliente = { nome, cpf, dataNascimento, telefone, estado, cidade, bairro, rua };
                  resultados.add(cliente);
 				
 			}
