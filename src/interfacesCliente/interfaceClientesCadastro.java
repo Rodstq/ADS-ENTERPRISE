@@ -6,7 +6,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import classesCliente.clienteCadastroTratamento;
+import controladores.clienteDataBase;
 
+import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter; 
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -20,6 +25,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class interfaceClientesCadastro extends JFrame {
 
@@ -185,8 +193,8 @@ public class interfaceClientesCadastro extends JFrame {
 		contentPane.add(inputEstadoCliente);
 		
 		
-		JButton btnNewButton = new JButton("Limpar");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnLimparInfo = new JButton("Limpar");
+		btnLimparInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				//Limpa as informações
@@ -203,19 +211,28 @@ public class interfaceClientesCadastro extends JFrame {
 			
 			}
 		});
-		btnNewButton.setBounds(471, 380, 117, 25);
-		contentPane.add(btnNewButton);
+		btnLimparInfo.setBounds(471, 380, 117, 25);
+		contentPane.add(btnLimparInfo);
 		
-		JButton btnNewButton_1 = new JButton("Cadastro");
+		JButton btnCadastrarCliente = new JButton("Cadastro");
 		
 		try {
-		btnNewButton_1.addActionListener(new ActionListener() {
+		btnCadastrarCliente.addActionListener(new ActionListener() {
 		    public void actionPerformed  (ActionEvent e) {
-		    	
+		   	    	
+		   
 		   //Insere no Database as informações do cliente
-//		HibernateUtilCadastroClientes.persistirCliente(inputNomeCliente.getText(), inputCpfCLiente.getText(), inputDataNascimentoCliente.getText(),
-//				inputTelefoneCliente.getText(),inputEstadoCliente.getText(), inputCidadeCliente.getText(), inputBairroCliente.getText(),
-//				inputCepCliente.getText(),inputRuaCliente.getText(), inputDescricaoCliente.getText());
+		    clienteCadastroTratamento cliente = new clienteCadastroTratamento();
+		        
+		    
+		    LocalDate dataNascimento = LocalDate.parse(inputDataNascimentoCliente.getText(), DateTimeFormatter.ofPattern("ddMMyyyy"));
+	
+		   cliente.cadastrarClienteInfo(inputCpfCLiente.getText(), inputNomeCliente.getText(),  dataNascimento,
+		    		inputTelefoneCliente.getText());	    
+		   
+		   cliente.cadastrarEnderecoCliente(inputCepCliente.getText(), inputEstadoCliente.getText(), inputCidadeCliente.getText(), inputBairroCliente.getText(),
+				    inputRuaCliente.getText(), inputDescricaoCliente.getText(), inputCpfCLiente.getText());
+		   		    	
 		
 		//Limpa após inserir os dados
 		inputNomeCliente.setText("");
@@ -235,8 +252,8 @@ public class interfaceClientesCadastro extends JFrame {
 			
 		}
 		
-		btnNewButton_1.setBounds(600, 380, 117, 25);
-		contentPane.add(btnNewButton_1);
+		btnCadastrarCliente.setBounds(600, 380, 117, 25);
+		contentPane.add(btnCadastrarCliente);
 	}
 }
 

@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controladores.consultaCliente;
+import controladores.clienteDataBase;
 import controladores.consultaProdutos;
 
 import javax.swing.JLabel;
@@ -158,25 +158,16 @@ public class interfaceClientesConsulta extends JFrame {
 		
 		btnConsultarCliente.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
-	                String nomeCliente = inputNomeCliente.getText(); //pega o que foi digitado
-	                String cpfCliente = inputCpfCLiente.getText();
-	                
-	                
+
+	               	                
 	                clienteConsultaTratamento infoCliente = new clienteConsultaTratamento();
-
-	                //passa o que foi digitado na interface para a classe de tratamento de informações do cliente
-	                infoCliente.clienteInfo(nomeCliente, cpfCliente);
-	                
-	                //retorna os valores do database após passar pela classe de tratamentto de informações do cliente
+//
+//	                //passa o que foi digitado na interface para a classe de tratamento de informações do cliente
+	                infoCliente.consultaNomeCpf(inputNomeCliente.getText(), inputCpfCLiente.getText());
+//	                
+//	                //retorna os valores do database após passar pela classe de tratamentto de informações do cliente
 	                List<Object[]> resultadosCliente = infoCliente.retornoInfo();
-	            
-	                
-	                
-//					forma de acessar o database direto em passsar pela classe de tratamento:
-//					o construtor recebe o texto que foi  digitado na interface        
-//	                List<Object[]> resultadosCliente = consultaCliente.consultaCliente(nomeCliente, cpfCliente); 
-//	                   
-
+	           
 	                tabelaModel.setRowCount(0);
 
 	                for (Object[] cliente : resultadosCliente) {
@@ -186,7 +177,7 @@ public class interfaceClientesConsulta extends JFrame {
 	                    
 	                    produtosModel.setRowCount(0);
 	                    
-	                    List<Object[]> resultadosProduto = consultaProdutos.consultaProdutos(nomeCliente, cpfCliente);
+	                    List<Object[]> resultadosProduto = consultaProdutos.consultaProdutos(inputNomeCliente.getText(), inputCpfCLiente.getText());
 	                    
 	                    for (Object[] produtos : resultadosProduto) {
 		                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados

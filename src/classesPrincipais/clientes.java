@@ -1,12 +1,17 @@
 package classesPrincipais;
 
-import java.util.Date;
+
+import java.time.LocalDate;
+
+import java.util.List;
+
+import controladores.consultaProdutos;
 
 public class clientes {
 
     private String cpfCliente;
     private String nomeCliente;
-    private Date dataNascimentoCliente;
+    private LocalDate dataNascimentoCliente;
     private String telefoneCliente;
     private String estadoCliente;
     private String cidadeCliente;
@@ -31,11 +36,11 @@ public class clientes {
         return nomeCliente;
     }
 
-    public void setDataNascimentoCliente(Date dataNascimentoCliente) {
+    public void setDataNascimentoCliente(LocalDate dataNascimentoCliente) {
         this.dataNascimentoCliente = dataNascimentoCliente;
     }
 
-    public Date getDataNascimentoCliente() {
+    public LocalDate getDataNascimentoCliente() {
         return this.dataNascimentoCliente;
     }
 
@@ -94,22 +99,6 @@ public class clientes {
     public String getDescricaoRuaCliente() {
         return this.descricaoRuaCliente;
     }
-
-    public clientes(String nomeCliente, String cpfCliente, Date dataNascimentoCliente, String telefoneCliente,
-            String estadoCliente, String cidadeCliente, String bairroCliente, String cepCliente, String ruaCliente,
-            String descricaoRuaCliente) {
-
-        this.nomeCliente = nomeCliente;
-        this.cpfCliente = cpfCliente;
-        this.dataNascimentoCliente = dataNascimentoCliente;
-        this.telefoneCliente = telefoneCliente;
-        this.estadoCliente = estadoCliente;
-        this.cidadeCliente = cidadeCliente;
-        this.bairroCliente = bairroCliente;
-        this.ruaCliente = ruaCliente;
-        this.descricaoRuaCliente = descricaoRuaCliente;
-    }
-
-    public clientes() {
-    }
+    
+    
 }
