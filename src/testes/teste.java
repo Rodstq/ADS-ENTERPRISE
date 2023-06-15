@@ -1,6 +1,6 @@
 package testes;
 
-import conexaoDb.db;
+import conexaoDb.Db;
 import java.util.Scanner;
 
 import controladores.*;
@@ -27,7 +27,7 @@ public class teste {
 	
 	if(Desconectar ==2) {
 		
-		db.CloseDb();
+		Db.CloseDb();
 		
 	}
 	

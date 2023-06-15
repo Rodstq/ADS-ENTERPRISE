@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import interfacesCliente.interfaceClientesConsulta;
+import interfacesCliente.InterfaceClientesConsulta;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -87,7 +87,7 @@ public class Main extends JFrame {
 		btnMduloClientes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
-            	interfaceClientesConsulta.clienteConsulta();
+            	InterfaceClientesConsulta.clienteConsulta();
               dispose();
          }
          });

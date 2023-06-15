@@ -15,7 +15,6 @@ services:
         ipv4_address: 172.16.238.2
     ports:
       - "3306:3306"
-
 networks:
   mynetwork:
     ipam:
