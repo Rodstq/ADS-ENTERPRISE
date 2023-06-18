@@ -191,7 +191,7 @@ public class InterfaceClientesCadastro extends InterfaceClientesPrincipal {
 		btnLimparInfo.setBounds(678, 425, 117, 25);
 		contentPane.add(btnLimparInfo);
 		
-		JButton btnCadastrarCliente = new JButton("Cadastro");
+		JButton btnCadastrarCliente = new JButton("Cadastrar");
 		
 		try {
 		btnCadastrarCliente.addActionListener(new ActionListener() {

@@ -2,7 +2,7 @@ package classesPrincipais;
 
 
 import java.time.LocalDate;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import controladores.ConsultaProdutos;
@@ -27,7 +27,7 @@ public class Clientes {
     public String getCpf() {
         return cpfCliente;
     }
-
+    
     public void setNomeCliente(String nomeCliente) {
         this.nomeCliente = nomeCliente;
     }
@@ -36,8 +36,8 @@ public class Clientes {
         return nomeCliente;
     }
 
-    public void setDataNascimentoCliente(LocalDate dataNascimentoCliente) {
-        this.dataNascimentoCliente = dataNascimentoCliente;
+    public void setDataNascimentoCliente(LocalDate dataNascimento) {
+        this.dataNascimentoCliente = dataNascimento;
     }
 
     public LocalDate getDataNascimentoCliente() {
