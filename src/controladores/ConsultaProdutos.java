@@ -50,8 +50,8 @@ public class ConsultaProdutos {
 //	}else 
 		if(!nomeCliente.isEmpty()) {
 		
-			String query = "SELECT produtos.* " +
-							"FROM produtos " +
+			String query =  "SELECT pedido.* " +
+							"FROM pedido " +
 							"JOIN clienteProdutos cp1 ON produtos.idProduto = cp1.idProduto " +
 							"JOIN clientes ON clientes.cpf = cp1.cpf " +
 							"WHERE clientes.nome = '"+nomeCliente+"'";
@@ -75,7 +75,7 @@ public class ConsultaProdutos {
 		
 	}else if(!cpfCliente.isEmpty()) {
 		
-		String query ="SELECT produtos.* " +
+		String query ="SELECT pedido.* " +
 				"FROM produtos " +
 				"JOIN clienteProdutos cp1 On produtos.idProduto = cp1.idProduto " +
 				"JOIN clientes ON clientes.cpf = cp1.cpf " +

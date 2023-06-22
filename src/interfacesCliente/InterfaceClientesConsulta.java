@@ -156,15 +156,15 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 	                    
 	                    produtosModel.setRowCount(0);
 	                    
-	                    List<Object[]> resultadosProduto = ConsultaProdutos.consultaProdutos(inputNomeCliente.getText(), inputCpfCLiente.getText());
-	                    
-	                    for (Object[] produtos : resultadosProduto) {
-		                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
-		                    produtosModel.addRow(produtos); 
-	                   
-	                    
-	                    
-	                }
+//	                    List<Object[]> resultadosProduto = ConsultaProdutos.consultaProdutos(inputNomeCliente.getText(), inputCpfCLiente.getText());
+//	                    
+//	                    for (Object[] produtos : resultadosProduto) {
+//		                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
+//		                    produtosModel.addRow(produtos); 
+//	                   
+//	                    
+//	                    
+//	                }
 	            }
 	        });
 		JButton btnNewButton = new JButton("Limpar");

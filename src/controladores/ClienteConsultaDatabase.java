@@ -21,24 +21,25 @@ public class ClienteConsultaDatabase {
 		
 			if(!nomeCliente.isEmpty()) {
 			
-		String query = "SELECT * FROM clientes JOIN clientesEndereco ON clientes.cpf = clientesEndereco.cpf "
-				+ "WHERE clientes.nome = '" + nomeCliente + "'";
+		String query = "SELECT * FROM cliente JOIN cliente_endereco ON cliente.cpf_cliente = cliente_endereco.cpf_cliente "
+				+ "WHERE cliente.nome_cliente = '" + nomeCliente + "'";
 
 
 			ResultSet rs = stmt.executeQuery(query);
 			
 			while(rs.next()){
-				String nome = rs.getString("nome");
-				String cpf = rs.getString("cpf");
-				String dataNascimento = rs.getString("dataNascimento");
+				String nome = rs.getString("nome_cliente");
+				String cpf = rs.getString("cpf_cliente");
+				String dataNascimento = rs.getString("nascimento_cliente");
 				String telefone = rs.getString("telefone");
 				String estado = rs.getString("estado");
 				String cidade = rs.getString("cidade");
 				String bairro = rs.getString("bairro");
 				String rua = rs.getString("rua");
+				String cep = rs.getString("cep");
 				
 				
-				 Object[] cliente = { nome, cpf, dataNascimento, telefone, estado, cidade, bairro, rua };
+				 Object[] cliente = { nome, cpf, dataNascimento, telefone, estado, cidade, bairro, rua, cep};
                  resultados.add(cliente);
 
 			}
@@ -48,21 +49,24 @@ public class ClienteConsultaDatabase {
 			//consulta clientes apenas pelo cpf
 		}else 	if (!cpfCliente.isEmpty()) {
 			
-		String query = "SELECT * FROM clientes JOIN clientesEndereco ON clientes.cpf = "
-				+ "clientesEndereco.cpf WHERE clientes.cpf = '" + cpfCliente + "'";
+		String query = "SELECT * FROM cliente JOIN cliente_endereco ON cliente.cpf_cliente = "
+				+ "cliente_endereco.cpf_cliente WHERE cliente.cpf_cliente = '" + cpfCliente + "'";
 
 			ResultSet rs = stmt.executeQuery(query);
 			while(rs.next()){
-				String nome = rs.getString("nome");
-				String cpf = rs.getString("cpf");
-				Date dataNascimento = rs.getDate("dataNascimento");
+				
+
+				String nome = rs.getString("nome_cliente");
+				String cpf = rs.getString("cpf_cliente");
+				Date dataNascimento = rs.getDate("nascimento_cliente");
 				String telefone = rs.getString("telefone");
 				String estado = rs.getString("estado");
 				String cidade = rs.getString("cidade");
 				String bairro = rs.getString("bairro");
 				String rua = rs.getString("rua");
+				String cep = rs.getString("cep");
 				
-				 Object[] cliente = { nome, cpf, dataNascimento, telefone, estado, cidade, bairro, rua };
+				 Object[] cliente = { nome, cpf, dataNascimento, telefone, estado, cidade, bairro, rua, cep };
                  resultados.add(cliente);
 				
 			}

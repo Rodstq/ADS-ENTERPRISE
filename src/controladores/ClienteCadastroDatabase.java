@@ -1,50 +1,55 @@
 package controladores;
 
-import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 import conexaoDb.Db;
 
 public class ClienteCadastroDatabase {
 
-	
-	public  void cadastrarInfoCliente(String cpfCliente, String nomeCliente, LocalDate dataNascimentoCliente, 
-			String telefoneCliente) {
+    public void cadastrarInfoCliente(String cpfCliente, String nomeCliente, LocalDate dataNascimentoCliente,
+            String telefoneCliente) {
 
-	try {
-		Statement stmt = Db.Connect().createStatement();
+        try (Connection connection = Db.Connect();
+             PreparedStatement stmt = connection.prepareStatement("INSERT INTO cliente (cpf_cliente, nome_cliente, nascimento_cliente, telefone) VALUES (?, ?, ?, ?)")) {
 
-		String inserirCliente = "INSERT INTO clientes (cpf, nome, dataNascimento, telefone) VALUES ('" + cpfCliente + "', '" +
-		nomeCliente + "', '" + dataNascimentoCliente + "', '" + telefoneCliente + "')";
+            stmt.setString(1, cpfCliente);
+            stmt.setString(2, nomeCliente);
+            stmt.setObject(3, dataNascimentoCliente);
+            stmt.setString(4, telefoneCliente);
 
-		stmt.execute(inserirCliente);
+            stmt.executeUpdate();
 
-		
-	}catch(Exception e) {
-		
-		
-		
-	}
-}
-	
-	public  void cadastrarEnderecoCliente(String estadoCliente, String cidadeCliente, String bairroCliente, 
-			String cepCliente, String ruaCliente, String descricaoRuaCliente, String cpfCliente) {
-		
-		try {
-			Statement stmt = Db.Connect().createStatement();
+        } catch (SQLException e) {
+            // Handle the exception (e.g., log or display an error message)
+            e.printStackTrace();
+        } finally {
+            Db.CloseDb();
+        }
+    }
 
-			String inserirEnderecoCliente = "INSERT INTO clientesEndereco (cep, estado, cidade, bairro, rua, cpf) VALUES ('" + cepCliente + "', '" + 
-			estadoCliente + "', '" + cidadeCliente + "', '" + bairroCliente + "', '" + ruaCliente + "', '" + cpfCliente + "')";
+    public void cadastrarEnderecoCliente(String cepCliente, String estadoCliente, String cidadeCliente, String bairroCliente,
+            String ruaCliente, String complementoCliente, String cpfCliente) {
 
-			stmt.execute(inserirEnderecoCliente);
+        try (Connection connection = Db.Connect();
+             PreparedStatement stmt = connection.prepareStatement("INSERT INTO cliente_endereco (cep, estado, cidade, bairro, rua, complemento, cpf_cliente) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
 
-			
-			
-		}catch(Exception e) {
-			
-			
-			
-		}
-	}
-	
+            stmt.setString(1, cepCliente);
+            stmt.setString(2, estadoCliente);
+            stmt.setString(3, cidadeCliente);
+            stmt.setString(4, bairroCliente);
+            stmt.setString(5, ruaCliente);
+            stmt.setString(6, complementoCliente);
+            stmt.setString(7, cpfCliente);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Db.CloseDb();
+        }
+    }
 }

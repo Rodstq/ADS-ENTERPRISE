@@ -15,8 +15,8 @@ public class ClienteAtualizarDatabase {
         
 
         ArrayList<Object> colunas = new ArrayList<Object>();
-        colunas.add("nome");
-        colunas.add("dataNascimento");
+        colunas.add("nome_cliente");
+        colunas.add("nascimento_cliente");
         colunas.add("telefone");
 
         for (int i = 0; i < infoCliente.size(); i++) {
@@ -24,7 +24,7 @@ public class ClienteAtualizarDatabase {
         if (element != null && !element.toString().isEmpty()) {
                 try {
                     Statement stmt = Db.Connect().createStatement();
-                    String atualizarCliente = "UPDATE clientes SET " + colunas.get(i) + " = '" + infoCliente.get(i) + "' WHERE cpf = '" + cliente.getCpf() + "'";
+                    String atualizarCliente = "UPDATE cliente SET " + colunas.get(i) + " = '" + infoCliente.get(i) + "' WHERE cpf_cliente = '" + cliente.getCpf() + "'";
                     stmt.execute(atualizarCliente);
                     stmt.close();
                     Db.CloseDb();
@@ -57,7 +57,7 @@ public class ClienteAtualizarDatabase {
         colunas.add("cidade");
         colunas.add("bairro");
         colunas.add("rua");
-        colunas.add("descricao");
+        colunas.add("complemento");
         
        
         for (int i = 0; i < enderecoCliente.size(); i++) {
@@ -66,7 +66,7 @@ public class ClienteAtualizarDatabase {
             if (element != null && !element.toString().isEmpty()) {
                 try {
                     Statement stmt = Db.Connect().createStatement();
-                    String dadosEndecoCliente = "UPDATE clientesEndereco SET " + colunas.get(i) + " = '" + enderecoCliente.get(i) + "' WHERE cpf = '" + cliente.getCpf() + "'";
+                    String dadosEndecoCliente = "UPDATE cliente_endereco SET " + colunas.get(i) + " = '" + enderecoCliente.get(i) + "' WHERE cpf_cliente = '" + cliente.getCpf() + "'";
                     stmt.execute(dadosEndecoCliente);
                     stmt.close();
                     Db.CloseDb();
