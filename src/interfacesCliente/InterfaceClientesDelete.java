@@ -17,8 +17,8 @@ import javax.swing.JButton;
 public class InterfaceClientesDelete extends InterfaceClientesPrincipal {
 
 	private JPanel contentPane;
-	private JTextField inputNomeCliente;
-	private JTextField inputCpfCliente;
+	private JTextField inputDeletePedido;
+	private JTextField inputCpfDeleteCadastro;
 
 	/**
 	 * Launch the application.
@@ -41,23 +41,19 @@ public class InterfaceClientesDelete extends InterfaceClientesPrincipal {
 	 */
 	public InterfaceClientesDelete() {
 		
-		JLabel lblNomeCliente = new JLabel("Nome do cliente:");
-		lblNomeCliente.setBounds(29, 39, 132, 27);
-		getContentPane().add(lblNomeCliente);
+		JLabel lblDeletarCadastroCliente = new JLabel("Deletar cadastro do cliente");
+		lblDeletarCadastroCliente.setBounds(29, 78, 227, 27);
+		getContentPane().add(lblDeletarCadastroCliente);
 		
-		JLabel lblCpfCliente = new JLabel("CPF do cliente:");
-		lblCpfCliente.setBounds(29, 78, 132, 27);
-		getContentPane().add(lblCpfCliente);
+		inputDeletePedido = new JTextField();
+		inputDeletePedido.setBounds(89, 43, 167, 19);
+		getContentPane().add(inputDeletePedido);
+		inputDeletePedido.setColumns(10);
 		
-		inputNomeCliente = new JTextField();
-		inputNomeCliente.setBounds(160, 43, 478, 19);
-		getContentPane().add(inputNomeCliente);
-		inputNomeCliente.setColumns(10);
-		
-		inputCpfCliente = new JTextField();
-		inputCpfCliente.setColumns(10);
-		inputCpfCliente.setBounds(144, 82, 167, 19);
-		getContentPane().add(inputCpfCliente);
+		inputCpfDeleteCadastro = new JTextField();
+		inputCpfDeleteCadastro.setColumns(10);
+		inputCpfDeleteCadastro.setBounds(89, 113, 167, 19);
+		getContentPane().add(inputCpfDeleteCadastro);
 		
 		JButton btnLimpar = new JButton("Limpar");
 		btnLimpar.setBounds(673, 417, 117, 25);
@@ -66,8 +62,8 @@ public class InterfaceClientesDelete extends InterfaceClientesPrincipal {
 			
 		    public void actionPerformed  (ActionEvent e) {
 		    	
-		    	inputCpfCliente.setText("");
-		    	inputNomeCliente.setText("");
+		    	inputCpfDeleteCadastro.setText("");
+		    	inputDeletePedido.setText("");
 
 		    } 
 		    });
@@ -77,13 +73,26 @@ public class InterfaceClientesDelete extends InterfaceClientesPrincipal {
 		btnDeletarCliente.setBounds(802, 417, 117, 25);
 		getContentPane().add(btnDeletarCliente);
 		
+		JLabel lblCpfCadastro = new JLabel("CPF:");
+		lblCpfCadastro.setBounds(29, 109, 53, 27);
+		getContentPane().add(lblCpfCadastro);
+		
+		JLabel lblCpfPedido = new JLabel("CPF:");
+		lblCpfPedido.setBounds(29, 39, 53, 27);
+		getContentPane().add(lblCpfPedido);
+		
+		JLabel lblDeletarPedidoCliente = new JLabel("Deletar pedido cliente:");
+		lblDeletarPedidoCliente.setBounds(29, 12, 227, 27);
+		getContentPane().add(lblDeletarPedidoCliente);
+		
 		btnDeletarCliente.addActionListener(new ActionListener() {
 			
 		    public void actionPerformed  (ActionEvent e) {
 		    	
 		    	   	
 		    	ClienteDeleteTratamento delete = new ClienteDeleteTratamento();
-		    	delete.deleteCliente(inputCpfCliente.getText(), inputNomeCliente.getText());
+		    	delete.deleteClienteCadastro(inputCpfDeleteCadastro.getText());
+		    	delete.deleteClientePedido(inputDeletePedido.getText());
 		    	
 
 		    } 

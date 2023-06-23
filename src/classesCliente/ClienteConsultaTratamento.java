@@ -3,7 +3,7 @@ import java.util.List;
 
 import classesPrincipais.Clientes;
 import controladores.ClienteConsultaDatabase;
-import controladores.ConsultaProdutos;
+import controladores.ClienteConsultaPedidosDatabase;
 
 public class ClienteConsultaTratamento extends Clientes {
 

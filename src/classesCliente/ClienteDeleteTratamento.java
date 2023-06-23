@@ -8,17 +8,20 @@ public class ClienteDeleteTratamento extends Clientes{
 	
 	ClienteDeleteDatabase deleteCliente = new ClienteDeleteDatabase();
 	
-	public void deleteCliente(String cpfCliente, String nomeCliente) {
+	public void deleteClienteCadastro(String cpfCliente) {
 		setCpf(cpfCliente);
-		setNomeCliente(nomeCliente);
-		
-		
-		
-		deleteCliente.deletarCliente(getCpf(), getNomeCliente());
+			
+		deleteCliente.deletarClienteCadastro(getCpf());
 		
 	}
 	
 	
+	public void deleteClientePedido(String cpfCliente) {
+		setCpf(cpfCliente);
+			
+		deleteCliente.deletarClientePedido(getCpf());
+		
+	}
 	
 	
 	

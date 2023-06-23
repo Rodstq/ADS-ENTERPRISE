@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -174,7 +175,7 @@ public class InterfaceClientesCadastro extends InterfaceClientesPrincipal {
 		btnLimparInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				//Limpa as informações
+
 				inputNomeCliente.setText("");
 				inputCpfCLiente.setText("");
 				inputDataNascimentoCliente.setText("");				
@@ -197,19 +198,39 @@ public class InterfaceClientesCadastro extends InterfaceClientesPrincipal {
 		btnCadastrarCliente.addActionListener(new ActionListener() {
 		    public void actionPerformed  (ActionEvent e) {
 		   	    	
-		   
-		   //Insere no Database as informações do cliente
-		    ClienteCadastroTratamento cliente = new ClienteCadastroTratamento();
+		        if (inputNomeCliente.getText().isEmpty() ||
+		                inputCpfCLiente.getText().isEmpty() ||
+		                inputDataNascimentoCliente.getText().isEmpty() ||
+		                inputTelefoneCliente.getText().isEmpty() ||
+		                inputEstadoCliente.getText().isEmpty() ||
+		                inputCidadeCliente.getText().isEmpty() ||
+		                inputBairroCliente.getText().isEmpty() ||
+		                inputCepCliente.getText().isEmpty() ||
+		                inputRuaCliente.getText().isEmpty() ||
+		                inputDescricaoCliente.getText().isEmpty()) {
+		                
+		                JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos", "Erro", JOptionPane.ERROR_MESSAGE);
+		            } else {
+		     
+		                try {
+		        		   ClienteCadastroTratamento cliente = new ClienteCadastroTratamento();
+		    		       
+		        		    
+		        		    LocalDate dataNascimento = LocalDate.parse(inputDataNascimentoCliente.getText(), DateTimeFormatter.ofPattern("ddMMyyyy"));
+		        	
+		        		   cliente.cadastrarClienteInfo(inputCpfCLiente.getText(), inputNomeCliente.getText(),  dataNascimento,
+		        		    		inputTelefoneCliente.getText());	    
+		        		   
+		        		   cliente.cadastrarEnderecoCliente(inputCepCliente.getText(), inputEstadoCliente.getText(), inputCidadeCliente.getText(), inputBairroCliente.getText(),
+		        				    inputRuaCliente.getText(), inputDescricaoCliente.getText(), inputCpfCLiente.getText());
+
+		                } catch (Exception ex) {
+		
+		                
+		                }
+		            }
 		        
-		    
-		    LocalDate dataNascimento = LocalDate.parse(inputDataNascimentoCliente.getText(), DateTimeFormatter.ofPattern("ddMMyyyy"));
-	
-		   cliente.cadastrarClienteInfo(inputCpfCLiente.getText(), inputNomeCliente.getText(),  dataNascimento,
-		    		inputTelefoneCliente.getText());	    
-		   
-		   cliente.cadastrarEnderecoCliente(inputCepCliente.getText(), inputEstadoCliente.getText(), inputCidadeCliente.getText(), inputBairroCliente.getText(),
-				    inputRuaCliente.getText(), inputDescricaoCliente.getText(), inputCpfCLiente.getText());
-		   		    	
+
 		
 		//Limpa após inserir os dados
 		inputNomeCliente.setText("");

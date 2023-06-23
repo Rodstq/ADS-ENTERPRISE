@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controladores.ClienteConsultaDatabase;
-import controladores.ConsultaProdutos;
+import controladores.ClienteConsultaPedidosDatabase;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -122,14 +122,13 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		
 		DefaultTableModel produtosModel = new DefaultTableModel(
 		        new Object[][] {},
-		        new String[] { "id do produto", "nome do produto", "quantidade", "valor", "data de validade"}
+		        new String[] { "id da loja", "data do pedido", "valor total", "nome do vendedor"}
 		);
 		JTable produtosResultadoCliente = new JTable(produtosModel);
 		produtosResultadoCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
 		produtosResultadoCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
 		produtosResultadoCliente.getColumnModel().getColumn(2).setPreferredWidth(120);
 		produtosResultadoCliente.getColumnModel().getColumn(3).setPreferredWidth(120);
-		produtosResultadoCliente.getColumnModel().getColumn(4).setPreferredWidth(120);
 
 		JScrollPane scrollInformacoesProduto = new JScrollPane(produtosResultadoCliente);
 		scrollInformacoesProduto.setBounds(34, 272, 897, 141);
@@ -156,15 +155,15 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 	                    
 	                    produtosModel.setRowCount(0);
 	                    
-//	                    List<Object[]> resultadosProduto = ConsultaProdutos.consultaProdutos(inputNomeCliente.getText(), inputCpfCLiente.getText());
-//	                    
-//	                    for (Object[] produtos : resultadosProduto) {
-//		                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
-//		                    produtosModel.addRow(produtos); 
-//	                   
-//	                    
-//	                    
-//	                }
+	                    List<Object[]> resultadosProduto = ClienteConsultaPedidosDatabase.consultaProdutos(inputNomeCliente.getText(), inputCpfCLiente.getText());
+	                    
+	                    for (Object[] produtos : resultadosProduto) {
+		                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
+		                    produtosModel.addRow(produtos); 
+	                   
+	                    
+	                    
+	                }
 	            }
 	        });
 		JButton btnNewButton = new JButton("Limpar");
