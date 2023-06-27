@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import classesCliente.Clientes;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,7 +21,7 @@ import javax.swing.JSpinner;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
-import classesPrincipais.Clientes;
+
 import controladores.ClienteAtualizarDatabase;
 public class InterfaceClientesAtualizar extends InterfaceClientesPrincipal {
 

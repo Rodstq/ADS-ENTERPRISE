@@ -1,17 +1,21 @@
 package classesCliente;
 
+import controladores.ClienteCadastroDatabase;
 import controladores.ClienteConsultaDatabase;
 import controladores.ClienteDeleteDatabase;
-import classesPrincipais.Clientes;
 public class ClienteDeleteTratamento extends Clientes{
 
 	
-	ClienteDeleteDatabase deleteCliente = new ClienteDeleteDatabase();
-	
+    private ClienteDeleteDatabase clienteDatabase;
+
+    public ClienteDeleteTratamento() {
+        this.clienteDatabase = new ClienteDeleteDatabase();
+    }
+    
 	public void deleteClienteCadastro(String cpfCliente) {
 		setCpf(cpfCliente);
 			
-		deleteCliente.deletarClienteCadastro(getCpf());
+		clienteDatabase.deletarClienteCadastro(this);
 		
 	}
 	
@@ -19,7 +23,7 @@ public class ClienteDeleteTratamento extends Clientes{
 	public void deleteClientePedido(String cpfCliente) {
 		setCpf(cpfCliente);
 			
-		deleteCliente.deletarClientePedido(getCpf());
+		clienteDatabase.deletarClientePedido(this);
 		
 	}
 	

@@ -1,40 +1,41 @@
 package classesCliente;
 import java.time.LocalDate;
 
-import classesPrincipais.Clientes;
 import controladores.ClienteCadastroDatabase;
 
 
 public class ClienteCadastroTratamento extends Clientes {
 	
 	
-	ClienteCadastroDatabase cliente = new ClienteCadastroDatabase();
-	
-	public void cadastrarClienteInfo(String cpfCliente, String nomeCliente, LocalDate dataNascimento, 
-			String telefoneCliente) {
-		
-		setNomeCliente(nomeCliente);
-		setCpf(cpfCliente);
-		setDataNascimentoCliente(dataNascimento);
-		setTelefoneCliente(telefoneCliente);
-		
-				cliente.cadastrarInfoCliente(getCpf(), getNomeCliente(), getDataNascimentoCliente(), getTelefoneCliente());
-		
-	}
-	
+    private ClienteCadastroDatabase clienteDatabase;
+
+    public ClienteCadastroTratamento() {
+        this.clienteDatabase = new ClienteCadastroDatabase();
+    }
+    
+	    public void cadastrarClienteInfoTratamento(String cpfCliente, String nomeCliente, LocalDate dataNascimento, 
+	            String telefoneCliente) {
+
+	     
+	        setCpf(cpfCliente);
+	        setNomeCliente(nomeCliente);
+	        setDataNascimentoCliente(dataNascimento);
+	        setTelefoneCliente(telefoneCliente);
+	        clienteDatabase.setCadastrarInfoCliente(this);
+	    }
+	    
+	   
 	public void cadastrarEnderecoCliente( String cepCliente, String estadoCliente, String cidadeCliente, String bairroCliente, 
 			String ruaCliente, String descricaoRuaCliente, String cpfCliente) {
 		
+		setCepCliente(cepCliente);
 		setEstadoCliente(estadoCliente);
 		setCidadeCliente(cidadeCliente);
-		setBairroCliente(bairroCliente);
-		setCepCliente(cepCliente);
+		setBairroCliente(bairroCliente);	
 		setRuaCliente(descricaoRuaCliente);
 		setDescricaoRuaCliente(descricaoRuaCliente);
 		setCpf(cpfCliente);
-						cliente.cadastrarEnderecoCliente(getCepCliente(), getEstadoCliente(),getCidadeCliente(), getBairroCliente(),
-			    getRuaCliente(), getDescricaoRuaCliente(), getCpf());
-	   		    	
+				        clienteDatabase.cadastrarEnderecoCliente(this);
 	}
     
 }

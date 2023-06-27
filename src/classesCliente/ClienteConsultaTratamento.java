@@ -1,28 +1,29 @@
 package classesCliente;
 import java.util.List;
 
-import classesPrincipais.Clientes;
+import controladores.ClienteCadastroDatabase;
 import controladores.ClienteConsultaDatabase;
 import controladores.ClienteConsultaPedidosDatabase;
 
 public class ClienteConsultaTratamento extends Clientes {
 
 	ClienteConsultaDatabase clienteConsulta = new ClienteConsultaDatabase();
-		
-//	posso fazer o tratamento do que é escrito na interface de forma personalizada	
-	public void consultaNomeCpf(String nome, String cpf) {
-		
-		setNomeCliente(nome);
-		setCpf(cpf);
-		
-		
-	}
-
 	
-	//posso fazer o tratamento do retorno do db	 e relacionar com o nome e cpf do cliente
-	 public  List<Object[]> retornoInfo(){
+	private ClienteConsultaDatabase clienteDatabase;
+		
+    public ClienteConsultaTratamento() {
+        this.clienteDatabase = new ClienteConsultaDatabase();
+    }
+	
+	
+
+	public  List<Object[]> retornoInfo(String nome, String cpf){
 		 
-	List<Object[]> resultadosCliente = clienteConsulta.consultaCliente(getNomeCliente(), getCpf());
+		setCpf(cpf);
+		setNomeCliente(nome);
+		
+		
+		List<Object[]> resultadosCliente = clienteConsulta.consultaCliente(getNomeCliente(), getCpf());
 		 
 		 return resultadosCliente;
 

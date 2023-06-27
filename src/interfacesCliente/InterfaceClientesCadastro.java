@@ -218,7 +218,7 @@ public class InterfaceClientesCadastro extends InterfaceClientesPrincipal {
 		        		    
 		        		    LocalDate dataNascimento = LocalDate.parse(inputDataNascimentoCliente.getText(), DateTimeFormatter.ofPattern("ddMMyyyy"));
 		        	
-		        		   cliente.cadastrarClienteInfo(inputCpfCLiente.getText(), inputNomeCliente.getText(),  dataNascimento,
+		        		   cliente.cadastrarClienteInfoTratamento(inputCpfCLiente.getText(), inputNomeCliente.getText(),  dataNascimento,
 		        		    		inputTelefoneCliente.getText());	    
 		        		   
 		        		   cliente.cadastrarEnderecoCliente(inputCepCliente.getText(), inputEstadoCliente.getText(), inputCidadeCliente.getText(), inputBairroCliente.getText(),

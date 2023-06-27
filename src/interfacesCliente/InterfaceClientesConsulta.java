@@ -139,12 +139,9 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 
 	               	                
 	                ClienteConsultaTratamento infoCliente = new ClienteConsultaTratamento();
-//
-//	                //passa o que foi digitado na interface para a classe de tratamento de informações do cliente
-	                infoCliente.consultaNomeCpf(inputNomeCliente.getText(), inputCpfCLiente.getText());
-//	                
+
 //	                //retorna os valores do database após passar pela classe de tratamentto de informações do cliente
-	                List<Object[]> resultadosCliente = infoCliente.retornoInfo();
+	                List<Object[]> resultadosCliente = infoCliente.retornoInfo(inputNomeCliente.getText(), inputCpfCLiente.getText());
 	           
 	                tabelaModel.setRowCount(0);
 

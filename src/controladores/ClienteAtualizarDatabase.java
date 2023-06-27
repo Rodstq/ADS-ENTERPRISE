@@ -3,7 +3,7 @@ package controladores;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import classesPrincipais.Clientes;
+import classesCliente.Clientes;
 import conexaoDb.Db;
 
 public class ClienteAtualizarDatabase {
