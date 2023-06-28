@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import classesCliente.Clientes;
+import classesCliente.ClienteAtualizarTratamento;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -52,7 +53,6 @@ public class InterfaceClientesAtualizar extends InterfaceClientesPrincipal {
 	
 	public InterfaceClientesAtualizar() {
 
-		Clientes cliente =new Clientes();
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -84,27 +84,21 @@ public class InterfaceClientesAtualizar extends InterfaceClientesPrincipal {
 		btnAtualizarCliente.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        ClienteAtualizarDatabase atualizarCliente = new ClienteAtualizarDatabase();
-		       
 		        
-		        	if(textFieldDataNascimento.getText()!= null && !textFieldDataNascimento.getText().isEmpty()) {
+		        Clientes cliente =new Clientes();
+		        
+		        ClienteAtualizarTratamento atualizar =new ClienteAtualizarTratamento();
+		        	LocalDate teste = null;
+		        	if(!textFieldDataNascimento.getText().isBlank() || !textFieldDataNascimento.getText().isEmpty()) {
 		        	LocalDate dataNascimento = LocalDate.parse(textFieldDataNascimento.getText(), DateTimeFormatter.ofPattern("ddMMyyyy"));
-		        	cliente.setDataNascimentoCliente(dataNascimento);
+		        	teste = dataNascimento;
 		        	}
-		            cliente.setCpf(textFieldCPF.getText());
-		            cliente.setNomeCliente(textFieldNomeCliente.getText());
+          
+		            atualizar.clienteAtualizarCadastroCliente(teste, textFieldCPF.getText(),  textFieldNomeCliente.getText(), textFieldTelefone.getText());
 		            
-		            cliente.setTelefoneCliente(textFieldTelefone.getText());	            
-		            atualizarCliente.atualizarDadosCliente(cliente);
-		            
-		            
-		            
-		            cliente.setCepCliente(textFieldCep.getText());	   
-		            cliente.setEstadoCliente(textFieldEstado.getText());	          
-		            cliente.setCidadeCliente(textFieldCidade.getText());	            
-		            cliente.setBairroCliente(textFieldBairro.getText());
-		            cliente.setRuaCliente(textFieldRua.getText());
-		            cliente.setDescricaoRuaCliente(textFieldDescricaoEndereco.getText());
-		            atualizarCliente.atualizarEnderecoCliente(cliente);
+		            		            atualizar.clienteAtualizarEnderecoCliente( textFieldCep.getText(), textFieldEstado.getText(), textFieldCidade.getText(), 
+		            		textFieldBairro.getText(), textFieldRua.getText(),textFieldDescricaoEndereco.getText());
+
 		            
 		    }
 		});

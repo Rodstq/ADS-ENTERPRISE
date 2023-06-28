@@ -97,7 +97,13 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		
 		 	DefaultTableModel tabelaModel = new DefaultTableModel(new Object[][] {},
 	                new String[] { "nome do cliente", "cpf do cliente", "data de nascimento", "telefone", "estado", "cidade",
-	                        "bairro", "rua", "cep" });
+	                        "bairro", "rua", "cep" }) {
+		 	    @Override
+		 	    public boolean isCellEditable(int row, int column) {
+		 	        return false;
+		 	    }
+		 	    };
+		 	
 	        tabelaResultadoCliente = new JTable(tabelaModel);
 	        tabelaResultadoCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
 	        tabelaResultadoCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -108,7 +114,8 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 	        tabelaResultadoCliente.getColumnModel().getColumn(6).setPreferredWidth(100);
 	        tabelaResultadoCliente.getColumnModel().getColumn(7).setPreferredWidth(100);
 	        tabelaResultadoCliente.getColumnModel().getColumn(8).setPreferredWidth(80);
-		
+       
+	        
 		JScrollPane scrollInformacoesCliente = new JScrollPane(tabelaResultadoCliente);
 		scrollInformacoesCliente.setBounds(34, 94, 897, 141);
 		contentPane.add(scrollInformacoesCliente);
@@ -122,8 +129,12 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		
 		DefaultTableModel produtosModel = new DefaultTableModel(
 		        new Object[][] {},
-		        new String[] { "id da loja", "data do pedido", "valor total", "nome do vendedor"}
-		);
+		        new String[] { "id da loja", "data do pedido", "valor total", "nome do vendedor"}) {
+	 	    @Override
+	 	    public boolean isCellEditable(int row, int column) {
+	 	        return false;
+	 	    }
+	 	    };
 		JTable produtosResultadoCliente = new JTable(produtosModel);
 		produtosResultadoCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
 		produtosResultadoCliente.getColumnModel().getColumn(1).setPreferredWidth(100);

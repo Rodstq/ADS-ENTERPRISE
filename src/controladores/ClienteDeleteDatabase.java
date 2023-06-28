@@ -23,7 +23,11 @@ public class ClienteDeleteDatabase {
 		}catch(Exception e) {
 			
 			
-		}
+		}finally {
+        	
+        	Db.CloseDb();
+        	
+        }
 		
 		
 		}
@@ -42,7 +46,11 @@ public class ClienteDeleteDatabase {
 		}catch(Exception e) {
 			
 			
-		}
+		}finally {
+        	
+        	Db.CloseDb();
+        	
+        }
 				
 	}		
 }

@@ -79,7 +79,11 @@ public class ClienteConsultaPedidosDatabase {
 		}catch (Exception e){
 			
 			e.printStackTrace();			
-		}
+		}finally {
+        	
+        	Db.CloseDb();
+        	
+        }
 							
 		return resultadosProdutos;
 	}

@@ -7,7 +7,7 @@ import classesCliente.Clientes;
 import conexaoDb.Db;
 
 public class ClienteAtualizarDatabase {
-    public void atualizarDadosCliente(Clientes cliente) {
+    public void setAtualizarDadosCliente(Clientes cliente) {
         ArrayList<Object> infoCliente = new ArrayList<Object>();
         infoCliente.add(cliente.getNomeCliente());
         infoCliente.add(cliente.getDataNascimentoCliente());
@@ -73,6 +73,10 @@ public class ClienteAtualizarDatabase {
                 } catch (Exception e) {
                     e.printStackTrace();
                   
+                }finally {
+                	
+                	Db.CloseDb();
+                	
                 }
             }
         }
