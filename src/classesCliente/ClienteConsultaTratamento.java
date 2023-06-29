@@ -9,11 +9,20 @@ public class ClienteConsultaTratamento extends Clientes {
 
 	ClienteConsultaDatabase clienteConsulta = new ClienteConsultaDatabase();
 		
-	public  List<Object[]> retornoInfo(String nome, String cpf){
+	public  List<Object[]> setRetornoInfo(String nome, String cpf){
 		 
 		setCpf(cpf);
 		setNomeCliente(nome);
 		
+		
+		List<Object[]> resultadosCliente = clienteConsulta.consultaCliente(getNomeCliente(), getCpf());
+		 
+		 return resultadosCliente;
+
+	 }
+	
+	public  List<Object[]> getRetornoInfo(){
+		 
 		
 		List<Object[]> resultadosCliente = clienteConsulta.consultaCliente(getNomeCliente(), getCpf());
 		 

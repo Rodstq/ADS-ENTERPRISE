@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import controladores.ClienteConsultaDatabase;
 import controladores.ClienteConsultaPedidosDatabase;
+import utils.PDF;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -21,7 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
-import java.util.List;
+import java.util.*;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -145,14 +146,14 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		scrollInformacoesProduto.setBounds(34, 272, 897, 141);
 		contentPane.add(scrollInformacoesProduto);
 		
+		
 		btnConsultarCliente.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
-
-	               	                
+	                  	                         	                
 	                ClienteConsultaTratamento infoCliente = new ClienteConsultaTratamento();
 
-//	                //retorna os valores do database após passar pela classe de tratamentto de informações do cliente
-	                List<Object[]> resultadosCliente = infoCliente.retornoInfo(inputNomeCliente.getText(), inputCpfCLiente.getText());
+	                //retorna os valores do database após passar pela classe de tratamentto de informações do cliente
+	                List<Object[]> resultadosCliente = infoCliente.setRetornoInfo(inputNomeCliente.getText(), inputCpfCLiente.getText());
 	           
 	                tabelaModel.setRowCount(0);
 
@@ -169,13 +170,12 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
 		                    produtosModel.addRow(produtos); 
 	                   
-	                    
-	                    
+              
 	                }
 	            }
 	        });
-		JButton btnNewButton = new JButton("Limpar");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				//Limpa as informações
@@ -185,8 +185,24 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 				produtosModel.setRowCount(0);
 			}
 		});
-		btnNewButton.setBounds(685, 429, 117, 25);
-		contentPane.add(btnNewButton);
+		btnLimpar.setBounds(685, 429, 117, 25);
+		contentPane.add(btnLimpar);
+		
+       	JButton btnSalvarPdf = new JButton("Salvar em pdf");
+   		btnSalvarPdf.addActionListener(new ActionListener() {
+   			public void actionPerformed(ActionEvent e) {
+   				
+   				ClienteConsultaTratamento resultadosCliente =new ClienteConsultaTratamento();
+   				
+   				            		PDF pdf = new PDF();
+   				            		pdf.setList(resultadosCliente.setRetornoInfo(inputNomeCliente.getText(), inputCpfCLiente.getText()));
+   				            		pdf.gerarPdf();
+   			}
+   		});
+   		btnSalvarPdf.setEnabled(true);
+   		btnSalvarPdf.setBounds(507, 429, 166, 25);
+   		contentPane.add(btnSalvarPdf);
+
 		
 	}
 }
