@@ -1,13 +1,17 @@
 package interfacesCliente;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class InterfaceClientesPrincipal extends JFrame {
@@ -37,7 +41,7 @@ public class InterfaceClientesPrincipal extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 962, 530);
 		
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -86,13 +90,17 @@ public class InterfaceClientesPrincipal extends JFrame {
 	    setContentPane(contentPane);
 	    contentPane.setLayout(null);
 
-//	    JButton btnLimpar = new JButton("Limpar");
-//	    btnLimpar.setBounds(685, 429, 117, 25);
-//	    contentPane.add(btnLimpar);
-//
-//	    JButton btnRealizar = new JButton("Realizar");
-//	    btnRealizar.setBounds(814, 429, 117, 25);
-//	    contentPane.add(btnRealizar);
+        JLabel opaqueLabel = new JLabel("AdsGestão");
+        opaqueLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        opaqueLabel.setFont(new Font("Dialog", Font.BOLD, 80));
+        opaqueLabel.setBounds(215, 40, 490, 341);
+        opaqueLabel.setOpaque(true);
+        opaqueLabel.setBackground(new Color(0, 0, 0, 0)); 
+        opaqueLabel.setForeground(new Color(0, 0, 0, 50));
+        contentPane.add(opaqueLabel);
+	    
+	    
+	    
 	}
 
 }

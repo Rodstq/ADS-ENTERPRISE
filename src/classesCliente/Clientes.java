@@ -20,7 +20,7 @@ public class Clientes {
     private String ruaCliente;
     private String descricaoRuaCliente;
 
-
+    
 	public void setCpf(String cpfCliente) {
         this.cpfCliente = cpfCliente;
     }
