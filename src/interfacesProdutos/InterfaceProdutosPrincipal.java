@@ -4,6 +4,12 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,15 +20,18 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 public class InterfaceProdutosPrincipal extends JFrame {
 
 	private JPanel contentPane;
+	boolean consultado;
+	JTable tblData;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void ProdutosPrincipal() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -123,11 +132,6 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		botaoCadastrar.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {}});
 		getContentPane().add(botaoCadastrar);
 		
-		JButton botaoConsultar = new JButton("Consultar produto");
-		botaoConsultar.setBounds(105, 159, 182, 45);
-		botaoConsultar.setFont(new Font("Tahoma", Font.BOLD, 13));
-		getContentPane().add(botaoConsultar);
-		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane_1.setBounds(10, 220, 685, 274);
@@ -135,6 +139,56 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		
 		JTable tblData = new JTable();
 		scrollPane_1.setViewportView(tblData);
+		
+		JButton botaoConsultar = new JButton("Consultar produto");
+		botaoConsultar.setBounds(105, 159, 182, 45);
+		botaoConsultar.setFont(new Font("Tahoma", Font.BOLD, 13));
+		botaoConsultar.addActionListener(new ActionListener() {
+			boolean consultado = false;
+			public void actionPerformed(ActionEvent e) {
+							
+				if(consultado == false){
+			
+				try {
+					Connection conexao = null;
+					conexao = DriverManager.getConnection("jdbc:mysql://localhost/test","root","");					
+				
+					ResultSet rs = conexao.createStatement().executeQuery("SELECT * FROM produtos;");
+					ResultSetMetaData rsmd = rs.getMetaData();
+					DefaultTableModel model =(DefaultTableModel) tblData.getModel();
+					
+					int cols = rsmd.getColumnCount();
+					String[] colName = new String[cols];
+					for(int i = 0 ; i<cols; i++) {
+						colName[i]=rsmd.getColumnName(i+1);
+						model.setColumnIdentifiers(colName);
+					
+					while (rs.next()) {
+						String id = rs.getString(1);
+						String nome = rs.getString(2);
+						int qtd = rs.getInt(3);
+						double vlr = rs.getDouble(4);
+						Date dataV = rs.getDate(5);
+						Date dataE = rs.getDate(6);
+						Date dataS = rs.getDate(7);	
+						
+						Object[] row = { id,nome,qtd,vlr,dataV,dataE,dataS};
+						model.addRow(row);
+						consultado=true;
+					}
+					}
+					
+				}catch(SQLException q) {
+					q.printStackTrace();							
+				}
+			}else {
+				
+			};
+				
+			} 
+		 });
+		getContentPane().add(botaoConsultar);
 	}
 
 }
+

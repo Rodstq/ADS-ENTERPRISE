@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import interfacesCliente.InterfaceClientesConsulta;
 import interfacesCliente.InterfaceClientesPrincipal;
+import interfacesProdutos.InterfaceProdutosPrincipal;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -69,7 +70,8 @@ public class Main extends JFrame {
 		
 		btnModuloEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				InterfaceProdutosPrincipal.ProdutosPrincipal();
+				dispose();
 			}
 		});
 		contentPane.add(btnModuloEstoque);
