@@ -76,6 +76,14 @@ public class Main extends JFrame {
 		
 		JButton btnModuloEstoque = new JButton("Módulo de Estoque");
 		btnModuloEstoque.setBounds(272, 171, 194, 43);
+		
+		//Ao clicar no botao de estoque, abre a GUI dos produtos
+		
+		btnModuloEstoque.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		contentPane.add(btnModuloEstoque);
 		
 		JEditorPane dtrpnAdsGesto = new JEditorPane();
