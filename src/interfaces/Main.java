@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import interfacesCliente.InterfaceClientesConsulta;
 import interfacesCliente.InterfaceClientesPrincipal;
+import interfacesProdutos.InterfaceProdutosPrincipal;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -64,6 +65,15 @@ public class Main extends JFrame {
 		
 		JButton btnModuloEstoque = new JButton("Módulo de Estoque");
 		btnModuloEstoque.setBounds(272, 171, 194, 43);
+		
+		//Ao clicar no botao de estoque, abre a GUI dos produtos
+		
+		btnModuloEstoque.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InterfaceProdutosPrincipal.ProdutosPrincipal();
+				dispose();
+			}
+		});
 		contentPane.add(btnModuloEstoque);
 		
         JLabel opaqueLabel = new JLabel("AdsGestão");
