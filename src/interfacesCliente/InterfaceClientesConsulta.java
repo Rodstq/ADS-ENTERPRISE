@@ -13,6 +13,7 @@ import utils.PDF;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -25,6 +26,8 @@ import java.awt.event.ContainerEvent;
 import java.util.*;
 
 import javax.swing.table.DefaultTableModel;
+
+import com.lowagie.text.DocumentException;
 
 import classesCliente.ClienteConsultaTratamento;
 
@@ -131,7 +134,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		DefaultTableModel produtosModel = new DefaultTableModel(
 		        new Object[][] {},
 		        new String[] { "id da loja", "data do pedido", "valor total", "nome do vendedor"}) {
-	 	    @Override
+	 	   
 	 	    public boolean isCellEditable(int row, int column) {
 	 	        return false;
 	 	    }
@@ -151,15 +154,33 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 	            public void actionPerformed(ActionEvent e) {
 	                  	                         	                
 	                ClienteConsultaTratamento infoCliente = new ClienteConsultaTratamento();
-
+	                
+	                
+	                if(!inputNomeCliente.getText().isBlank() && !inputNomeCliente.getText().isEmpty()) {
 	                //retorna os valores do database após passar pela classe de tratamentto de informações do cliente
-	                List<Object[]> resultadosCliente = infoCliente.setRetornoInfo(inputNomeCliente.getText(), inputCpfCLiente.getText());
+	                List<Object[]> resultadosNomeCliente = infoCliente.setConsultaNomeClienteEndereco(inputNomeCliente.getText());
 	           
 	                tabelaModel.setRowCount(0);
 
-	                for (Object[] cliente : resultadosCliente) {
+	                for (Object[] cliente : resultadosNomeCliente) {
 	                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
 	                    tabelaModel.addRow(cliente); 
+	                }
+	                
+	                }else if(!inputCpfCLiente.getText().isBlank() && !inputCpfCLiente.getText().isEmpty()) {
+	                	
+		                List<Object[]> resultadosCpfCliente = infoCliente.setConsultaCpfClienteEndereco(inputCpfCLiente.getText());
+		 	           
+		                tabelaModel.setRowCount(0);
+
+		                for (Object[] cliente : resultadosCpfCliente) {
+		                    tabelaModel.addRow(cliente); 
+		                }              	
+	                	
+	                }else {
+	                	
+	                	  JOptionPane.showMessageDialog(null, "Digite pelo menos nome ou cpf", "Error",  JOptionPane.ERROR_MESSAGE);
+              	
 	                }
 	                    
 	                    produtosModel.setRowCount(0);
@@ -186,17 +207,28 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 			}
 		});
 		btnLimpar.setBounds(685, 429, 117, 25);
-		contentPane.add(btnLimpar);
-		
+		contentPane.add(btnLimpar);	
        	JButton btnSalvarPdf = new JButton("Salvar em pdf");
    		btnSalvarPdf.addActionListener(new ActionListener() {
    			public void actionPerformed(ActionEvent e) {
+   			
+   				ClienteConsultaTratamento cliente = new ClienteConsultaTratamento();
    				
-   				ClienteConsultaTratamento resultadosCliente =new ClienteConsultaTratamento();
    				
-   				            		PDF pdf = new PDF();
-   				            		pdf.setList(resultadosCliente.setRetornoInfo(inputNomeCliente.getText(), inputCpfCLiente.getText()));
-   				            		pdf.gerarPdf();
+   				PDF pdf = new PDF();
+   				pdf.setList(tabelaModel);
+   				
+   				
+   				
+   				try {
+					pdf.gerarPdf();
+				} catch (DocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+   				
+   				
+   				
    			}
    		});
    		btnSalvarPdf.setEnabled(true);

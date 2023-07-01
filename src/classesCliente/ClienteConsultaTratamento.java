@@ -9,24 +9,38 @@ public class ClienteConsultaTratamento extends Clientes {
 
 	ClienteConsultaDatabase clienteConsulta = new ClienteConsultaDatabase();
 		
-	public  List<Object[]> setRetornoInfo(String nome, String cpf){
+	public  List<Object[]> setConsultaNomeClienteEndereco(String nome){
 		 
-		setCpf(cpf);
 		setNomeCliente(nome);
 		
+	
+		List<Object[]> resultadosCliente = clienteConsulta.consultaNomeClienteEndereco(getNomeCliente());
+			
+		return  resultadosCliente;
 		
-		List<Object[]> resultadosCliente = clienteConsulta.consultaCliente(getNomeCliente(), getCpf());
-		 
-		 return resultadosCliente;
-
 	 }
 	
-	public  List<Object[]> getRetornoInfo(){
+	public  List<Object[]> setConsultaCpfClienteEndereco(String cpf){
 		 
-		
-		List<Object[]> resultadosCliente = clienteConsulta.consultaCliente(getNomeCliente(), getCpf());
-		 
+		setCpf(cpf);
+
+			
+		List<Object[]> resultadosCliente = clienteConsulta.consultaCpfClienteEndereco(getCpf());
+	
 		 return resultadosCliente;
 
-	 }
+	 }	 
+	
+	
+	
+public  List<Object[]> getConsultaNomeCliente(){
+	 
+
+
+	List<Object[]> resultadosCliente = clienteConsulta.consultaNomeOnlyCliente(getNomeCliente());
+		
+	return  resultadosCliente;
+	
+ }
+
 }
