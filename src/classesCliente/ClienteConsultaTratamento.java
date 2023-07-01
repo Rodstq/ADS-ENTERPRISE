@@ -33,14 +33,14 @@ public class ClienteConsultaTratamento extends Clientes {
 	
 	
 	
-public  List<Object[]> getConsultaNomeCliente(){
-	 
-
-
-	List<Object[]> resultadosCliente = clienteConsulta.consultaNomeOnlyCliente(getNomeCliente());
-		
-	return  resultadosCliente;
-	
- }
+//public  List<Object[]> getConsultaNomeCliente(){
+//	 
+//
+//
+//	List<Object[]> resultadosCliente = clienteConsulta.consultaNomeOnlyCliente(getNomeCliente());
+//		
+//	return  resultadosCliente;
+//	
+// }
 
 }

@@ -95,37 +95,37 @@ public class ClienteConsultaDatabase {
 	}
 		
 		
-	public  List<Object[]> consultaNomeOnlyCliente(String nomeCliente) {
-			
-			List<Object[]> resultados = new ArrayList<>();
-			try {
-			
-			Statement stmt = Db.Connect().createStatement();
-			
-			String query = "SELECT * FROM cliente WHERE cliente.nome_cliente = '" + nomeCliente + "'";
-			ResultSet rs = stmt.executeQuery(query);
-			
-			while(rs.next()){
-				String nome = rs.getString("nome_cliente");
-				String cpf = rs.getString("cpf_cliente");
-				String dataNascimento = rs.getString("nascimento_cliente");
-				String telefone = rs.getString("telefone");
-
-							
-				 Object[] cliente = { nome, cpf, dataNascimento, telefone};
-                 resultados.add(cliente);
-                 
-     			rs.close();
-     			stmt.close();
-     			Db.CloseDb();
-				}
-			}catch(Exception e) {
-
-			}finally {
-				
-				Db.CloseDb();
-			}
-			return resultados;
-		}
+//	public  List<Object[]> consultaNomeOnlyCliente(String nomeCliente) {
+//			
+//			List<Object[]> resultados = new ArrayList<>();
+//			try {
+//			
+//			Statement stmt = Db.Connect().createStatement();
+//			
+//			String query = "SELECT * FROM cliente WHERE cliente.nome_cliente = '" + nomeCliente + "'";
+//			ResultSet rs = stmt.executeQuery(query);
+//			
+//			while(rs.next()){
+//				String nome = rs.getString("nome_cliente");
+//				String cpf = rs.getString("cpf_cliente");
+//				String dataNascimento = rs.getString("nascimento_cliente");
+//				String telefone = rs.getString("telefone");
+//
+//							
+//				 Object[] cliente = { nome, cpf, dataNascimento, telefone};
+//                 resultados.add(cliente);
+//                 
+//     			rs.close();
+//     			stmt.close();
+//     			Db.CloseDb();
+//				}
+//			}catch(Exception e) {
+//
+//			}finally {
+//				
+//				Db.CloseDb();
+//			}
+//			return resultados;
+//		}
 }
 
