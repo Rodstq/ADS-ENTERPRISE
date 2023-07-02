@@ -99,7 +99,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		btnConsultarCliente.setBounds(814, 429, 117, 25);
 		contentPane.add(btnConsultarCliente);
 		
-		 	DefaultTableModel tabelaModel = new DefaultTableModel(new Object[][] {},
+		 	DefaultTableModel tabelaInfoCliente = new DefaultTableModel(new Object[][] {},
 	                new String[] { "nome do cliente", "cpf do cliente", "data de nascimento", "telefone", "estado", "cidade",
 	                        "bairro", "rua", "cep" }) {
 		 	    @Override
@@ -108,7 +108,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		 	    }
 		 	    };
 		 	
-	        tabelaResultadoCliente = new JTable(tabelaModel);
+	        tabelaResultadoCliente = new JTable(tabelaInfoCliente);
 	        tabelaResultadoCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
 	        tabelaResultadoCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
 	        tabelaResultadoCliente.getColumnModel().getColumn(2).setPreferredWidth(120);
@@ -131,7 +131,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		lblUltimosPedidosDo.setBounds(12, 238, 212, 29);
 		contentPane.add(lblUltimosPedidosDo);
 		
-		DefaultTableModel produtosModel = new DefaultTableModel(
+		DefaultTableModel tabelaInfoPedidos = new DefaultTableModel(
 		        new Object[][] {},
 		        new String[] { "id da loja", "data do pedido", "valor total", "nome do vendedor"}) {
 	 	   
@@ -139,7 +139,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 	 	        return false;
 	 	    }
 	 	    };
-		JTable produtosResultadoCliente = new JTable(produtosModel);
+		JTable produtosResultadoCliente = new JTable(tabelaInfoPedidos);
 		produtosResultadoCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
 		produtosResultadoCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
 		produtosResultadoCliente.getColumnModel().getColumn(2).setPreferredWidth(120);
@@ -160,21 +160,21 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 	                //retorna os valores do database após passar pela classe de tratamentto de informações do cliente
 	                List<Object[]> resultadosNomeCliente = infoCliente.setConsultaNomeClienteEndereco(inputNomeCliente.getText());
 	           
-	                tabelaModel.setRowCount(0);
+	                tabelaInfoCliente.setRowCount(0);
 
 	                for (Object[] cliente : resultadosNomeCliente) {
 	                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
-	                    tabelaModel.addRow(cliente); 
+	                    tabelaInfoCliente.addRow(cliente); 
 	                }
 	                
 	                }else if(!inputCpfCLiente.getText().isBlank() && !inputCpfCLiente.getText().isEmpty()) {
 	                	
 		                List<Object[]> resultadosCpfCliente = infoCliente.setConsultaCpfClienteEndereco(inputCpfCLiente.getText());
 		 	           
-		                tabelaModel.setRowCount(0);
+		                tabelaInfoCliente.setRowCount(0);
 
 		                for (Object[] cliente : resultadosCpfCliente) {
-		                    tabelaModel.addRow(cliente); 
+		                    tabelaInfoCliente.addRow(cliente); 
 		                }              	
 	                	
 	                }else {
@@ -183,13 +183,13 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
               	
 	                }
 	                    
-	                    produtosModel.setRowCount(0);
+	                    tabelaInfoPedidos.setRowCount(0);
 	                    
 	                    List<Object[]> resultadosProduto = ClienteConsultaPedidosDatabase.consultaProdutos(inputNomeCliente.getText(), inputCpfCLiente.getText());
 	                    
 	                    for (Object[] produtos : resultadosProduto) {
 		                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
-		                    produtosModel.addRow(produtos); 
+		                    tabelaInfoPedidos.addRow(produtos); 
 	                   
               
 	                }
@@ -202,8 +202,8 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 				//Limpa as informações
 				inputNomeCliente.setText("");
 				inputCpfCLiente.setText("");
-				tabelaModel.setRowCount(0); //vai zerar a tabela quando apertar o botao consultar
-				produtosModel.setRowCount(0);
+				tabelaInfoCliente.setRowCount(0); //vai zerar a tabela quando apertar o botao consultar
+				tabelaInfoPedidos.setRowCount(0);
 			}
 		});
 		btnLimpar.setBounds(685, 429, 117, 25);
@@ -212,11 +212,18 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
    		btnSalvarPdf.addActionListener(new ActionListener() {
    			public void actionPerformed(ActionEvent e) {
    			
+   				
+   				
+   				
    				ClienteConsultaTratamento cliente = new ClienteConsultaTratamento();
    				
    				
    				PDF pdf = new PDF();
-   				pdf.setList(tabelaModel);
+   				
+   				
+   				
+   				pdf.setListInfoCliente(tabelaInfoCliente);  				
+   				pdf.setListInfoPedidosCliente(tabelaInfoPedidos);
    				
    				
    				
@@ -227,6 +234,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 					e1.printStackTrace();
 				}
    				
+   		 	
    				
    				
    			}

@@ -98,7 +98,7 @@ INSERT INTO produtos (id_produto, nome_produto, quantidade, valor, id_estoque)
 VALUES (1, 'Produto A', 10, 9.99, 1);
 
 INSERT INTO pedido (id_pedido, data_pedido, valor_produtos, cpf_vendedor, cpf_cliente, id_loja, id_produto)
-VALUES (1, '2023-06-10', 29.97, '12345678901', '98765432101', 1, 1);
+VALUES (2, '2023-06-10', 29.97, '12345678901', '98765432101', 1, 1);
 
 INSERT INTO pedido_produto (id_produto, id_pedido)
 VALUES (1, 1);
