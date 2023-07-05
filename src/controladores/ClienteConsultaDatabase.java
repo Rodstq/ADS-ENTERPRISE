@@ -11,19 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 public class ClienteConsultaDatabase {
 	
-	//é do tipo objeto porque permite armazenar qualquer outro tipo
-	public  List<Object[]> consultaCliente(String nomeCliente, String cpfCliente) {
+	public  List<Object[]> consultaNomeClienteEndereco(String nomeCliente) {
 		
 		List<Object[]> resultados = new ArrayList<>();
 		try {
 		
 		Statement stmt = Db.Connect().createStatement();
-		
-			if(!nomeCliente.isEmpty()) {
-			
+				
 		String query = "SELECT * FROM cliente JOIN cliente_endereco ON cliente.cpf_cliente = cliente_endereco.cpf_cliente "
 				+ "WHERE cliente.nome_cliente = '" + nomeCliente + "'";
-
 
 			ResultSet rs = stmt.executeQuery(query);
 			
@@ -37,25 +33,40 @@ public class ClienteConsultaDatabase {
 				String bairro = rs.getString("bairro");
 				String rua = rs.getString("rua");
 				String cep = rs.getString("cep");
-				
-				
+							
 				 Object[] cliente = { nome, cpf, dataNascimento, telefone, estado, cidade, bairro, rua, cep};
                  resultados.add(cliente);
+                 
+     			rs.close();
+     			stmt.close();
+     			Db.CloseDb();
+				}
+			}catch(Exception e) {
 
+
+			}finally {
+				
+				Db.CloseDb();
 			}
+		return resultados;
+}
 
-			rs.close();
-					
-			//consulta clientes apenas pelo cpf
-		}else 	if (!cpfCliente.isEmpty()) {
+
+
+		public  List<Object[]> consultaCpfClienteEndereco(String cpfCliente) {
+	
+		List<Object[]> resultados = new ArrayList<>();
+		try {
+	
 			
 		String query = "SELECT * FROM cliente JOIN cliente_endereco ON cliente.cpf_cliente = "
 				+ "cliente_endereco.cpf_cliente WHERE cliente.cpf_cliente = '" + cpfCliente + "'";
 
-			ResultSet rs = stmt.executeQuery(query);
+		Statement stmt = Db.Connect().createStatement();
+			
+		ResultSet rs = stmt.executeQuery(query);
 			while(rs.next()){
 				
-
 				String nome = rs.getString("nome_cliente");
 				String cpf = rs.getString("cpf_cliente");
 				Date dataNascimento = rs.getDate("nascimento_cliente");
@@ -70,26 +81,51 @@ public class ClienteConsultaDatabase {
                  resultados.add(cliente);
 				
 			}
-			rs.close();
-			
-		}	else {
-			
-			System.out.println("Campos vázios");
-		}
-			
-		stmt.close();
-		Db.CloseDb();		
-		
+			rs.close();	
+			stmt.close();
+			Db.CloseDb();	
 		}catch (Exception e){
 			e.printStackTrace();
+			
+		}finally {
+			
+			Db.CloseDb();
 		}
 		return resultados;
-		
 	}
-	
-	
-	
-
+		
+		
+//	public  List<Object[]> consultaNomeOnlyCliente(String nomeCliente) {
+//			
+//			List<Object[]> resultados = new ArrayList<>();
+//			try {
+//			
+//			Statement stmt = Db.Connect().createStatement();
+//			
+//			String query = "SELECT * FROM cliente WHERE cliente.nome_cliente = '" + nomeCliente + "'";
+//			ResultSet rs = stmt.executeQuery(query);
+//			
+//			while(rs.next()){
+//				String nome = rs.getString("nome_cliente");
+//				String cpf = rs.getString("cpf_cliente");
+//				String dataNascimento = rs.getString("nascimento_cliente");
+//				String telefone = rs.getString("telefone");
+//
+//							
+//				 Object[] cliente = { nome, cpf, dataNascimento, telefone};
+//                 resultados.add(cliente);
+//                 
+//     			rs.close();
+//     			stmt.close();
+//     			Db.CloseDb();
+//				}
+//			}catch(Exception e) {
+//
+//			}finally {
+//				
+//				Db.CloseDb();
+//			}
+//			return resultados;
+//		}
 }
-	
-	
+

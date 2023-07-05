@@ -13,6 +13,7 @@ import utils.PDF;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -25,6 +26,8 @@ import java.awt.event.ContainerEvent;
 import java.util.*;
 
 import javax.swing.table.DefaultTableModel;
+
+import com.lowagie.text.DocumentException;
 
 import classesCliente.ClienteConsultaTratamento;
 
@@ -96,7 +99,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		btnConsultarCliente.setBounds(814, 429, 117, 25);
 		contentPane.add(btnConsultarCliente);
 		
-		 	DefaultTableModel tabelaModel = new DefaultTableModel(new Object[][] {},
+		 	DefaultTableModel tabelaInfoCliente = new DefaultTableModel(new Object[][] {},
 	                new String[] { "nome do cliente", "cpf do cliente", "data de nascimento", "telefone", "estado", "cidade",
 	                        "bairro", "rua", "cep" }) {
 		 	    @Override
@@ -105,7 +108,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		 	    }
 		 	    };
 		 	
-	        tabelaResultadoCliente = new JTable(tabelaModel);
+	        tabelaResultadoCliente = new JTable(tabelaInfoCliente);
 	        tabelaResultadoCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
 	        tabelaResultadoCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
 	        tabelaResultadoCliente.getColumnModel().getColumn(2).setPreferredWidth(120);
@@ -128,15 +131,15 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		lblUltimosPedidosDo.setBounds(12, 238, 212, 29);
 		contentPane.add(lblUltimosPedidosDo);
 		
-		DefaultTableModel produtosModel = new DefaultTableModel(
+		DefaultTableModel tabelaInfoPedidos = new DefaultTableModel(
 		        new Object[][] {},
 		        new String[] { "id da loja", "data do pedido", "valor total", "nome do vendedor"}) {
-	 	    @Override
+	 	   
 	 	    public boolean isCellEditable(int row, int column) {
 	 	        return false;
 	 	    }
 	 	    };
-		JTable produtosResultadoCliente = new JTable(produtosModel);
+		JTable produtosResultadoCliente = new JTable(tabelaInfoPedidos);
 		produtosResultadoCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
 		produtosResultadoCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
 		produtosResultadoCliente.getColumnModel().getColumn(2).setPreferredWidth(120);
@@ -151,24 +154,42 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 	            public void actionPerformed(ActionEvent e) {
 	                  	                         	                
 	                ClienteConsultaTratamento infoCliente = new ClienteConsultaTratamento();
-
+	                
+	                
+	                if(!inputNomeCliente.getText().isBlank() && !inputNomeCliente.getText().isEmpty()) {
 	                //retorna os valores do database após passar pela classe de tratamentto de informações do cliente
-	                List<Object[]> resultadosCliente = infoCliente.setRetornoInfo(inputNomeCliente.getText(), inputCpfCLiente.getText());
+	                List<Object[]> resultadosNomeCliente = infoCliente.setConsultaNomeClienteEndereco(inputNomeCliente.getText());
 	           
-	                tabelaModel.setRowCount(0);
+	                tabelaInfoCliente.setRowCount(0);
 
-	                for (Object[] cliente : resultadosCliente) {
+	                for (Object[] cliente : resultadosNomeCliente) {
 	                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
-	                    tabelaModel.addRow(cliente); 
+	                    tabelaInfoCliente.addRow(cliente); 
+	                }
+	                
+	                }else if(!inputCpfCLiente.getText().isBlank() && !inputCpfCLiente.getText().isEmpty()) {
+	                	
+		                List<Object[]> resultadosCpfCliente = infoCliente.setConsultaCpfClienteEndereco(inputCpfCLiente.getText());
+		 	           
+		                tabelaInfoCliente.setRowCount(0);
+
+		                for (Object[] cliente : resultadosCpfCliente) {
+		                    tabelaInfoCliente.addRow(cliente); 
+		                }              	
+	                	
+	                }else {
+	                	
+	                	  JOptionPane.showMessageDialog(null, "Digite pelo menos nome ou cpf", "Error",  JOptionPane.ERROR_MESSAGE);
+              	
 	                }
 	                    
-	                    produtosModel.setRowCount(0);
+	                    tabelaInfoPedidos.setRowCount(0);
 	                    
 	                    List<Object[]> resultadosProduto = ClienteConsultaPedidosDatabase.consultaProdutos(inputNomeCliente.getText(), inputCpfCLiente.getText());
 	                    
 	                    for (Object[] produtos : resultadosProduto) {
 		                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
-		                    produtosModel.addRow(produtos); 
+		                    tabelaInfoPedidos.addRow(produtos); 
 	                   
               
 	                }
@@ -181,22 +202,41 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 				//Limpa as informações
 				inputNomeCliente.setText("");
 				inputCpfCLiente.setText("");
-				tabelaModel.setRowCount(0); //vai zerar a tabela quando apertar o botao consultar
-				produtosModel.setRowCount(0);
+				tabelaInfoCliente.setRowCount(0); //vai zerar a tabela quando apertar o botao consultar
+				tabelaInfoPedidos.setRowCount(0);
 			}
 		});
 		btnLimpar.setBounds(685, 429, 117, 25);
-		contentPane.add(btnLimpar);
-		
+		contentPane.add(btnLimpar);	
        	JButton btnSalvarPdf = new JButton("Salvar em pdf");
    		btnSalvarPdf.addActionListener(new ActionListener() {
    			public void actionPerformed(ActionEvent e) {
+   			
    				
-   				ClienteConsultaTratamento resultadosCliente =new ClienteConsultaTratamento();
    				
-   				            		PDF pdf = new PDF();
-   				            		pdf.setList(resultadosCliente.setRetornoInfo(inputNomeCliente.getText(), inputCpfCLiente.getText()));
-   				            		pdf.gerarPdf();
+   				
+   				ClienteConsultaTratamento cliente = new ClienteConsultaTratamento();
+   				
+   				
+   				PDF pdf = new PDF();
+   				
+   				
+   				
+   				pdf.setListInfoCliente(tabelaInfoCliente);  				
+   				pdf.setListInfoPedidosCliente(tabelaInfoPedidos);
+   				
+   				
+   				
+   				try {
+					pdf.gerarPdf();
+				} catch (DocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+   				
+   		 	
+   				
+   				
    			}
    		});
    		btnSalvarPdf.setEnabled(true);
