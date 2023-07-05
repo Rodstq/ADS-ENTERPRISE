@@ -8,10 +8,10 @@ public class ProdutoConsultaTratamento extends Produto{
 	
 	ProdutosConsulta produtoConsulta = new ProdutosConsulta();
 	
-	public List<Object[]>  setRetorno(String nome_produto){
+	public String  setRetorno(String nome_produto){
 		setNome_produto(nome_produto);
 		
-		List<Object[]> resultadosProdutos = produtoConsulta.consultarProdutos(getNome_produto());
+		String resultadosProdutos = produtoConsulta.consultarProdutos(nome_produto);
 		
 		return resultadosProdutos;
 	}

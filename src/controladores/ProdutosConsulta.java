@@ -14,9 +14,8 @@ import java.util.List;
 
 public class ProdutosConsulta {
 	
-	public List<Object[]> consultarProdutos(String nomeProduto) {
-	
-		List<Object[]> resultados = new ArrayList<>();
+	public String consultarProdutos(String nomeProduto) {
+	String resultado="";
 	try {
 		
 		Statement stmt = Db.Connect().createStatement();
@@ -26,24 +25,25 @@ public class ProdutosConsulta {
 		ResultSet rs = stmt.executeQuery(query);
 		
 		while(rs.next()){
-			 String id_produto = rs.getString(1);
-			 String nome_produto = rs.getString(2);
-			 int quantidade = rs.getInt(3);
-			 double valor = rs.getDouble(4);
-			 String id_estoque = rs.getString(5);
-			 
-			 Object[] produto = {id_produto,nome_produto,quantidade,valor,id_estoque};
+			 String id_produto = rs.getString("id_produto");
+			 String nome_produto = rs.getString("nome_produto");
+			 int quantidade = rs.getInt("quantidade");
+			 double valor = rs.getDouble("valor");
+			 String id_estoque = rs.getString("id_produto");
+			 System.out.println(id_produto + " " + quantidade);
+			 resultado = nome_produto;			 
 		}
-		rs.close();
 		
-		stmt.close();
-		Db.CloseDb();
+//		rs.close();
+//		
+//		stmt.close();
+//		Db.CloseDb();
 		
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	return resultados;
+	return resultado;
 	}
 
 }

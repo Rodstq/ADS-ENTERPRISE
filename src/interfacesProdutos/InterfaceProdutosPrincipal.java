@@ -22,6 +22,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import classesProdutos.ProdutoConsultaTratamento;
+import controladores.ProdutosConsulta;
+
 public class InterfaceProdutosPrincipal extends JFrame {
 
 	private JPanel contentPane;
@@ -147,48 +150,19 @@ public class InterfaceProdutosPrincipal extends JFrame {
 			boolean consultado = false;
 			public void actionPerformed(ActionEvent e) {
 							
-				if(consultado == false){
-			
-				try {
-					Connection conexao = null;
-					conexao = DriverManager.getConnection(url);					
-				
-					ResultSet rs = conexao.createStatement().executeQuery("SELECT * FROM produtos;");
-					ResultSetMetaData rsmd = rs.getMetaData();
-					DefaultTableModel model =(DefaultTableModel) tblData.getModel();
+			if(consultado == false){
+											
+					ProdutosConsulta produtosConsulta = new ProdutosConsulta();
+					produtosConsulta.consultarProdutos(txtProd.getText());
 					
-					int cols = rsmd.getColumnCount();
-					String[] colName = new String[cols];
-					for(int i = 0 ; i<cols; i++) {
-						colName[i]=rsmd.getColumnName(i+1);
-						model.setColumnIdentifiers(colName);
-					
-					while (rs.next()) {
-						String id = rs.getString(1);
-						String nome = rs.getString(2);
-						int qtd = rs.getInt(3);
-						double vlr = rs.getDouble(4);
-						Date dataV = rs.getDate(5);
-						Date dataE = rs.getDate(6);
-						Date dataS = rs.getDate(7);	
-						
-						Object[] row = { id,nome,qtd,vlr,dataV,dataE,dataS};
-						model.addRow(row);
-						consultado=true;
-					}
-					}
-					
-				}catch(SQLException q) {
-					q.printStackTrace();							
-				}
-			}else {
+			} else {
 				
 			};
 				
 			} 
 		 });
+			
 		getContentPane().add(botaoConsultar);
+		
+	  }
 	}
-
-}
-
