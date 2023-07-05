@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Db {
-    private static String url = "jdbc:mysql://172.16.238.2:3306/adsDb";
+    private static String url = "jdbc:mysql://127.0.0.1:3306/adsDb";
     private static String user = "root";
     private static String password = "root";
     

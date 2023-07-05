@@ -151,7 +151,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 			
 				try {
 					Connection conexao = null;
-					conexao = DriverManager.getConnection("jdbc:mysql://localhost/test","root","");					
+					conexao = DriverManager.getConnection(url);					
 				
 					ResultSet rs = conexao.createStatement().executeQuery("SELECT * FROM produtos;");
 					ResultSetMetaData rsmd = rs.getMetaData();
