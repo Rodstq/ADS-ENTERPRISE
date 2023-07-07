@@ -137,7 +137,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane_1.setBounds(10, 220, 685, 274);
+		scrollPane_1.setBounds(10, 215, 685, 274);
 		contentPane.add(scrollPane_1);
 		
 		JTable tblData = new JTable();
@@ -153,7 +153,10 @@ public class InterfaceProdutosPrincipal extends JFrame {
 			if(consultado == false){
 											
 					ProdutosConsulta produtosConsulta = new ProdutosConsulta();
+					produtosConsulta.setTblData(tblData);
 					produtosConsulta.consultarProdutos(txtProd.getText());
+					consultado = true;				
+				
 					
 			} else {
 				
