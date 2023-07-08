@@ -82,7 +82,7 @@ public class PDF {
             
             //tabelas
 
-            float[] widthsColunas = {150,150f, 150f, 150f, 30f};
+            float[] widthsColunas = {150,150f, 150f, 150f, 150f};
             
             
             Rectangle r = new Rectangle(PageSize.A4.getRight(70), PageSize.A4.getTop(150));
@@ -138,7 +138,7 @@ public class PDF {
           
                 	
                 	if(i==4) {
-                		pedidosInfo.addCell("N°");
+                		pedidosInfo.addCell("CPF Cliente");
                 }else {
                 	
                     pedidosInfo.addCell(listInfoPedidosCliente.getColumnName(i));
@@ -155,8 +155,9 @@ public class PDF {
                   
                     if(k==4) {
                     	
-                    	pedidosInfo.addCell((i+1)+"");
-                    	
+                   
+                      	Object cellValue = listaInfoCliente.getValueAt(0,1);
+                      	pedidosInfo.addCell(cellValue.toString());
                     }else {
                     	
                     	Object cellValue = listInfoPedidosCliente.getValueAt(i,k);

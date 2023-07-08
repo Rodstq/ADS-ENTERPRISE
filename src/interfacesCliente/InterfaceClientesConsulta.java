@@ -213,11 +213,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
    			public void actionPerformed(ActionEvent e) {
    			
    				
-   				
-   				
-   				ClienteConsultaTratamento cliente = new ClienteConsultaTratamento();
-   				
-   				
+   								
    				PDF pdf = new PDF();
    				
    				

@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  mysql:
+    container_name: mysql_ads
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=adsDb
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      mynetwork:
+        ipv4_address: 172.16.238.2
+    ports:
+      - "3306:3306"
+networks:
+  mynetwork:
+    ipam:
+      config:
+        - subnet: 172.16.238.0/29
