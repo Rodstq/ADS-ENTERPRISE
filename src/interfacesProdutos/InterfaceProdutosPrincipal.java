@@ -24,12 +24,14 @@ import javax.swing.table.DefaultTableModel;
 
 import classesProdutos.ProdutoConsultaTratamento;
 import controladores.ProdutosConsulta;
+import controladores.ProdutosCadastrar;
+import classesProdutos.Produto;
 
 public class InterfaceProdutosPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	boolean consultado;
 	JTable tblData;
+	private JTextField id_estoqueTF;
 
 	/**
 	 * Launch the application.
@@ -129,10 +131,34 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		getContentPane().add(txtDataS);
 		txtDataS.setColumns(10);
 		
+		JLabel txtIdEstoque = new JLabel("Id Estoque");
+		txtIdEstoque.setFont(new Font("Tahoma", Font.BOLD, 11));
+		txtIdEstoque.setBounds(241, 95, 60, 14);
+		contentPane.add(txtIdEstoque);
+		
+		id_estoqueTF = new JTextField();
+		id_estoqueTF.setBounds(311, 92, 74, 20);
+		contentPane.add(id_estoqueTF);
+		id_estoqueTF.setColumns(10);
+		
 		JButton botaoCadastrar = new JButton("Cadastrar Produto");
 		botaoCadastrar.setBounds(405, 159, 182, 45);
 		botaoCadastrar.setFont(new Font("Tahoma", Font.BOLD, 13));
-		botaoCadastrar.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {}});
+		botaoCadastrar.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				Produto produto = new Produto();
+				produto.setId_produto(txtId.getText());
+				produto.setNome_produto(txtProd.getText());
+				produto.setQuantidade(Integer.parseInt(txtQtd.getText()));
+				produto.setValor(Double.parseDouble(txtVlr.getText()));
+				produto.setId_estoque(id_estoqueTF.getText());
+				
+				
+				ProdutosCadastrar produtosCadastrar = new ProdutosCadastrar();
+				produtosCadastrar.cadastrarProdutos(produto);
+				
+			}});
 		getContentPane().add(botaoCadastrar);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -147,24 +173,22 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		botaoConsultar.setBounds(105, 159, 182, 45);
 		botaoConsultar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		botaoConsultar.addActionListener(new ActionListener() {
-			boolean consultado = false;
+			
 			public void actionPerformed(ActionEvent e) {
 							
-			if(consultado == false){
+			
 											
 					ProdutosConsulta produtosConsulta = new ProdutosConsulta();
 					produtosConsulta.setTblData(tblData);
 					produtosConsulta.consultarProdutos(txtProd.getText());
-					consultado = true;				
+									
 				
 					
-			} else {
-				
-			};
+			
 				
 			} 
 		 });
-			
+		
 		getContentPane().add(botaoConsultar);
 		
 	  }

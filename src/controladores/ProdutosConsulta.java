@@ -16,8 +16,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
-
-public class ProdutosConsulta {
+public class ProdutosConsulta{
 	
 	
 	ResultSet rs;
@@ -38,6 +37,11 @@ public class ProdutosConsulta {
 		int cols = rsmd.getColumnCount();
 		
 		DefaultTableModel model = (DefaultTableModel) tblData.getModel();
+		
+		while(model.getRowCount() > 0)
+		{
+			model.removeRow(0);
+		}
 		
 		String[] colName = new String[cols];
 		 
