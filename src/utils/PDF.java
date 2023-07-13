@@ -101,7 +101,7 @@ public class PDF {
             
             for (int i = 0; i < 5; i++) {
             	if(i==4) {
-            		infoCliente.addCell("N°");
+            		infoCliente.addCell("Complemento");
             	}else {
                 infoCliente.addCell(listaInfoCliente.getColumnName(i));
             	}
@@ -110,16 +110,13 @@ public class PDF {
             for (int i = 0; i < listaInfoCliente.getRowCount(); i++) {
                 for (int k = 0; k < 5; k++) {
                 	
-                	if(k==4) {
-                		infoCliente.addCell((i+1)+"");
-                }else {
-                	
+
                     Object cellValue = listaInfoCliente.getValueAt(i, k);
                     infoCliente.addCell(cellValue.toString());
                 }
                 	
                 }
-            }
+            
             paragrafoResultadoCliente.add(infoCliente);
             
                  
@@ -147,23 +144,25 @@ public class PDF {
            }
             	
             
-            
+           
             for (int i = 0; i < listInfoPedidosCliente.getRowCount(); i++) {
             	
-            	
+           
                 for (int k = 0; k < 5; k++) {
-                  
-                    if(k==4) {
-                    	
-                   
-                      	Object cellValue = listaInfoCliente.getValueAt(0,1);
-                      	pedidosInfo.addCell(cellValue.toString());
-                    }else {
+//                  
+//                    if(k==4) {
+//                    	
+//                    	 	
+//                   
+//                      	Object cellValue = listaInfoCliente.getValueAt(i,1);
+//                      	pedidosInfo.addCell(cellValue.toString());
+//                      	
+//                    }else {
                     	
                     	Object cellValue = listInfoPedidosCliente.getValueAt(i,k);
                     	 pedidosInfo.addCell(cellValue.toString());
-                    	
-                    }
+//                    	
+//                    }
                    
                 }
             }

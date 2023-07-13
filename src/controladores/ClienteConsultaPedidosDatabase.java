@@ -23,7 +23,7 @@ public class ClienteConsultaPedidosDatabase {
 		
 		if(!nomeCliente.isEmpty()) {
 		
-			String query = "SELECT pedido.id_loja, pedido.data_pedido, pedido.valor_produtos, vendedor.nome_vendedor " +
+			String query = "SELECT pedido.id_loja, pedido.data_pedido, pedido.valor_produtos, vendedor.nome_vendedor, pedido.cpf_cliente " +
 		               "FROM pedido " +
 		               "JOIN vendedor ON pedido.cpf_vendedor = vendedor.cpf_vendedor " +
 		               "JOIN cliente ON pedido.cpf_cliente = cliente.cpf_cliente " +
@@ -38,16 +38,17 @@ public class ClienteConsultaPedidosDatabase {
 			Date data_pedido = rs.getDate("data_pedido");
 			float valor_total = rs.getFloat("valor_produtos");
 			String nome_vendedor = rs.getString("nome_vendedor");
+			String cpf_cliente = rs.getString("cpf_cliente");
 
 		
-			 Object[] produtosInfo= { id_loja, data_pedido, valor_total, nome_vendedor};
+			 Object[] produtosInfo= { id_loja, data_pedido, valor_total, nome_vendedor, cpf_cliente};
 	         resultadosProdutos.add(produtosInfo);
 		}
 		
 		
 	}else if(!cpfCliente.isEmpty()) {
 		
-		String query ="SELECT pedido.id_loja, pedido.data_pedido, pedido.valor_produtos, vendedor.nome_vendedor " +
+		String query ="SELECT pedido.id_loja, pedido.data_pedido, pedido.valor_produtos, vendedor.nome_vendedor, pedido.cpf_cliente " +
 				"FROM pedido " +
 				"JOIN vendedor on pedido.cpf_vendedor = vendedor.cpf_vendedor " +
 				"WHERE pedido.cpf_cliente = '" + cpfCliente + "'";
@@ -59,11 +60,11 @@ public class ClienteConsultaPedidosDatabase {
 			Date data_pedido = rs.getDate("data_pedido");
 			float valor_total = rs.getFloat("valor_produtos");
 			String nome_vendedor = rs.getString("nome_vendedor");
-		
+			String cpf_cliente = rs.getString("cpf_cliente");
 
-		
-		 Object[] produtosInfo= { id_loja, data_pedido, valor_total, nome_vendedor};
-         resultadosProdutos.add(produtosInfo);
+			
+			 Object[] produtosInfo= { id_loja, data_pedido, valor_total, nome_vendedor, cpf_cliente};
+	         resultadosProdutos.add(produtosInfo);
 		}
 		
 		
@@ -72,10 +73,7 @@ public class ClienteConsultaPedidosDatabase {
 		
 		
 	}
-		
-		stmt.close();
-		Db.CloseDb();		
-				
+
 		}catch (Exception e){
 			
 			e.printStackTrace();			

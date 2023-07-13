@@ -100,8 +100,8 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		contentPane.add(btnConsultarCliente);
 		
 		 	DefaultTableModel tabelaInfoCliente = new DefaultTableModel(new Object[][] {},
-	                new String[] { "nome do cliente", "cpf do cliente", "data de nascimento", "telefone", "estado", "cidade",
-	                        "bairro", "rua", "cep" }) {
+	                new String[] { "nome do cliente", "cpf do cliente", "data de nascimento", "telefone", "complemento", "estado", "cidade",
+	                        "bairro", "rua", "cep"}) {
 		 	    @Override
 		 	    public boolean isCellEditable(int row, int column) {
 		 	        return false;
@@ -118,6 +118,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 	        tabelaResultadoCliente.getColumnModel().getColumn(6).setPreferredWidth(100);
 	        tabelaResultadoCliente.getColumnModel().getColumn(7).setPreferredWidth(100);
 	        tabelaResultadoCliente.getColumnModel().getColumn(8).setPreferredWidth(80);
+	        tabelaResultadoCliente.getColumnModel().getColumn(8).setPreferredWidth(80);
        
 	        
 		JScrollPane scrollInformacoesCliente = new JScrollPane(tabelaResultadoCliente);
@@ -133,7 +134,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		
 		DefaultTableModel tabelaInfoPedidos = new DefaultTableModel(
 		        new Object[][] {},
-		        new String[] { "id da loja", "data do pedido", "valor total", "nome do vendedor"}) {
+		        new String[] { "id da loja", "data do pedido", "valor total", "nome do vendedor", "cpf do cliente"}) {
 	 	   
 	 	    public boolean isCellEditable(int row, int column) {
 	 	        return false;
@@ -144,21 +145,57 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		produtosResultadoCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
 		produtosResultadoCliente.getColumnModel().getColumn(2).setPreferredWidth(120);
 		produtosResultadoCliente.getColumnModel().getColumn(3).setPreferredWidth(120);
+		produtosResultadoCliente.getColumnModel().getColumn(3).setPreferredWidth(120);
 
 		JScrollPane scrollInformacoesProduto = new JScrollPane(produtosResultadoCliente);
 		scrollInformacoesProduto.setBounds(34, 272, 897, 141);
 		contentPane.add(scrollInformacoesProduto);
 		
+       	JButton btnSalvarPdf = new JButton("Salvar em pdf");
+       	btnSalvarPdf.setEnabled(false);
+   		btnSalvarPdf.addActionListener(new ActionListener() {
+   			public void actionPerformed(ActionEvent e) {
+   				
+   			
+   				PDF pdf = new PDF();
+   				
+   				
+   				
+   				pdf.setListInfoCliente(tabelaInfoCliente);  				
+   				pdf.setListInfoPedidosCliente(tabelaInfoPedidos);
+   				
+   				
+   				
+   				try {
+					pdf.gerarPdf();
+				} catch (DocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+   				
+   				
+   				
+   		 	
+   				}
+   				
+   			
+   		});
+   		
+   		
+   	
+   		btnSalvarPdf.setBounds(507, 429, 166, 25);
+   		contentPane.add(btnSalvarPdf);
+
 		
 		btnConsultarCliente.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	                  	                         	                
 	                ClienteConsultaTratamento infoCliente = new ClienteConsultaTratamento();
-	                
+	               
 	                
 	                if(!inputNomeCliente.getText().isBlank() && !inputNomeCliente.getText().isEmpty()) {
 	                //retorna os valores do database após passar pela classe de tratamentto de informações do cliente
-	                List<Object[]> resultadosNomeCliente = infoCliente.setConsultaNomeClienteEndereco(inputNomeCliente.getText());
+	                List<Object[]> resultadosNomeCliente =infoCliente.setConsultaNomeClienteEndereco(inputNomeCliente.getText());
 	           
 	                tabelaInfoCliente.setRowCount(0);
 
@@ -166,7 +203,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 	                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
 	                    tabelaInfoCliente.addRow(cliente); 
 	                }
-	                
+	                btnSalvarPdf.setEnabled(true);
 	                }else if(!inputCpfCLiente.getText().isBlank() && !inputCpfCLiente.getText().isEmpty()) {
 	                	
 		                List<Object[]> resultadosCpfCliente = infoCliente.setConsultaCpfClienteEndereco(inputCpfCLiente.getText());
@@ -176,7 +213,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		                for (Object[] cliente : resultadosCpfCliente) {
 		                    tabelaInfoCliente.addRow(cliente); 
 		                }              	
-	                	
+		                btnSalvarPdf.setEnabled(true);
 	                }else {
 	                	
 	                	  JOptionPane.showMessageDialog(null, "Digite pelo menos nome ou cpf", "Error",  JOptionPane.ERROR_MESSAGE);
@@ -208,38 +245,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		});
 		btnLimpar.setBounds(685, 429, 117, 25);
 		contentPane.add(btnLimpar);	
-       	JButton btnSalvarPdf = new JButton("Salvar em pdf");
-   		btnSalvarPdf.addActionListener(new ActionListener() {
-   			public void actionPerformed(ActionEvent e) {
-   			
-   				
-   								
-   				PDF pdf = new PDF();
-   				
-   				
-   				
-   				pdf.setListInfoCliente(tabelaInfoCliente);  				
-   				pdf.setListInfoPedidosCliente(tabelaInfoPedidos);
-   				
-   				
-   				
-   				try {
-					pdf.gerarPdf();
-				} catch (DocumentException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-   				
-   		 	
-   				
-   				
-   			}
-   		});
-   		btnSalvarPdf.setEnabled(true);
-   		btnSalvarPdf.setBounds(507, 429, 166, 25);
-   		contentPane.add(btnSalvarPdf);
 
-		
 	}
 }
 
