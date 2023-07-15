@@ -241,6 +241,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 				inputCpfCLiente.setText("");
 				tabelaInfoCliente.setRowCount(0); //vai zerar a tabela quando apertar o botao consultar
 				tabelaInfoPedidos.setRowCount(0);
+				btnSalvarPdf.setEnabled(false);
 			}
 		});
 		btnLimpar.setBounds(685, 429, 117, 25);

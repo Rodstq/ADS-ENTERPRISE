@@ -2,6 +2,7 @@ package utils;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
@@ -100,25 +101,38 @@ public class PDF {
             
             
             for (int i = 0; i < 5; i++) {
-            	if(i==4) {
-            		infoCliente.addCell("Complemento");
-            	}else {
-                infoCliente.addCell(listaInfoCliente.getColumnName(i));
-            	}
+                if (i == 4) {
+                    infoCliente.addCell("Complemento");
+                } else {
+                    infoCliente.addCell(listaInfoCliente.getColumnName(i));
+                }
             }
-            
-            for (int i = 0; i < listaInfoCliente.getRowCount(); i++) {
-                for (int k = 0; k < 5; k++) {
-                	
 
-                    Object cellValue = listaInfoCliente.getValueAt(i, k);
-                    infoCliente.addCell(cellValue.toString());
+            for (int i = 0; i < listaInfoCliente.getRowCount(); i++) {
+            	
+                String cpfAtual = listaInfoCliente.getValueAt(i, 1).toString();
+                boolean cpfDuplicado = false;
+
+                for (int j = 0; j < i; j++) {
+                    String cpfAnterior = listaInfoCliente.getValueAt(j, 1).toString();
+
+                    if (cpfAtual.equals(cpfAnterior)) {
+                        cpfDuplicado = true;
+                        break;
+                    }
                 }
-                	
+
+                if (!cpfDuplicado) {
+                    for (int k = 0; k < 5; k++) {
+                        Object celulaUnica = listaInfoCliente.getValueAt(i, k);
+                        infoCliente.addCell(celulaUnica.toString());
+                    }
                 }
-            
+            }
+
             paragrafoResultadoCliente.add(infoCliente);
-            
+
+
                  
             Paragraph paragrafoResultadoPedidos = new Paragraph(new Chunk(
                     "Lista de pedidos dos clientes: ",
