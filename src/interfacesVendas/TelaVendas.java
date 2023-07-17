@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Estoque.EstoqueManager;
 import conexaoDb.Db;
 import java.awt.FlowLayout;
 
@@ -82,9 +83,9 @@ public class TelaVendas extends JFrame {
 				contentPane.add(MainPanel);
 				GridBagLayout gbl_MainPanel = new GridBagLayout();
 				gbl_MainPanel.columnWidths = new int[] { 365, 0 };
-				gbl_MainPanel.rowHeights = new int[] { 0, 89, 14, 64, 0, 0 };
+				gbl_MainPanel.rowHeights = new int[] { 0, 0, 89, 14, 64, 0, 0, 0 };
 				gbl_MainPanel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-				gbl_MainPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
+				gbl_MainPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
 				MainPanel.setLayout(gbl_MainPanel);
 				
 						JLabel lblVendas = new JLabel("VENDAS");
@@ -95,6 +96,13 @@ public class TelaVendas extends JFrame {
 						gbc_lblVendas.gridx = 0;
 						gbc_lblVendas.gridy = 0;
 						MainPanel.add(lblVendas, gbc_lblVendas);
+								
+								JLabel lblOlFulano = new JLabel("Olá, Fulano!");
+								GridBagConstraints gbc_lblOlFulano = new GridBagConstraints();
+								gbc_lblOlFulano.insets = new Insets(0, 0, 5, 0);
+								gbc_lblOlFulano.gridx = 0;
+								gbc_lblOlFulano.gridy = 1;
+								MainPanel.add(lblOlFulano, gbc_lblOlFulano);
 						
 								JPanel FormPanel = new JPanel();
 								GridBagConstraints gbc_FormPanel = new GridBagConstraints();
@@ -102,7 +110,7 @@ public class TelaVendas extends JFrame {
 								gbc_FormPanel.anchor = GridBagConstraints.NORTH;
 								gbc_FormPanel.fill = GridBagConstraints.HORIZONTAL;
 								gbc_FormPanel.gridx = 0;
-								gbc_FormPanel.gridy = 1;
+								gbc_FormPanel.gridy = 2;
 								MainPanel.add(FormPanel, gbc_FormPanel);
 								GridBagLayout gbl_FormPanel = new GridBagLayout();
 								gbl_FormPanel.columnWidths = new int[] { 137, 132, 70, 0 };
@@ -195,7 +203,7 @@ public class TelaVendas extends JFrame {
 																GridBagConstraints gbc_separator = new GridBagConstraints();
 																gbc_separator.insets = new Insets(0, 0, 5, 0);
 																gbc_separator.gridx = 0;
-																gbc_separator.gridy = 2;
+																gbc_separator.gridy = 3;
 																MainPanel.add(separator, gbc_separator);
 																
 																		JPanel TablePanel = new JPanel();
@@ -204,7 +212,7 @@ public class TelaVendas extends JFrame {
 																		gbc_TablePanel.insets = new Insets(0, 0, 5, 0);
 																		gbc_TablePanel.fill = GridBagConstraints.HORIZONTAL;
 																		gbc_TablePanel.gridx = 0;
-																		gbc_TablePanel.gridy = 3;
+																		gbc_TablePanel.gridy = 4;
 																		MainPanel.add(TablePanel, gbc_TablePanel);
 																		GridBagLayout gbl_TablePanel = new GridBagLayout();
 																		gbl_TablePanel.columnWidths = new int[]{423, 0};
@@ -253,10 +261,11 @@ public class TelaVendas extends JFrame {
 						
 				JPanel panel_1 = new JPanel();
 				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+				gbc_panel_1.insets = new Insets(0, 0, 5, 0);
 				gbc_panel_1.anchor = GridBagConstraints.SOUTH;
 				gbc_panel_1.fill = GridBagConstraints.HORIZONTAL;
 				gbc_panel_1.gridx = 0;
-				gbc_panel_1.gridy = 4;
+				gbc_panel_1.gridy = 5;
 				MainPanel.add(panel_1, gbc_panel_1);
 
 				JButton SubmitButton = new JButton("Finalizar");
@@ -286,6 +295,12 @@ public class TelaVendas extends JFrame {
 		});
 		SubmitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int rowCount = tableModel.getRowCount();
+				for (int i = 0; i < rowCount; i++) {
+					int idProduto = (int) tableModel.getValueAt(i, 0);
+					EstoqueManager.venderProduto(idProduto);
+				}
+				tableModel.setRowCount(0);
 			}
 		});
 	}
