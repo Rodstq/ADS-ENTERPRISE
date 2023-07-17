@@ -2,6 +2,7 @@ package utils;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
@@ -82,7 +83,7 @@ public class PDF {
             
             //tabelas
 
-            float[] widthsColunas = {150,150f, 150f, 150f, 30f};
+            float[] widthsColunas = {150,150f, 150f, 150f, 150f};
             
             
             Rectangle r = new Rectangle(PageSize.A4.getRight(70), PageSize.A4.getTop(150));
@@ -100,28 +101,38 @@ public class PDF {
             
             
             for (int i = 0; i < 5; i++) {
-            	if(i==4) {
-            		infoCliente.addCell("N°");
-            	}else {
-                infoCliente.addCell(listaInfoCliente.getColumnName(i));
-            	}
+                if (i == 4) {
+                    infoCliente.addCell("Complemento");
+                } else {
+                    infoCliente.addCell(listaInfoCliente.getColumnName(i));
+                }
             }
-            
+
             for (int i = 0; i < listaInfoCliente.getRowCount(); i++) {
-                for (int k = 0; k < 5; k++) {
-                	
-                	if(k==4) {
-                		infoCliente.addCell((i+1)+"");
-                }else {
-                	
-                    Object cellValue = listaInfoCliente.getValueAt(i, k);
-                    infoCliente.addCell(cellValue.toString());
+            	
+                String cpfAtual = listaInfoCliente.getValueAt(i, 1).toString();
+                boolean cpfDuplicado = false;
+
+                for (int j = 0; j < i; j++) {
+                    String cpfAnterior = listaInfoCliente.getValueAt(j, 1).toString();
+
+                    if (cpfAtual.equals(cpfAnterior)) {
+                        cpfDuplicado = true;
+                        break;
+                    }
                 }
-                	
+
+                if (!cpfDuplicado) {
+                    for (int k = 0; k < 5; k++) {
+                        Object celulaUnica = listaInfoCliente.getValueAt(i, k);
+                        infoCliente.addCell(celulaUnica.toString());
+                    }
                 }
             }
+
             paragrafoResultadoCliente.add(infoCliente);
-            
+
+
                  
             Paragraph paragrafoResultadoPedidos = new Paragraph(new Chunk(
                     "Lista de pedidos dos clientes: ",
@@ -138,7 +149,7 @@ public class PDF {
           
                 	
                 	if(i==4) {
-                		pedidosInfo.addCell("N°");
+                		pedidosInfo.addCell("CPF Cliente");
                 }else {
                 	
                     pedidosInfo.addCell(listInfoPedidosCliente.getColumnName(i));
@@ -147,22 +158,25 @@ public class PDF {
            }
             	
             
-            
+           
             for (int i = 0; i < listInfoPedidosCliente.getRowCount(); i++) {
             	
-            	
+           
                 for (int k = 0; k < 5; k++) {
-                  
-                    if(k==4) {
-                    	
-                    	pedidosInfo.addCell((i+1)+"");
-                    	
-                    }else {
+//                  
+//                    if(k==4) {
+//                    	
+//                    	 	
+//                   
+//                      	Object cellValue = listaInfoCliente.getValueAt(i,1);
+//                      	pedidosInfo.addCell(cellValue.toString());
+//                      	
+//                    }else {
                     	
                     	Object cellValue = listInfoPedidosCliente.getValueAt(i,k);
                     	 pedidosInfo.addCell(cellValue.toString());
-                    	
-                    }
+//                    	
+//                    }
                    
                 }
             }

@@ -22,11 +22,16 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import classesProdutos.ProdutoConsultaTratamento;
+import controladores.ProdutosConsulta;
+import controladores.ProdutosCadastrar;
+import classesProdutos.Produto;
+
 public class InterfaceProdutosPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	boolean consultado;
 	JTable tblData;
+	private JTextField id_estoqueTF;
 
 	/**
 	 * Launch the application.
@@ -126,15 +131,39 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		getContentPane().add(txtDataS);
 		txtDataS.setColumns(10);
 		
+		JLabel txtIdEstoque = new JLabel("Id Estoque");
+		txtIdEstoque.setFont(new Font("Tahoma", Font.BOLD, 11));
+		txtIdEstoque.setBounds(241, 95, 60, 14);
+		contentPane.add(txtIdEstoque);
+		
+		id_estoqueTF = new JTextField();
+		id_estoqueTF.setBounds(311, 92, 74, 20);
+		contentPane.add(id_estoqueTF);
+		id_estoqueTF.setColumns(10);
+		
 		JButton botaoCadastrar = new JButton("Cadastrar Produto");
 		botaoCadastrar.setBounds(405, 159, 182, 45);
 		botaoCadastrar.setFont(new Font("Tahoma", Font.BOLD, 13));
-		botaoCadastrar.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {}});
+		botaoCadastrar.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				Produto produto = new Produto();
+				produto.setId_produto(txtId.getText());
+				produto.setNome_produto(txtProd.getText());
+				produto.setQuantidade(Integer.parseInt(txtQtd.getText()));
+				produto.setValor(Double.parseDouble(txtVlr.getText()));
+				produto.setId_estoque(id_estoqueTF.getText());
+				
+				
+				ProdutosCadastrar produtosCadastrar = new ProdutosCadastrar();
+				produtosCadastrar.cadastrarProdutos(produto);
+				
+			}});
 		getContentPane().add(botaoCadastrar);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane_1.setBounds(10, 220, 685, 274);
+		scrollPane_1.setBounds(10, 215, 685, 274);
 		contentPane.add(scrollPane_1);
 		
 		JTable tblData = new JTable();
@@ -144,51 +173,23 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		botaoConsultar.setBounds(105, 159, 182, 45);
 		botaoConsultar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		botaoConsultar.addActionListener(new ActionListener() {
-			boolean consultado = false;
+			
 			public void actionPerformed(ActionEvent e) {
 							
-				if(consultado == false){
 			
-				try {
-					Connection conexao = null;
-					conexao = DriverManager.getConnection("jdbc:mysql://localhost/test","root","");					
+											
+					ProdutosConsulta produtosConsulta = new ProdutosConsulta();
+					produtosConsulta.setTblData(tblData);
+					produtosConsulta.consultarProdutos(txtProd.getText());
+									
 				
-					ResultSet rs = conexao.createStatement().executeQuery("SELECT * FROM produtos;");
-					ResultSetMetaData rsmd = rs.getMetaData();
-					DefaultTableModel model =(DefaultTableModel) tblData.getModel();
 					
-					int cols = rsmd.getColumnCount();
-					String[] colName = new String[cols];
-					for(int i = 0 ; i<cols; i++) {
-						colName[i]=rsmd.getColumnName(i+1);
-						model.setColumnIdentifiers(colName);
-					
-					while (rs.next()) {
-						String id = rs.getString(1);
-						String nome = rs.getString(2);
-						int qtd = rs.getInt(3);
-						double vlr = rs.getDouble(4);
-						Date dataV = rs.getDate(5);
-						Date dataE = rs.getDate(6);
-						Date dataS = rs.getDate(7);	
-						
-						Object[] row = { id,nome,qtd,vlr,dataV,dataE,dataS};
-						model.addRow(row);
-						consultado=true;
-					}
-					}
-					
-				}catch(SQLException q) {
-					q.printStackTrace();							
-				}
-			}else {
-				
-			};
+			
 				
 			} 
 		 });
+		
 		getContentPane().add(botaoConsultar);
+		
+	  }
 	}
-
-}
-

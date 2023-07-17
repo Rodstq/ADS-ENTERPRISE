@@ -33,13 +33,10 @@ public class ClienteConsultaDatabase {
 				String bairro = rs.getString("bairro");
 				String rua = rs.getString("rua");
 				String cep = rs.getString("cep");
-							
-				 Object[] cliente = { nome, cpf, dataNascimento, telefone, estado, cidade, bairro, rua, cep};
-                 resultados.add(cliente);
-                 
-     			rs.close();
-     			stmt.close();
-     			Db.CloseDb();
+				String complemento = rs.getString("complemento");
+				
+				 Object[] cliente = { nome, cpf, dataNascimento, telefone, complemento, estado, cidade, bairro, rua, cep };
+                resultados.add(cliente);
 				}
 			}catch(Exception e) {
 
@@ -76,14 +73,13 @@ public class ClienteConsultaDatabase {
 				String bairro = rs.getString("bairro");
 				String rua = rs.getString("rua");
 				String cep = rs.getString("cep");
+				String complemento = rs.getString("complemento");
 				
-				 Object[] cliente = { nome, cpf, dataNascimento, telefone, estado, cidade, bairro, rua, cep };
+				 Object[] cliente = { nome, cpf, dataNascimento, telefone, complemento, estado, cidade, bairro, rua, cep };
                  resultados.add(cliente);
 				
 			}
-			rs.close();	
-			stmt.close();
-			Db.CloseDb();	
+
 		}catch (Exception e){
 			e.printStackTrace();
 			
