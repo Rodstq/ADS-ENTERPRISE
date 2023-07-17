@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import interfacesCliente.InterfaceClientesConsulta;
 import interfacesCliente.InterfaceClientesPrincipal;
 import interfacesProdutos.InterfaceProdutosPrincipal;
+import interfacesVendas.TelaVendas;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -54,6 +55,11 @@ public class Main extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnModuloVendas = new JButton("Módulo de Vendas");
+		btnModuloVendas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaVendas.TelaCaixa();
+			}
+		});
 	
 		btnModuloVendas.setBounds(272, 256, 194, 43);
 		contentPane.add(btnModuloVendas);
