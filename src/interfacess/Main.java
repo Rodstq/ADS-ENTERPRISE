@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import interfacesCliente.InterfaceClientesConsulta;
 import interfacesCliente.InterfaceClientesPrincipal;
 import interfacesProdutos.InterfaceProdutosPrincipal;
+import interfacesPedidos.InterfacePedidosPrincipal;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -66,6 +67,19 @@ public class Main extends JFrame {
 		JButton btnModuloEstoque = new JButton("Módulo de Estoque");
 		btnModuloEstoque.setBounds(272, 171, 194, 43);
 		
+		JButton btnModuloPedidos = new JButton("Módulo de Pedidos");
+		btnModuloPedidos.setBounds(272, 410, 194, 43);
+		contentPane.add(btnModuloPedidos);
+
+		// Abre janela com o histórico de pedidos
+		btnModuloPedidos.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	InterfacePedidosPrincipal.AbrirInterfacePedidos();
+		        dispose();
+		    }
+		});
+
+		
 		//Ao clicar no botao de estoque, abre a GUI dos produtos
 		
 		btnModuloEstoque.addActionListener(new ActionListener() {
@@ -89,8 +103,7 @@ public class Main extends JFrame {
 		//abre a janela do modulo clientes
 		btnMduloClientes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
-            	InterfaceClientesPrincipal.clientePrincipal();
+              InterfaceClientesPrincipal.clientePrincipal();
               dispose();
          }
          });
