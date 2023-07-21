@@ -1,11 +1,9 @@
 package classesCliente;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-import controladores.ClienteAtualizarDatabase;
-import controladores.ClienteCadastroDatabase;
-import controladores.ClienteConsultaDatabase;
+import controladores.Cliente.ClienteAtualizarDatabase;
+import controladores.Cliente.ClienteConsultaDatabase;
 
 public class ClienteAtualizarTratamento  extends Clientes{
 

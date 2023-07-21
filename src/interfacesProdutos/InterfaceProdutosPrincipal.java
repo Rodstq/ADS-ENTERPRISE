@@ -4,12 +4,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,11 +14,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
-import classesProdutos.ProdutoConsultaTratamento;
-import controladores.ProdutosConsulta;
-import controladores.ProdutosCadastrar;
+import controladores.Produtos.ProdutosConsulta;
+import controladores.Produtos.ProdutosCadastrar;
 import classesProdutos.Produto;
 
 public class InterfaceProdutosPrincipal extends JFrame {

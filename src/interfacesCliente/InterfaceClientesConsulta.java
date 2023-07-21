@@ -2,27 +2,20 @@ package interfacesCliente;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controladores.ClienteConsultaDatabase;
-import controladores.ClienteConsultaPedidosDatabase;
+import controladores.Cliente.ClienteConsultaPedidosDatabase;
 import utils.PDF;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
-import javax.swing.JList;
-import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ContainerAdapter;
-import java.awt.event.ContainerEvent;
 import java.util.*;
 
 import javax.swing.table.DefaultTableModel;
@@ -31,9 +24,6 @@ import com.lowagie.text.DocumentException;
 
 import classesCliente.ClienteConsultaTratamento;
 
-import javax.swing.JScrollBar;
-import javax.swing.JProgressBar;
-import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 
 public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {

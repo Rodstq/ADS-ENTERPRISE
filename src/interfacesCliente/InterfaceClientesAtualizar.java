@@ -1,13 +1,11 @@
 package interfacesCliente;
 
 import java.awt.EventQueue;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -17,13 +15,9 @@ import classesCliente.ClienteAtualizarTratamento;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
-import javax.swing.JList;
-import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
-import controladores.ClienteAtualizarDatabase;
+import controladores.Cliente.ClienteAtualizarDatabase;
 public class InterfaceClientesAtualizar extends InterfaceClientesPrincipal {
 
 	private JPanel contentPane;
@@ -96,7 +90,8 @@ public class InterfaceClientesAtualizar extends InterfaceClientesPrincipal {
           
 		            atualizar.clienteAtualizarCadastroCliente(teste, textFieldCPF.getText(),  textFieldNomeCliente.getText(), textFieldTelefone.getText());
 		            
-		            		            atualizar.clienteAtualizarEnderecoCliente( textFieldCep.getText(), textFieldEstado.getText(), textFieldCidade.getText(), 
+		            
+		            atualizar.clienteAtualizarEnderecoCliente( textFieldCep.getText(), textFieldEstado.getText(), textFieldCidade.getText(), 
 		            		textFieldBairro.getText(), textFieldRua.getText(),textFieldDescricaoEndereco.getText());
 
 		            

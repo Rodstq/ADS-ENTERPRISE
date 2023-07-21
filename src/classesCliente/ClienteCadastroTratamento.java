@@ -1,7 +1,7 @@
 package classesCliente;
 import java.time.LocalDate;
 
-import controladores.ClienteCadastroDatabase;
+import controladores.Cliente.ClienteCadastroDatabase;
 
 
 public class ClienteCadastroTratamento extends Clientes {
@@ -35,7 +35,8 @@ public class ClienteCadastroTratamento extends Clientes {
 		setRuaCliente(descricaoRuaCliente);
 		setDescricaoRuaCliente(descricaoRuaCliente);
 		setCpf(cpfCliente);
-				        clienteDatabase.cadastrarEnderecoCliente(this);
+				
+        clienteDatabase.cadastrarEnderecoCliente(this);
 	}
     
 }

@@ -1,4 +1,4 @@
-package controladores;
+package controladores.Cliente;
 
 import java.sql.Statement;
 import java.util.ArrayList;

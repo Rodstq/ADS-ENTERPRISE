@@ -1,4 +1,4 @@
-package controladores;
+package controladores.Produtos;
 import conexaoDb.Db;
 
 import java.sql.Connection;

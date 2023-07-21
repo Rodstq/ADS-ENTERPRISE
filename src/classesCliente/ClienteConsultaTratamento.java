@@ -1,9 +1,7 @@
 package classesCliente;
 import java.util.List;
 
-import controladores.ClienteCadastroDatabase;
-import controladores.ClienteConsultaDatabase;
-import controladores.ClienteConsultaPedidosDatabase;
+import controladores.Cliente.ClienteConsultaDatabase;
 
 public class ClienteConsultaTratamento extends Clientes {
 

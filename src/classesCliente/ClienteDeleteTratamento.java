@@ -1,8 +1,6 @@
 package classesCliente;
 
-import controladores.ClienteCadastroDatabase;
-import controladores.ClienteConsultaDatabase;
-import controladores.ClienteDeleteDatabase;
+import controladores.Cliente.ClienteDeleteDatabase;
 public class ClienteDeleteTratamento extends Clientes{
 
 	
