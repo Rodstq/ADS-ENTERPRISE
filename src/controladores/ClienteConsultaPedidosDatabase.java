@@ -23,47 +23,50 @@ public class ClienteConsultaPedidosDatabase {
 		
 		if(!nomeCliente.isEmpty()) {
 		
-			String query = "SELECT pedido.id_loja, pedido.data_pedido, pedido.valor_produtos, vendedor.nome_vendedor, pedido.cpf_cliente " +
-		               "FROM pedido " +
-		               "JOIN vendedor ON pedido.cpf_vendedor = vendedor.cpf_vendedor " +
-		               "JOIN cliente ON pedido.cpf_cliente = cliente.cpf_cliente " +
-		               "WHERE cliente.nome_cliente = '"+nomeCliente+"'";
+			String query = "SELECT  pedido.cpf_cliente, pedido.data_pedido, vendedor.nome_vendedor, SUM(pedido_produto.valor_total_produto_comprado) AS valor_total_comprado "+
+							"FROM pedido "+
+							"JOIN vendedor ON pedido.cpf_vendedor = vendedor.cpf_vendedor "+
+							"JOIN cliente ON pedido.cpf_cliente = cliente.cpf_cliente "+
+							"JOIN pedido_produto ON pedido.id_pedido = pedido_produto.id_pedido "+
+							"WHERE cliente.nome_cliente = '" +nomeCliente +"'"+
+							"GROUP BY pedido.id_pedido";
 
 
 		
 		ResultSet rs = stmt.executeQuery(query);
 		while(rs.next()){
 			
-			int id_loja = rs.getInt("id_loja");
-			Date data_pedido = rs.getDate("data_pedido");
-			float valor_total = rs.getFloat("valor_produtos");
-			String nome_vendedor = rs.getString("nome_vendedor");
 			String cpf_cliente = rs.getString("cpf_cliente");
-
+			Date data_pedido = rs.getDate("data_pedido");
+			String nome_vendedor = rs.getString("nome_vendedor");			
+			float valor_total = rs.getFloat("valor_total_comprado");
+			
 		
-			 Object[] produtosInfo= { id_loja, data_pedido, valor_total, nome_vendedor, cpf_cliente};
+			 Object[] produtosInfo= {cpf_cliente, data_pedido, nome_vendedor, valor_total};
 	         resultadosProdutos.add(produtosInfo);
 		}
 		
 		
 	}else if(!cpfCliente.isEmpty()) {
 		
-		String query ="SELECT pedido.id_loja, pedido.data_pedido, pedido.valor_produtos, vendedor.nome_vendedor, pedido.cpf_cliente " +
-				"FROM pedido " +
-				"JOIN vendedor on pedido.cpf_vendedor = vendedor.cpf_vendedor " +
-				"WHERE pedido.cpf_cliente = '" + cpfCliente + "'";
-		
+		String query ="SELECT  pedido.cpf_cliente, pedido.data_pedido, vendedor.nome_vendedor, SUM(pedido_produto.valor_total_produto_comprado) AS valor_total_comprado "+
+						"FROM pedido "+
+						"JOIN vendedor on pedido.cpf_vendedor = vendedor.cpf_vendedor " +
+						"JOIN cliente ON pedido.cpf_cliente = cliente.cpf_cliente "+
+						"JOIN pedido_produto ON pedido.id_pedido = pedido_produto.id_pedido "+
+						"WHERE cliente.cpf_cliente = '" + cpfCliente +"'"+
+						"GROUP BY pedido.id_pedido ";
+
 		ResultSet rs = stmt.executeQuery(query);
 		while(rs.next()){
 						
-			int id_loja = rs.getInt("id_loja");
-			Date data_pedido = rs.getDate("data_pedido");
-			float valor_total = rs.getFloat("valor_produtos");
-			String nome_vendedor = rs.getString("nome_vendedor");
 			String cpf_cliente = rs.getString("cpf_cliente");
-
+			Date data_pedido = rs.getDate("data_pedido");
+			String nome_vendedor = rs.getString("nome_vendedor");			
+			float valor_total = rs.getFloat("valor_total_comprado");
 			
-			 Object[] produtosInfo= { id_loja, data_pedido, valor_total, nome_vendedor, cpf_cliente};
+		
+			 Object[] produtosInfo= {cpf_cliente, data_pedido, nome_vendedor, valor_total};
 	         resultadosProdutos.add(produtosInfo);
 		}
 		

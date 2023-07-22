@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import classesCliente.ClienteCadastroTratamento;
 import controladores.ClienteConsultaDatabase;
+import data.tratamento.clients.ClienteCadastroTratamento;
 
 import java.util.Date;
 import java.time.LocalDate;

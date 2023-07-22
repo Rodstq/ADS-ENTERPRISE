@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import classesCliente.ClienteDeleteTratamento;
+import data.tratamento.clients.ClienteDeleteTratamento;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;

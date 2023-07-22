@@ -1,4 +1,4 @@
-package classesCliente;
+package data.tratamento.clients;
 
 
 import java.time.LocalDate;
@@ -100,6 +100,26 @@ public class Clientes {
     public String getDescricaoRuaCliente() {
         return this.descricaoRuaCliente;
     }
+    public void setCadastrarClienteInfo(String cpfCliente, String nomeCliente, LocalDate dataNascimento, 
+            String telefoneCliente) {
+     
+        setCpf(cpfCliente);
+        setNomeCliente(nomeCliente);
+        setDataNascimentoCliente(dataNascimento);
+        setTelefoneCliente(telefoneCliente);
+   
+    }
     
+	public void setCadastrarEnderecoCliente( String cepCliente, String estadoCliente, String cidadeCliente, String bairroCliente, 
+			String ruaCliente, String descricaoRuaCliente, String cpfCliente) {
+		
+		setCepCliente(cepCliente);
+		setEstadoCliente(estadoCliente);
+		setCidadeCliente(cidadeCliente);
+		setBairroCliente(bairroCliente);	
+		setRuaCliente(descricaoRuaCliente);
+		setDescricaoRuaCliente(descricaoRuaCliente);
+		setCpf(cpfCliente);
        
+	}
 }

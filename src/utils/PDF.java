@@ -107,11 +107,11 @@ public void gerarPdf() throws DocumentException {
                 
                 //tabelas
 
-                float[] widthsColunas = {150,150f, 150f, 150f, 150f};
+                float[] widthsColunas = {150,150f, 150f, 150f};
                 
                 
                 Rectangle r = new Rectangle(PageSize.A4.getRight(70), PageSize.A4.getTop(150));
-                PdfPTable infoCliente = new PdfPTable(5);
+                PdfPTable infoCliente = new PdfPTable(4);
                 
                 
                 infoCliente.setWidthPercentage(widthsColunas, r);
@@ -124,12 +124,9 @@ public void gerarPdf() throws DocumentException {
                 paragrafoResultadoCliente.setSpacingBefore(15);
                 
                 
-                for (int i = 0; i < 5; i++) {
-                    if (i == 4) {
-                        infoCliente.addCell("Complemento");
-                    } else {
-                        infoCliente.addCell(listaInfoCliente.getColumnName(i));
-                    }
+                for (int i = 0; i < 4; i++) {
+                	 infoCliente.addCell(listaInfoCliente.getColumnName(i));
+         
                 }
 
                 for (int i = 0; i < listaInfoCliente.getRowCount(); i++) {
@@ -147,7 +144,7 @@ public void gerarPdf() throws DocumentException {
                     }
 
                     if (!cpfDuplicado) {
-                        for (int k = 0; k < 5; k++) {
+                        for (int k = 0; k < 4; k++) {
                             Object celulaUnica = listaInfoCliente.getValueAt(i, k);
                             infoCliente.addCell(celulaUnica.toString());
                         }
@@ -162,22 +159,17 @@ public void gerarPdf() throws DocumentException {
                         "Lista de pedidos dos clientes: ",
                         FontFactory.getFont(FontFactory.HELVETICA, 10)));
                 paragrafoResultadoPedidos.setSpacingBefore(15);
-                PdfPTable pedidosInfo = new PdfPTable(5);
+                PdfPTable pedidosInfo = new PdfPTable(4);
                 
                 pedidosInfo.setWidthPercentage(widthsColunas, r);
                 pedidosInfo.setTotalWidth(500);
                 pedidosInfo.setLockedWidth(true);
                 
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 4; i++) {
                 	
+                                	
+                  pedidosInfo.addCell(listInfoPedidosCliente.getColumnName(i));
               
-                    	
-                    	if(i==4) {
-                    		pedidosInfo.addCell("CPF Cliente");
-                    }else {
-                    	
-                        pedidosInfo.addCell(listInfoPedidosCliente.getColumnName(i));
-                    }
                     	
                }
                 	
@@ -186,7 +178,7 @@ public void gerarPdf() throws DocumentException {
                 for (int i = 0; i < listInfoPedidosCliente.getRowCount(); i++) {
                 	
                
-                    for (int k = 0; k < 5; k++) {
+                    for (int k = 0; k < 4; k++) {
 
                         	Object cellValue = listInfoPedidosCliente.getValueAt(i,k);
                         	 pedidosInfo.addCell(cellValue.toString());

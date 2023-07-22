@@ -3,8 +3,8 @@ package controladores;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import classesCliente.Clientes;
 import conexaoDb.Db;
+import data.tratamento.clients.Clientes;
 
 public class ClienteAtualizarDatabase {
     public void setAtualizarDadosCliente(Clientes cliente) {

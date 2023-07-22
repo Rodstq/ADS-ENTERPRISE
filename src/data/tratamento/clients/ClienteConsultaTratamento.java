@@ -1,4 +1,4 @@
-package classesCliente;
+package data.tratamento.clients;
 import java.util.List;
 
 import controladores.ClienteCadastroDatabase;

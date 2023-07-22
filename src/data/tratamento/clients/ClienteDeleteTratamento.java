@@ -1,4 +1,4 @@
-package classesCliente;
+package data.tratamento.clients;
 
 import controladores.ClienteCadastroDatabase;
 import controladores.ClienteConsultaDatabase;

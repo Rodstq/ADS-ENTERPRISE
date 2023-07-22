@@ -11,10 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
-import classesCliente.Clientes;
-import classesCliente.ClienteAtualizarTratamento;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -24,6 +20,8 @@ import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
 import controladores.ClienteAtualizarDatabase;
+import data.tratamento.clients.ClienteAtualizarTratamento;
+import data.tratamento.clients.Clientes;
 public class InterfaceClientesAtualizar extends InterfaceClientesPrincipal {
 
 	private JPanel contentPane;

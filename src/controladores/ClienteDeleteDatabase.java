@@ -1,8 +1,8 @@
 package controladores;
 import java.sql.Statement;
 
-import classesCliente.Clientes;
 import conexaoDb.Db;
+import data.tratamento.clients.Clientes;
 public class ClienteDeleteDatabase {
 
 	

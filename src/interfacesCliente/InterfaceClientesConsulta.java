@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import controladores.ClienteConsultaDatabase;
 import controladores.ClienteConsultaPedidosDatabase;
+import data.tratamento.clients.ClienteConsultaTratamento;
 import utils.PDF;
 
 import javax.swing.JLabel;
@@ -28,8 +29,6 @@ import java.util.*;
 import javax.swing.table.DefaultTableModel;
 
 import com.lowagie.text.DocumentException;
-
-import classesCliente.ClienteConsultaTratamento;
 
 import javax.swing.JScrollBar;
 import javax.swing.JProgressBar;
@@ -134,7 +133,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		
 		DefaultTableModel tabelaInfoPedidos = new DefaultTableModel(
 		        new Object[][] {},
-		        new String[] { "id da loja", "data do pedido", "valor total", "nome do vendedor", "cpf do cliente"}) {
+		        new String[] {  "cpf do cliente", "data do pedido", "nome do vendedor", "valor total do pedido"}) {
 	 	   
 	 	    public boolean isCellEditable(int row, int column) {
 	 	        return false;
