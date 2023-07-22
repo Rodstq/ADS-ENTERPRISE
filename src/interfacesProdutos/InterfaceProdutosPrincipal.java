@@ -29,6 +29,9 @@ import classesProdutos.Produto;
 import javax.swing.JTabbedPane;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
+import javax.swing.JRadioButtonMenuItem;
+import java.awt.Checkbox;
+import javax.swing.ButtonGroup;
 
 public class InterfaceProdutosPrincipal extends JFrame {
 
@@ -37,6 +40,8 @@ public class InterfaceProdutosPrincipal extends JFrame {
 	JTable tblData;
 	private JTextField id_estoqueTF;
 	private JTabbedPane tabbedPane;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private String escolha;
 
 	/**
 	 * Launch the application.
@@ -89,21 +94,6 @@ public class InterfaceProdutosPrincipal extends JFrame {
 				JTable tblData_1 = new JTable();
 				scrollPane_1.setViewportView(tblData_1);
 				
-				JButton botaoConsultar = new JButton("Consultar produto");
-				botaoConsultar.setBounds(199, 146, 282, 45);
-				botaoConsultar.setFont(new Font("Tahoma", Font.BOLD, 13));
-				botaoConsultar.addActionListener(new ActionListener() {
-					
-					public void actionPerformed(ActionEvent e) {
-							
-							ProdutosConsulta produtosConsulta = new ProdutosConsulta();
-							produtosConsulta.setTblData(tblData_1);
-							produtosConsulta.consultarProdutos(txtProdConsultar.getText());
-												
-					} 
-				 });
-				consultarProduto.add(botaoConsultar);	
-				
 				JLabel lblNewLabelConsultar = new JLabel("id :");
 				consultarProduto.add(lblNewLabelConsultar);
 				lblNewLabelConsultar.setBounds(83, 44, 16, 14);
@@ -120,12 +110,59 @@ public class InterfaceProdutosPrincipal extends JFrame {
 				consultarProduto.add(lblNewLabel_1);
 				
 				JRadioButton RadioButtonIdConsultar = new JRadioButton("");
+				RadioButtonIdConsultar.addActionListener(new ActionListener() {
+					
+					public void actionPerformed(ActionEvent e) {
+//						RadioButtonNomeConsultaBoolean = false; 
+//						RadioButtonIdConsultarBoolean = true;
+						
+						// desativando label e texto produto nome
+						produtoNomeConsultar.setEnabled(false);
+						txtProdConsultar.setEnabled(false);
+						escolha = "id";
+						//ativando label e texto produto id
+						lblNewLabelConsultar.setEnabled(true);
+						txtIdConsultar.setEnabled(true);
+					}
+					
+				});
+				buttonGroup.add(RadioButtonIdConsultar);
 				RadioButtonIdConsultar.setBounds(56, 41, 21, 23);
-				consultarProduto.add(RadioButtonIdConsultar);
+				consultarProduto.add(RadioButtonIdConsultar);	
 				
 				JRadioButton RadioButtonNomeConsulta = new JRadioButton("");
+				RadioButtonNomeConsulta.addActionListener(new ActionListener() {
+					
+					public void actionPerformed(ActionEvent e) {
+						// ativando label e texto produto nome
+						produtoNomeConsultar.setEnabled(true);
+						txtProdConsultar.setEnabled(true);
+						escolha = "produto";
+						//desativando label e texto produto id
+						lblNewLabelConsultar.setEnabled(false);
+						txtIdConsultar.setEnabled(false);
+									
+					}
+					
+				});
+				buttonGroup.add(RadioButtonNomeConsulta);
 				RadioButtonNomeConsulta.setBounds(56, 66, 21, 23);
 				consultarProduto.add(RadioButtonNomeConsulta);
+				
+				JButton botaoConsultar = new JButton("Consultar produto");
+				botaoConsultar.setBounds(199, 146, 282, 45);
+				botaoConsultar.setFont(new Font("Tahoma", Font.BOLD, 13));
+				botaoConsultar.addActionListener( new ActionListener() {
+					
+					public void actionPerformed(ActionEvent e) {							
+						ProdutosConsulta produtosConsulta = new ProdutosConsulta();
+						produtosConsulta.setTblData(tblData_1);
+						produtosConsulta.setQuery(escolha, txtIdConsultar.getText(), txtProdConsultar.getText());
+						produtosConsulta.consultarProdutos();
+				  }
+						  
+				 });
+				consultarProduto.add(botaoConsultar);
 				
 		
 				
@@ -222,7 +259,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				Produto produto = new Produto();
-				produto.setId_produto(txtIdConsultar.getText());
+				produto.setId_produto(txtId.getText());
 				produto.setNome_produto(txtProd.getText());
 				produto.setQuantidade(Integer.parseInt(txtQtd.getText()));
 				produto.setValor(Double.parseDouble(txtVlr.getText()));
@@ -234,6 +271,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 				
 			}});
 		cadastrarProduto.add(botaoCadastrar);
-		getContentPane().add(tabbedPane);
+		getContentPane().add(tabbedPane);		
+	
 	  }
 	}

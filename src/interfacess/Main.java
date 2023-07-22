@@ -93,6 +93,7 @@ public class Main extends JFrame {
 	    
 	    
 		//abre a janela do modulo clientes
+        
 		btnMduloClientes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
