@@ -23,14 +23,13 @@ public class ProdutosConsulta{
 	ResultSetMetaData rsmd;
 	int cols;
 	JTable tblData;
+	String query = "";
 	
-	public String consultarProdutos(String nomeProduto) {
+	public String consultarProdutos() {
 	String resultado="";
 	try {
 		
 		Statement stmt = Db.Connect().createStatement();
-		
-		String query = "SELECT * FROM Produtos;";
 		
 		ResultSet rs = stmt.executeQuery(query);
 		ResultSetMetaData rsmd = rs.getMetaData();
@@ -82,6 +81,17 @@ public class ProdutosConsulta{
 	
 	}
 	
+	// LÓGICA PARA MUDAR QUERY DE ACORDO COM SELEÇÃO POR ID OU POR NOME
+	public void setQuery(String escolha, String id, String nome) {
+		if(escolha.equals("id")){
+			this.query = "SELECT * FROM produtos WHERE id_produto =" + id + ";";
+			System.out.println(query);
+		} else {
+			this.query = "SELECT * FROM produtos WHERE nome_produto like '%" + nome + "%';";
+			System.out.println(query);
+		}
+	
+	}
 	public ResultSet get_Rs() {
 		return rs;
 	}

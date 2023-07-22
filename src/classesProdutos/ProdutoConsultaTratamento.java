@@ -11,7 +11,7 @@ public class ProdutoConsultaTratamento extends Produto{
 	public String  setRetorno(String nome_produto){
 		setNome_produto(nome_produto);
 		
-		String resultadosProdutos = produtoConsulta.consultarProdutos(nome_produto);
+		String resultadosProdutos = produtoConsulta.consultarProdutos();
 		
 		return resultadosProdutos;
 	}
