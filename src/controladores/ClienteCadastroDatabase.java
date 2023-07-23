@@ -10,9 +10,6 @@ import data.tratamento.clients.ClienteCadastroTratamento;
 import data.tratamento.clients.Clientes;
 
 public class ClienteCadastroDatabase implements InterfaceCadastroClient {
-
-	
-
 	
     public void infoCliente(Clientes cliente) {
     			

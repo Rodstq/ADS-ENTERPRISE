@@ -1,4 +1,4 @@
-package interfacesCliente;
+package guiCliente;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -8,13 +8,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controladores.infoClienteException;
 import data.tratamento.clients.ClienteDeleteTratamento;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class InterfaceClientesDelete extends InterfaceClientesPrincipal {
+public class GuiClientesDelete extends GuiClientesPrincipal {
 
 	private JPanel contentPane;
 	private JTextField inputDeletePedido;
@@ -27,7 +28,7 @@ public class InterfaceClientesDelete extends InterfaceClientesPrincipal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InterfaceClientesDelete frame = new InterfaceClientesDelete();
+					GuiClientesDelete frame = new GuiClientesDelete();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +40,7 @@ public class InterfaceClientesDelete extends InterfaceClientesPrincipal {
 	/**
 	 * Create the frame.
 	 */
-	public InterfaceClientesDelete() {
+	public GuiClientesDelete() {
 		
 		JLabel lblDeletarCadastroCliente = new JLabel("Deletar cadastro do cliente");
 		lblDeletarCadastroCliente.setBounds(29, 78, 227, 27);
@@ -91,12 +92,17 @@ public class InterfaceClientesDelete extends InterfaceClientesPrincipal {
 		    	
 		    	   	
 		    	ClienteDeleteTratamento delete = new ClienteDeleteTratamento();
-		    	delete.deleteClienteCadastro(inputCpfDeleteCadastro.getText());
-		    	delete.deleteClientePedido(inputDeletePedido.getText());
+		    
+
+		    		delete.deleteClienteCadastro(inputCpfDeleteCadastro.getText());
+					delete.deleteClientePedido(inputDeletePedido.getText());
+
 		    	
 
 		    } 
 		    });
+		
+		
 		
 }
 }

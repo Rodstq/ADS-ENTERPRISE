@@ -4,43 +4,52 @@ import java.util.List;
 import controladores.ClienteCadastroDatabase;
 import controladores.ClienteConsultaDatabase;
 import controladores.ClienteConsultaPedidosDatabase;
+import controladores.InterfaceCadastroClient;
+import controladores.InterfaceConsultaCliente;
+import controladores.infoClienteException;
 
-public class ClienteConsultaTratamento extends Clientes {
-
-	ClienteConsultaDatabase clienteConsulta = new ClienteConsultaDatabase();
-		
-	public  List<Object[]> setConsultaNomeClienteEndereco(String nome){
-		 
-		setNomeCliente(nome);
-		
+public class ClienteConsultaTratamento{
 	
-		List<Object[]> resultadosCliente = clienteConsulta.consultaNomeClienteEndereco(getNomeCliente());
+	 private InterfaceConsultaCliente datas;
+ 	 
+	public ClienteConsultaTratamento(InterfaceConsultaCliente data) {
+		this.datas = data;
+		
+	} 
+	
+	public ClienteConsultaTratamento() {
+		
+		datas = new ClienteConsultaDatabase();
+	}
+
+	
+		
+	public  List<Object[]> setConsultaNomeClienteEndereco(String nome) throws infoClienteException{
+		 
+		Clientes info = new Clientes();
+		info.setNomeCliente(nome);
+		
+		
+		List<Object[]> resultadosCliente = datas.infoCliente(info);;
 			
 		return  resultadosCliente;
 		
 	 }
 	
-	public  List<Object[]> setConsultaCpfClienteEndereco(String cpf){
-		 
-		setCpf(cpf);
-
+	public  List<Object[]> setConsultaCpfClienteEndereco(String cpf) throws infoClienteException {
+		
+		if(cpf.length()  != 11) {
+    		
+    		throw new infoClienteException("o cpf precisa ter 11 digitos");
+    		
+    	}
+		Clientes info = new Clientes();
+		info.setCpf(cpf);
+		
+		List<Object[]> resultadosCliente = datas.infoClienteCpf(info);;
 			
-		List<Object[]> resultadosCliente = clienteConsulta.consultaCpfClienteEndereco(getCpf());
-	
-		 return resultadosCliente;
+		return  resultadosCliente;
 
 	 }	 
-	
-	
-	
-//public  List<Object[]> getConsultaNomeCliente(){
-//	 
-//
-//
-//	List<Object[]> resultadosCliente = clienteConsulta.consultaNomeOnlyCliente(getNomeCliente());
-//		
-//	return  resultadosCliente;
-//	
-// }
 
 }

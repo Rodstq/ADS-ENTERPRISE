@@ -1,6 +1,8 @@
-package interfacesCliente;
+package guiCliente;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,9 +23,11 @@ import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
 import controladores.ClienteAtualizarDatabase;
+import controladores.infoClienteException;
 import data.tratamento.clients.ClienteAtualizarTratamento;
 import data.tratamento.clients.Clientes;
-public class InterfaceClientesAtualizar extends InterfaceClientesPrincipal {
+import interfacess.Main;
+public class GuiClientesAtualizar extends GuiClientesPrincipal {
 
 	private JPanel contentPane;
 	private JTextField textFieldCPF;
@@ -40,7 +45,7 @@ public class InterfaceClientesAtualizar extends InterfaceClientesPrincipal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InterfaceClientesAtualizar frame = new InterfaceClientesAtualizar();
+					GuiClientesAtualizar frame = new GuiClientesAtualizar();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +54,7 @@ public class InterfaceClientesAtualizar extends InterfaceClientesPrincipal {
 		});
 	}
 	
-	public InterfaceClientesAtualizar() {
+	public GuiClientesAtualizar() {
 
 		
 		contentPane = new JPanel();
@@ -92,7 +97,12 @@ public class InterfaceClientesAtualizar extends InterfaceClientesPrincipal {
 		        	teste = dataNascimento;
 		        	}
           
-		            atualizar.clienteAtualizarCadastroCliente(teste, textFieldCPF.getText(),  textFieldNomeCliente.getText(), textFieldTelefone.getText());
+		            try {
+						atualizar.clienteAtualizarCadastroCliente(teste, textFieldCPF.getText(),  textFieldNomeCliente.getText(), textFieldTelefone.getText());
+					} catch (infoClienteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 		            
 		            		            atualizar.clienteAtualizarEnderecoCliente( textFieldCep.getText(), textFieldEstado.getText(), textFieldCidade.getText(), 
 		            		textFieldBairro.getText(), textFieldRua.getText(),textFieldDescricaoEndereco.getText());
@@ -263,6 +273,29 @@ public class InterfaceClientesAtualizar extends InterfaceClientesPrincipal {
 		textFieldDescricaoEndereco = new JTextField();
 		textFieldDescricaoEndereco.setBounds(240, 388, 425, 19);
 		contentPane.add(textFieldDescricaoEndereco);
+		
 		textFieldDescricaoEndereco.setVisible(false);
+		
+        JLabel opaqueLabel = new JLabel("AdsGestão");
+        opaqueLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        opaqueLabel.setFont(new Font("Dialog", Font.BOLD, 80));
+        opaqueLabel.setBounds(215, 40, 490, 341);
+        opaqueLabel.setOpaque(true);
+        opaqueLabel.setBackground(new Color(0, 0, 0, 0)); 
+        opaqueLabel.setForeground(new Color(0, 0, 0, 50));
+        contentPane.add(opaqueLabel);
+	    
+	    
+		JButton btnMenuPrincial = new JButton("menu principal");
+		btnMenuPrincial.setBounds(27, 425, 154, 25);
+		contentPane.add(btnMenuPrincial);
+		btnMenuPrincial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Main.main(null);
+				dispose();
+				
+			}
+		});
+
 	}
 }

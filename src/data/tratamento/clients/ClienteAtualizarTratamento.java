@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import controladores.ClienteAtualizarDatabase;
 import controladores.ClienteCadastroDatabase;
 import controladores.ClienteConsultaDatabase;
+import controladores.infoClienteException;
 
 public class ClienteAtualizarTratamento  extends Clientes{
 
@@ -19,7 +20,7 @@ public class ClienteAtualizarTratamento  extends Clientes{
         this.clienteDatabase = new ClienteAtualizarDatabase();
     }
     
-	public void clienteAtualizarCadastroCliente(LocalDate dataNascimento, String Cpf, String NomeCliente, String TelefoneCliente) {
+	public void clienteAtualizarCadastroCliente(LocalDate dataNascimento, String Cpf, String NomeCliente, String TelefoneCliente) throws infoClienteException {
 		setDataNascimentoCliente(dataNascimento);
 		setCpf(Cpf);
 		setNomeCliente(NomeCliente);

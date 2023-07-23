@@ -1,4 +1,6 @@
 package controladores;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 import conexaoDb.Db;
@@ -7,52 +9,52 @@ public class ClienteDeleteDatabase {
 
 	
 	public void deletarClienteCadastro(Clientes clienteDeleteCadastro) {
-		
-			
-		
-		try {
-			Statement stmt = Db.Connect().createStatement();
-			String deleteEndereco = "delete from cliente_endereco where cpf_cliente='"+clienteDeleteCadastro.getCpf()+"'";;
-			String deleteCliente ="delete from cliente where cpf_cliente='"+clienteDeleteCadastro.getCpf()+"'";
-			String deleteProdutoCliente ="delete from pedido where cpf_cliente='" + clienteDeleteCadastro.getCpf()+"'";
-			
-			stmt.execute(deleteEndereco);
-			stmt.execute(deleteCliente);
-			stmt.execute(deleteProdutoCliente);
-			
-		}catch(Exception e) {
-			
-			
-		}finally {
-        	
-        	Db.CloseDb();
-        	
-        }
-		
-		
-		}
-	
+	    try {
+	        Connection connection = Db.Connect();
+	        String deleteEndereco = "DELETE FROM cliente_endereco WHERE cpf_cliente=?";
+	        String deleteCliente = "DELETE FROM cliente WHERE cpf_cliente=?";
+	        String deleteProdutoCliente = "DELETE FROM pedido WHERE cpf_cliente=?";
+	        
+	        PreparedStatement pstmt = connection.prepareStatement(deleteEndereco);
+	        pstmt.setString(1, clienteDeleteCadastro.getCpf());
+	        pstmt.executeUpdate();
+
+	        pstmt = connection.prepareStatement(deleteCliente);
+	        pstmt.setString(1, clienteDeleteCadastro.getCpf());
+	        pstmt.executeUpdate();
+
+	        pstmt = connection.prepareStatement(deleteProdutoCliente);
+	        pstmt.setString(1, clienteDeleteCadastro.getCpf());
+	        pstmt.executeUpdate();
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        Db.CloseDb();
+	    }
+	}
+
 	public void deletarClientePedido(Clientes clienteDeletePedido) {
-		try {
-			Statement stmt = Db.Connect().createStatement();
-			
-			String deletePedidoProduto = "DELETE FROM pedido_produto WHERE id_pedido IN "
-					  + "(SELECT id_pedido FROM pedido WHERE cpf_cliente = '"+ clienteDeletePedido.getCpf() +"')";
-			String deletePedido = "DELETE FROM pedido WHERE cpf_cliente = '" + clienteDeletePedido.getCpf() +"'";
-			
-			stmt.execute(deletePedidoProduto);
-			stmt.execute(deletePedido);
-			
-		}catch(Exception e) {
-			
-			
-		}finally {
-        	
-        	Db.CloseDb();
-        	
-        }
-				
-	}		
+	    try {
+	        Connection connection = Db.Connect();
+	        String deletePedidoProduto = "DELETE FROM pedido_produto WHERE id_pedido IN "
+	                + "(SELECT id_pedido FROM pedido WHERE cpf_cliente = ?)";
+	        String deletePedido = "DELETE FROM pedido WHERE cpf_cliente = ?";
+
+	        PreparedStatement pstmt = connection.prepareStatement(deletePedidoProduto);
+	        pstmt.setString(1, clienteDeletePedido.getCpf());
+	        pstmt.executeUpdate();
+
+	        pstmt = connection.prepareStatement(deletePedido);
+	        pstmt.setString(1, clienteDeletePedido.getCpf());
+	        pstmt.executeUpdate();
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        Db.CloseDb();
+	    }
+	}
 }
 	
 	
