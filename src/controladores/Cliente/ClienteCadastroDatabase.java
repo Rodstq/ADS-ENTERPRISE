@@ -5,16 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import classesCliente.ClienteCadastroTratamento;
-import classesCliente.Clientes;
 import conexaoDb.Db;
+import data.tratamento.clients.ClienteCadastroTratamento;
+import data.tratamento.clients.Clientes;
 
-public class ClienteCadastroDatabase {
-
+public class ClienteCadastroDatabase implements InterfaceCadastroClient {
 	
-
-	
-    public void setCadastrarInfoCliente(Clientes cliente) {
+    public void infoCliente(Clientes cliente) {
     			
         try (Connection connection = Db.Connect();
              PreparedStatement stmt = connection.prepareStatement("INSERT INTO cliente (cpf_cliente, nome_cliente, nascimento_cliente, telefone) VALUES (?, ?, ?, ?)")) {
@@ -38,7 +35,7 @@ public class ClienteCadastroDatabase {
         
     }
 
-    public void cadastrarEnderecoCliente(Clientes clienteEndereco) {
+    public void enderecoCliente(Clientes clienteEndereco) {
 
         try (Connection connection = Db.Connect();
              PreparedStatement stmt = connection.prepareStatement("INSERT INTO cliente_endereco (cep, estado, cidade, bairro, rua, complemento, cpf_cliente) VALUES (?, ?, ?, ?, ?, ?, ?)")) {

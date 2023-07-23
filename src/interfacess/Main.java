@@ -6,8 +6,8 @@ import java.awt.Font;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import interfacesCliente.InterfaceClientesConsulta;
-import interfacesCliente.InterfaceClientesPrincipal;
+import guiCliente.GuiClientesConsulta;
+import guiCliente.GuiClientesPrincipal;
 import interfacesProdutos.InterfaceProdutosPrincipal;
 import interfacesVendas.TelaVendas;
 
@@ -92,11 +92,12 @@ public class Main extends JFrame {
         contentPane.add(opaqueLabel);
 	    
 	    
-		//abre a janela do modulo clientes
+
+        
 		btnMduloClientes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
-            	InterfaceClientesPrincipal.clientePrincipal();
+            	GuiClientesPrincipal.clientePrincipal();
               dispose();
          }
          });

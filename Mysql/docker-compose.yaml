@@ -6,9 +6,8 @@ services:
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=adsDb
+      - MYSQL_DATABASE=ads
     volumes:
-      - ./data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       mynetwork:

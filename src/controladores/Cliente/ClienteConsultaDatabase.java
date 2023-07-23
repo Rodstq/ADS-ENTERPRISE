@@ -1,28 +1,30 @@
-package controladores.Cliente;
+package controladores;
 import conexaoDb.Db;
+import data.tratamento.clients.Clientes;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-public class ClienteConsultaDatabase {
+
+public class ClienteConsultaDatabase  implements InterfaceConsultaCliente{
 	
-	public  static List<Object[]> consultaNomeClienteEndereco(String nomeCliente) {
+	public  List<Object[]> infoCliente(Clientes cliente) {
 		
 		List<Object[]> resultados = new ArrayList<>();
 		try {
-		
-		Statement stmt = Db.Connect().createStatement();
-				
-		String query = "SELECT * FROM cliente JOIN cliente_endereco ON cliente.cpf_cliente = cliente_endereco.cpf_cliente "
-				+ "WHERE cliente.nome_cliente = '" + nomeCliente + "'";
-
-			ResultSet rs = stmt.executeQuery(query);
+			Connection connection = Db.Connect();
 			
+			PreparedStatement pstmt = connection.prepareStatement ("SELECT * FROM cliente JOIN cliente_endereco ON cliente.cpf_cliente = cliente_endereco.cpf_cliente WHERE cliente.nome_cliente = ?");
+			
+			pstmt.setString(1, cliente.getNomeCliente());
+			ResultSet rs = pstmt.executeQuery();
+
 			while(rs.next()){
 				String nome = rs.getString("nome_cliente");
 				String cpf = rs.getString("cpf_cliente");
@@ -35,8 +37,8 @@ public class ClienteConsultaDatabase {
 				String cep = rs.getString("cep");
 				String complemento = rs.getString("complemento");
 				
-				 Object[] cliente = { nome, cpf, dataNascimento, telefone, complemento, estado, cidade, bairro, rua, cep };
-                resultados.add(cliente);
+				 Object[] clienteDados = { nome, cpf, dataNascimento, telefone, complemento, estado, cidade, bairro, rua, cep };
+                resultados.add(clienteDados);
 				}
 			}catch(Exception e) {
 
@@ -50,18 +52,18 @@ public class ClienteConsultaDatabase {
 
 
 
-		public static List<Object[]> consultaCpfClienteEndereco(String cpfCliente) {
+		public  List<Object[]> infoClienteCpf(Clientes cliente) {
 	
 		List<Object[]> resultados = new ArrayList<>();
 		try {
-	
 			
-		String query = "SELECT * FROM cliente JOIN cliente_endereco ON cliente.cpf_cliente = "
-				+ "cliente_endereco.cpf_cliente WHERE cliente.cpf_cliente = '" + cpfCliente + "'";
+	        Connection connection = Db.Connect();
+	        PreparedStatement pstmt = connection.prepareStatement ("SELECT * FROM cliente JOIN cliente_endereco ON cliente.cpf_cliente = cliente_endereco.cpf_cliente WHERE cliente.cpf_cliente = ?");
+	        
+	       
+	        pstmt.setString(1, cliente.getCpf());
+	        ResultSet rs = pstmt.executeQuery();
 
-		Statement stmt = Db.Connect().createStatement();
-			
-		ResultSet rs = stmt.executeQuery(query);
 			while(rs.next()){
 				
 				String nome = rs.getString("nome_cliente");
@@ -75,8 +77,8 @@ public class ClienteConsultaDatabase {
 				String cep = rs.getString("cep");
 				String complemento = rs.getString("complemento");
 				
-				 Object[] cliente = { nome, cpf, dataNascimento, telefone, complemento, estado, cidade, bairro, rua, cep };
-                 resultados.add(cliente);
+				 Object[] clienteDados = { nome, cpf, dataNascimento, telefone, complemento, estado, cidade, bairro, rua, cep };
+                 resultados.add(clienteDados);
 				
 			}
 
@@ -88,40 +90,6 @@ public class ClienteConsultaDatabase {
 			Db.CloseDb();
 		}
 		return resultados;
-	}
-		
-		
-//	public  List<Object[]> consultaNomeOnlyCliente(String nomeCliente) {
-//			
-//			List<Object[]> resultados = new ArrayList<>();
-//			try {
-//			
-//			Statement stmt = Db.Connect().createStatement();
-//			
-//			String query = "SELECT * FROM cliente WHERE cliente.nome_cliente = '" + nomeCliente + "'";
-//			ResultSet rs = stmt.executeQuery(query);
-//			
-//			while(rs.next()){
-//				String nome = rs.getString("nome_cliente");
-//				String cpf = rs.getString("cpf_cliente");
-//				String dataNascimento = rs.getString("nascimento_cliente");
-//				String telefone = rs.getString("telefone");
-//
-//							
-//				 Object[] cliente = { nome, cpf, dataNascimento, telefone};
-//                 resultados.add(cliente);
-//                 
-//     			rs.close();
-//     			stmt.close();
-//     			Db.CloseDb();
-//				}
-//			}catch(Exception e) {
-//
-//			}finally {
-//				
-//				Db.CloseDb();
-//			}
-//			return resultados;
-//		}
-}
+		}
 
+}
