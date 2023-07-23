@@ -1,11 +1,11 @@
-package Estoque;
+package controladores.Estoque;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import conexaoDb.Db;
 
-public class EstoqueManager {
+public class EstoqueController {
     public static void venderProduto(int idProduto) {
         String query = "UPDATE estoque SET quantidade = quantidade - 1 WHERE id_estoque = ?";
         PreparedStatement stmt = null;

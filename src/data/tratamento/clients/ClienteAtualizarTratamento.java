@@ -1,12 +1,9 @@
-package data.tratamento.clients;
+package classesCliente;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-import controladores.ClienteAtualizarDatabase;
-import controladores.ClienteCadastroDatabase;
-import controladores.ClienteConsultaDatabase;
-import controladores.infoClienteException;
+import controladores.Cliente.ClienteAtualizarDatabase;
+import controladores.Cliente.ClienteConsultaDatabase;
 
 public class ClienteAtualizarTratamento  extends Clientes{
 
@@ -28,7 +25,7 @@ public class ClienteAtualizarTratamento  extends Clientes{
 		clienteDatabase.setAtualizarDadosCliente(this);
 		
 	}
-    
+
 	public void clienteAtualizarEnderecoCliente(String cepCliente, String estadoCliente, String cidadeCliente, String bairroCliente,
 			String ruaCliente, String descricaoRuaCliente) {
 			setCepCliente(cepCliente);

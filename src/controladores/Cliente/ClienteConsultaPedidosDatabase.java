@@ -1,4 +1,4 @@
-package controladores;
+package controladores.Cliente;
 
 import conexaoDb.Db;
 import java.sql.Connection;

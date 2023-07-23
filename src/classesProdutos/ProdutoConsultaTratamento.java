@@ -1,8 +1,6 @@
 package classesProdutos;
 
-import java.util.List;
-
-import controladores.ProdutosConsulta;
+import controladores.Produtos.ProdutosConsulta;
 
 public class ProdutoConsultaTratamento extends Produto{
 	
