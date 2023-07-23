@@ -1,5 +1,6 @@
-package controladores;
+package controladores.Cliente;
 import conexaoDb.Db;
+import controladores.InterfaceConsultaCliente;
 import data.tratamento.clients.Clientes;
 
 import java.sql.Connection;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteConsultaDatabase  implements InterfaceConsultaCliente{
+public class ClienteConsultaDatabase  implements InterfaceConsultaCliente {
 	
 	public  List<Object[]> infoCliente(Clientes cliente) {
 		
@@ -52,7 +53,7 @@ public class ClienteConsultaDatabase  implements InterfaceConsultaCliente{
 
 
 
-		public  List<Object[]> infoClienteCpf(Clientes cliente) {
+		public List<Object[]> infoClienteCpf(Clientes cliente) {
 	
 		List<Object[]> resultados = new ArrayList<>();
 		try {

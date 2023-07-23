@@ -1,11 +1,12 @@
-package classesCliente;
+package data.tratamento.clients;
 
 import java.time.LocalDate;
 
 import controladores.Cliente.ClienteAtualizarDatabase;
 import controladores.Cliente.ClienteConsultaDatabase;
+import controladores.infoClienteException;
 
-public class ClienteAtualizarTratamento  extends Clientes{
+public class ClienteAtualizarTratamento extends Clientes{
 
 	ClienteConsultaDatabase clienteConsulta = new ClienteConsultaDatabase();
 

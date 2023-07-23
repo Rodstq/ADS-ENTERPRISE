@@ -4,37 +4,23 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controladores.ClienteConsultaDatabase;
 import controladores.infoClienteException;
 import data.tratamento.clients.ClienteCadastroTratamento;
-import interfacess.Main;
+import interfaces.Main;
 
-import java.util.Date;
 import java.util.zip.DataFormatException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter; 
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
-import javax.swing.JList;
-import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.JTable;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ContainerAdapter;
-import java.awt.event.ContainerEvent;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 public class GuiClientesCadastro extends GuiClientesPrincipal {
 

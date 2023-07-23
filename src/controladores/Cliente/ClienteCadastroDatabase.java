@@ -5,8 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import classesCliente.ClienteCadastroTratamento;
 import conexaoDb.Db;
-import data.tratamento.clients.ClienteCadastroTratamento;
+import controladores.InterfaceCadastroClient;
 import data.tratamento.clients.Clientes;
 
 public class ClienteCadastroDatabase implements InterfaceCadastroClient {
@@ -55,5 +56,15 @@ public class ClienteCadastroDatabase implements InterfaceCadastroClient {
         } finally {
             Db.CloseDb();
         }
+    }
+
+    @Override
+    public void setCadastrarInfoCliente(ClienteCadastroTratamento clienteCadastroTratamento) {
+
+    }
+
+    @Override
+    public void cadastrarEnderecoCliente(ClienteCadastroTratamento clienteCadastroTratamento) {
+
     }
 }
