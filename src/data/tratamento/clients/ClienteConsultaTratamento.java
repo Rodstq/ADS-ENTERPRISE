@@ -1,9 +1,9 @@
 package data.tratamento.clients;
 import java.util.List;
 
-import controladores.ClienteCadastroDatabase;
-import controladores.ClienteConsultaDatabase;
-import controladores.ClienteConsultaPedidosDatabase;
+import controladores.Cliente.ClienteCadastroDatabase;
+import controladores.Cliente.ClienteConsultaDatabase;
+import controladores.Cliente.ClienteConsultaPedidosDatabase;
 import controladores.InterfaceCadastroClient;
 import controladores.InterfaceConsultaCliente;
 import controladores.infoClienteException;

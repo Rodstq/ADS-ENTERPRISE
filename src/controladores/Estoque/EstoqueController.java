@@ -7,7 +7,7 @@ import conexaoDb.Db;
 
 public class EstoqueController {
     public static void venderProduto(int idProduto) {
-        String query = "UPDATE estoque SET quantidade = quantidade - 1 WHERE id_estoque = ?";
+        String query = "UPDATE estoque SET quantidade_produto = quantidade_produto - 1 WHERE id_estoque = ?";
         PreparedStatement stmt = null;
 
         try {

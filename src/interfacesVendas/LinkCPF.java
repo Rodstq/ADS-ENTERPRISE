@@ -111,7 +111,9 @@ public class LinkCPF extends JFrame {
 
 		JButton SearchButton = new JButton("Pesquisar");
 		SearchButton.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
+				/*
 				String nome = NomeField.getText();
 				String cpf = CPFField.getText();
 				if (nome.length() > 0 ) {
@@ -125,7 +127,7 @@ public class LinkCPF extends JFrame {
 					}
 				}
 				else if (cpf.length() > 0){
-					List<Object[]> resultados = ClienteConsultaDatabase.consultaCpfClienteEndereco(cpf);
+					List<Object[]> resultados = ClienteConsultaDatabase.infoClienteCpf(cpf);
 					// Limpa os dados atuais da tabela
 					tableModel.setRowCount(0);
 					// Preenche a tabela com os dados retornados do banco de dados
@@ -133,8 +135,10 @@ public class LinkCPF extends JFrame {
 						// Adiciona somente o nome e o CPF na tabela
 						tableModel.addRow(new Object[] { cliente[1], cliente[0] });
 				}
+			}*/
 			}
-			}
+
+
 		});
 
 

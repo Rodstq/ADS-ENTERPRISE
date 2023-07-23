@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.zip.DataFormatException;
 
-import controladores.ClienteCadastroDatabase;
+import controladores.Cliente.ClienteCadastroDatabase;
 import controladores.InterfaceCadastroClient;
 import controladores.infoClienteException;
 
@@ -139,7 +139,8 @@ public class ClienteCadastroTratamento{
 		
 
 		
-		Clientes info = new Clientes();				info.setCadastrarEnderecoCliente(cepCliente, estadoCliente, cidadeCliente, bairroCliente, ruaCliente, descricaoRuaCliente, cpfCliente);
+		Clientes info = new Clientes();		
+		info.setCadastrarEnderecoCliente(cepCliente, estadoCliente, cidadeCliente, bairroCliente, ruaCliente, descricaoRuaCliente, cpfCliente);
 		datas.enderecoCliente(info);
 	}
     

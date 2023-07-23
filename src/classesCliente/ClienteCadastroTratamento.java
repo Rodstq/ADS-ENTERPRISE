@@ -2,6 +2,7 @@ package classesCliente;
 import java.time.LocalDate;
 
 import controladores.Cliente.ClienteCadastroDatabase;
+import data.tratamento.clients.Clientes;
 
 
 public class ClienteCadastroTratamento extends Clientes {
