@@ -1,15 +1,20 @@
-package interfacesCliente;
+package guiCliente;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controladores.ClienteConsultaDatabase;
+import controladores.infoClienteException;
 import data.tratamento.clients.ClienteCadastroTratamento;
+import interfacess.Main;
 
 import java.util.Date;
+import java.util.zip.DataFormatException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter; 
 
@@ -20,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JTable;
 
 import java.awt.event.ActionEvent;
@@ -30,7 +36,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class InterfaceClientesCadastro extends InterfaceClientesPrincipal {
+public class GuiClientesCadastro extends GuiClientesPrincipal {
 
 	private JPanel contentPane;
 	private JTextField inputNomeCliente;
@@ -51,7 +57,7 @@ public class InterfaceClientesCadastro extends InterfaceClientesPrincipal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InterfaceClientesCadastro frame = new InterfaceClientesCadastro();
+					GuiClientesCadastro frame = new GuiClientesCadastro();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,7 +69,7 @@ public class InterfaceClientesCadastro extends InterfaceClientesPrincipal {
 	/**
 	 * Create the frame.
 	 */
-	public InterfaceClientesCadastro () {
+	public GuiClientesCadastro () {
 	
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -198,37 +204,36 @@ public class InterfaceClientesCadastro extends InterfaceClientesPrincipal {
 		btnCadastrarCliente.addActionListener(new ActionListener() {
 		    public void actionPerformed  (ActionEvent e) {
 		   	    	
-		        if (inputNomeCliente.getText().isEmpty() ||
-		                inputCpfCLiente.getText().isEmpty() ||
-		                inputDataNascimentoCliente.getText().isEmpty() ||
-		                inputTelefoneCliente.getText().isEmpty() ||
-		                inputEstadoCliente.getText().isEmpty() ||
-		                inputCidadeCliente.getText().isEmpty() ||
-		                inputBairroCliente.getText().isEmpty() ||
-		                inputCepCliente.getText().isEmpty() ||
-		                inputRuaCliente.getText().isEmpty() ||
-		                inputDescricaoCliente.getText().isEmpty()) {
-		                
-		                JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos", "Erro", JOptionPane.ERROR_MESSAGE);
-		            } else {
-		     
-		                try {
-		        		   ClienteCadastroTratamento cliente = new ClienteCadastroTratamento();
-		    		       
-		        		    
-		        		    LocalDate dataNascimento = LocalDate.parse(inputDataNascimentoCliente.getText(), DateTimeFormatter.ofPattern("ddMMyyyy"));
-		        	
-		        		   cliente.cadastrarClienteInfoTratamento(inputCpfCLiente.getText(), inputNomeCliente.getText(),  dataNascimento,
-		        		    		inputTelefoneCliente.getText());	    
+		    	String nomeCliente = inputNomeCliente.getText();
+		    	String cpfCliente = inputCpfCLiente.getText();
+		    	String dataNascimento = inputDataNascimentoCliente.getText();
+		    	String  telefoneCliente = inputTelefoneCliente.getText();
+		    	
+		    
+		    	String cepCliente = inputCepCliente.getText();
+		    	String estadoCliente = inputEstadoCliente.getText();
+		    	String cidadeCliente = inputCidadeCliente.getText();
+		    	String bairroCliente =  inputBairroCliente.getText();
+		    	String ruaCliente =  inputRuaCliente.getText();
+		    	String descricaoEndereco = inputDescricaoCliente.getText();
+		  
+		    
+		               try {
+		        		   ClienteCadastroTratamento cliente = new ClienteCadastroTratamento();	
+		        		   cliente.cadastrarClienteInfoTratamento(cpfCliente, nomeCliente,  dataNascimento, telefoneCliente);	    
 		        		   
-		        		   cliente.cadastrarEnderecoCliente(inputCepCliente.getText(), inputEstadoCliente.getText(), inputCidadeCliente.getText(), inputBairroCliente.getText(),
-		        				    inputRuaCliente.getText(), inputDescricaoCliente.getText(), inputCpfCLiente.getText());
+		        		   cliente.cadastrarEnderecoCliente(cepCliente, estadoCliente, cidadeCliente, bairroCliente,
+		        				    ruaCliente, descricaoEndereco, cpfCliente);
 
-		                } catch (Exception ex) {
-		
+		                } catch (infoClienteException erro) {
+		                	 JOptionPane.showMessageDialog(null, erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		                
+		                } catch(DataFormatException e1) {
+		                	
+		                	JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		                	
 		                }
-		            }
+		            
 		        
 
 		
@@ -252,6 +257,28 @@ public class InterfaceClientesCadastro extends InterfaceClientesPrincipal {
 		
 		btnCadastrarCliente.setBounds(807, 425, 117, 25);
 		contentPane.add(btnCadastrarCliente);
+		
+        JLabel opaqueLabel = new JLabel("AdsGestão");
+        opaqueLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        opaqueLabel.setFont(new Font("Dialog", Font.BOLD, 80));
+        opaqueLabel.setBounds(215, 40, 490, 341);
+        opaqueLabel.setOpaque(true);
+        opaqueLabel.setBackground(new Color(0, 0, 0, 0)); 
+        opaqueLabel.setForeground(new Color(0, 0, 0, 50));
+        contentPane.add(opaqueLabel);
+	    
+		
+	    
+		JButton btnMenuPrincial = new JButton("menu principal");
+		btnMenuPrincial.setBounds(27, 425, 154, 25);
+		contentPane.add(btnMenuPrincial);
+		btnMenuPrincial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Main.main(null);
+				dispose();
+				
+			}
+		});
 	}
 }
 

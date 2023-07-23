@@ -1,6 +1,8 @@
-package interfacesCliente;
+package guiCliente;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,7 +10,9 @@ import javax.swing.border.EmptyBorder;
 
 import controladores.ClienteConsultaDatabase;
 import controladores.ClienteConsultaPedidosDatabase;
+import controladores.infoClienteException;
 import data.tratamento.clients.ClienteConsultaTratamento;
+import interfacess.Main;
 import utils.PDF;
 
 import javax.swing.JLabel;
@@ -18,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JTable;
 
 import java.awt.event.ActionEvent;
@@ -35,7 +40,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 
-public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
+public class GuiClientesConsulta extends GuiClientesPrincipal {
 
 	private JPanel contentPane;
 	private JTextField inputNomeCliente;
@@ -49,7 +54,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InterfaceClientesConsulta frame = new InterfaceClientesConsulta();
+					GuiClientesConsulta frame = new GuiClientesConsulta();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,7 +66,7 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 	/**
 	 * Create the frame.
 	 */
-	public InterfaceClientesConsulta () {
+	public GuiClientesConsulta () {
 
 
 		contentPane = new JPanel();
@@ -194,25 +199,44 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 	                
 	                if(!inputNomeCliente.getText().isBlank() && !inputNomeCliente.getText().isEmpty()) {
 	                //retorna os valores do database após passar pela classe de tratamentto de informações do cliente
-	                List<Object[]> resultadosNomeCliente =infoCliente.setConsultaNomeClienteEndereco(inputNomeCliente.getText());
-	           
-	                tabelaInfoCliente.setRowCount(0);
+	                List<Object[]> resultadosNomeCliente;
+					try {
+						resultadosNomeCliente = infoCliente.setConsultaNomeClienteEndereco(inputNomeCliente.getText());
+		                tabelaInfoCliente.setRowCount(0);
 
-	                for (Object[] cliente : resultadosNomeCliente) {
-	                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
-	                    tabelaInfoCliente.addRow(cliente); 
-	                }
+		                for (Object[] cliente : resultadosNomeCliente) {
+		                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
+		                    tabelaInfoCliente.addRow(cliente); 
+		                }
+		                btnSalvarPdf.setEnabled(true);
+					} catch (infoClienteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	           
+
 	                btnSalvarPdf.setEnabled(true);
 	                }else if(!inputCpfCLiente.getText().isBlank() && !inputCpfCLiente.getText().isEmpty()) {
 	                	
-		                List<Object[]> resultadosCpfCliente = infoCliente.setConsultaCpfClienteEndereco(inputCpfCLiente.getText());
-		 	           
-		                tabelaInfoCliente.setRowCount(0);
+		                List<Object[]> resultadosCpfCliente;
+				
+							try {
+								resultadosCpfCliente = infoCliente.setConsultaCpfClienteEndereco(inputCpfCLiente.getText());
+								
+				                tabelaInfoCliente.setRowCount(0);
 
-		                for (Object[] cliente : resultadosCpfCliente) {
-		                    tabelaInfoCliente.addRow(cliente); 
-		                }              	
-		                btnSalvarPdf.setEnabled(true);
+				                for (Object[] cliente : resultadosCpfCliente) {
+				                    tabelaInfoCliente.addRow(cliente); 
+				                }              	
+		
+								
+							} catch (infoClienteException erro) {
+								
+								JOptionPane.showMessageDialog(null, erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+								
+							}
+		 	           
+
 	                }else {
 	                	
 	                	  JOptionPane.showMessageDialog(null, "Digite pelo menos nome ou cpf", "Error",  JOptionPane.ERROR_MESSAGE);
@@ -246,6 +270,18 @@ public class InterfaceClientesConsulta extends InterfaceClientesPrincipal {
 		btnLimpar.setBounds(685, 429, 117, 25);
 		contentPane.add(btnLimpar);	
 
+	    
+	    
+		JButton btnMenuPrincial = new JButton("menu principal");
+		btnMenuPrincial.setBounds(27, 425, 154, 25);
+		contentPane.add(btnMenuPrincial);
+		btnMenuPrincial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Main.main(null);
+				dispose();
+				
+			}
+		});
 	}
 }
 

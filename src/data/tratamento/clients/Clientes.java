@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controladores.ClienteConsultaPedidosDatabase;
+import controladores.infoClienteException;
 
 public class Clientes {
 
@@ -22,7 +23,8 @@ public class Clientes {
 
     
 	public void setCpf(String cpfCliente) {
-        this.cpfCliente = cpfCliente;
+    	
+		this.cpfCliente = cpfCliente;   
     }
 
     public String getCpf() {
@@ -101,7 +103,7 @@ public class Clientes {
         return this.descricaoRuaCliente;
     }
     public void setCadastrarClienteInfo(String cpfCliente, String nomeCliente, LocalDate dataNascimento, 
-            String telefoneCliente) {
+            String telefoneCliente){
      
         setCpf(cpfCliente);
         setNomeCliente(nomeCliente);
@@ -111,7 +113,7 @@ public class Clientes {
     }
     
 	public void setCadastrarEnderecoCliente( String cepCliente, String estadoCliente, String cidadeCliente, String bairroCliente, 
-			String ruaCliente, String descricaoRuaCliente, String cpfCliente) {
+			String ruaCliente, String descricaoRuaCliente, String cpfCliente){
 		
 		setCepCliente(cepCliente);
 		setEstadoCliente(estadoCliente);

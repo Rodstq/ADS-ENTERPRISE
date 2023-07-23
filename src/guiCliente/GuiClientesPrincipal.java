@@ -1,4 +1,4 @@
-package interfacesCliente;
+package guiCliente;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -14,7 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class InterfaceClientesPrincipal extends JFrame {
+import interfacess.Main;
+
+public class GuiClientesPrincipal extends JFrame {
 
 	private JPanel contentPane;
 
@@ -25,7 +27,7 @@ public class InterfaceClientesPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InterfaceClientesPrincipal frame = new InterfaceClientesPrincipal();
+					GuiClientesPrincipal frame = new GuiClientesPrincipal();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +39,7 @@ public class InterfaceClientesPrincipal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InterfaceClientesPrincipal() {
+	public GuiClientesPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 962, 530);
 		
@@ -50,7 +52,7 @@ public class InterfaceClientesPrincipal extends JFrame {
 		btnConsultarClientes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
-            	InterfaceClientesConsulta.clienteConsulta();
+            	GuiClientesConsulta.clienteConsulta();
               dispose();
          }
          });
@@ -60,7 +62,7 @@ public class InterfaceClientesPrincipal extends JFrame {
 		btnCadastrarClientes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
-            	InterfaceClientesCadastro.clientesCadastro();
+            	GuiClientesCadastro.clientesCadastro();
               dispose();
          }
          });
@@ -70,7 +72,7 @@ public class InterfaceClientesPrincipal extends JFrame {
 		btnDeletarClientes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
-            	InterfaceClientesDelete.clienteDelete();
+            	GuiClientesDelete.clienteDelete();
               dispose();
          }
          });
@@ -80,7 +82,7 @@ public class InterfaceClientesPrincipal extends JFrame {
 		btnAtualizarClientes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
-            	InterfaceClientesAtualizar.clientesAtualizar();
+            	GuiClientesAtualizar.clientesAtualizar();
               dispose();
          }
          });
@@ -99,6 +101,16 @@ public class InterfaceClientesPrincipal extends JFrame {
         opaqueLabel.setForeground(new Color(0, 0, 0, 50));
         contentPane.add(opaqueLabel);
 	    
+		JButton btnMenuPrincial = new JButton("menu principal");
+		btnMenuPrincial.setBounds(27, 425, 154, 25);
+		contentPane.add(btnMenuPrincial);
+		btnMenuPrincial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Main.main(null);
+				dispose();
+				
+			}
+		});
 	    
 	    
 	}
