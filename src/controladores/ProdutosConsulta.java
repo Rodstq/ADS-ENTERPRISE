@@ -58,13 +58,13 @@ public class ProdutosConsulta{
 		
 		
 		while(rs.next()){
-			 String id_produto = rs.getString("id_produto");
+			 int id_produto = rs.getInt("id_produto");
 			 String nome_produto = rs.getString("nome_produto");
-			 int quantidade = rs.getInt("quantidade");
-			 double valor = rs.getDouble("valor");
-			 String id_estoque = rs.getString("id_produto");
-			 resultado = id_produto + nome_produto + quantidade + valor + id_estoque;
-			 Object[] results = {id_produto,nome_produto,quantidade,valor,id_estoque};
+			 String cnpj = rs.getString("cnpj_fornecedor");
+			 double valor = rs.getDouble("valor_de_venda");
+			 int id_estoque = rs.getInt("id_produto");
+			 resultado = id_produto + nome_produto + cnpj + valor + id_estoque;
+			 Object[] results = {id_produto,nome_produto,cnpj,valor,id_estoque};
 			 model.addRow(results);
 		}
 		
@@ -84,10 +84,10 @@ public class ProdutosConsulta{
 	// LÓGICA PARA MUDAR QUERY DE ACORDO COM SELEÇÃO POR ID OU POR NOME
 	public void setQuery(String escolha, String id, String nome) {
 		if(escolha.equals("id")){
-			this.query = "SELECT * FROM produtos WHERE id_produto =" + id + ";";
+			this.query = "SELECT * FROM produto WHERE id_produto =" + id + ";";
 			System.out.println(query);
 		} else {
-			this.query = "SELECT * FROM produtos WHERE nome_produto like '%" + nome + "%';";
+			this.query = "SELECT * FROM produto WHERE nome_produto like '%" + nome + "%';";
 			System.out.println(query);
 		}
 	

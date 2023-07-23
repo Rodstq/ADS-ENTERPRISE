@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Db {
-    private static String url = "jdbc:mysql://localhost:3306/ads";
+    private static String url = "jdbc:mysql://localhost:3306/adsDb";
     private static String user = "root";
     private static String password = "root";
     private static Connection con = null;

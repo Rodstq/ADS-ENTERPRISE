@@ -16,14 +16,15 @@ public class ProdutosCadastrar extends Produto {
 		
 		
 		try (Connection connection = Db.Connect();
-			PreparedStatement stmt = connection.prepareStatement("INSERT INTO produtos (id_produto, nome_produto, quantidade, valor, id_estoque) values (?,?,?,?,?)")){
+			PreparedStatement stmt = connection.prepareStatement("INSERT INTO produto (id_produto, nome_produto, valor_de_venda, id_estoque,cnpj_fornecedor) values (?,?,?,?,?)")){
 		
 		
-				stmt.setString(1,produto.getId_produto());
+				stmt.setInt(1,produto.getId_produto());
 				stmt.setString(2,produto.getNome_produto());
-				stmt.setObject(3,produto.getQuantidade());
-				stmt.setObject(4,produto.getValor());
-				stmt.setString(5,produto.getId_estoque());
+				stmt.setObject(3,produto.getValorVenda());
+				stmt.setInt(4,produto.getId_estoque());
+				stmt.setObject(5,produto.getCnpj());
+				
 				
 				 stmt.executeUpdate();
 			

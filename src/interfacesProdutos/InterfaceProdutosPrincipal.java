@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -111,11 +112,8 @@ public class InterfaceProdutosPrincipal extends JFrame {
 				
 				JRadioButton RadioButtonIdConsultar = new JRadioButton("");
 				RadioButtonIdConsultar.addActionListener(new ActionListener() {
-					
-					public void actionPerformed(ActionEvent e) {
-//						RadioButtonNomeConsultaBoolean = false; 
-//						RadioButtonIdConsultarBoolean = true;
-						
+										
+					public void actionPerformed(ActionEvent e) {						
 						// desativando label e texto produto nome
 						produtoNomeConsultar.setEnabled(false);
 						txtProdConsultar.setEnabled(false);
@@ -149,20 +147,6 @@ public class InterfaceProdutosPrincipal extends JFrame {
 				RadioButtonNomeConsulta.setBounds(56, 66, 21, 23);
 				consultarProduto.add(RadioButtonNomeConsulta);
 				
-				JButton botaoConsultar = new JButton("Consultar produto");
-				botaoConsultar.setBounds(199, 146, 282, 45);
-				botaoConsultar.setFont(new Font("Tahoma", Font.BOLD, 13));
-				botaoConsultar.addActionListener( new ActionListener() {
-					
-					public void actionPerformed(ActionEvent e) {							
-						ProdutosConsulta produtosConsulta = new ProdutosConsulta();
-						produtosConsulta.setTblData(tblData_1);
-						produtosConsulta.setQuery(escolha, txtIdConsultar.getText(), txtProdConsultar.getText());
-						produtosConsulta.consultarProdutos();
-				  }
-						  
-				 });
-				consultarProduto.add(botaoConsultar);
 				
 		
 				
@@ -182,19 +166,19 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		txtId.setBounds(59, 14, 133, 20);
 		txtId.setColumns(10);		
 		
-		JLabel quantidadeLabel = new JLabel("Quantidade :");
+		JLabel quantidadeLabel = new JLabel("CNPJ Vendedor :");
 		cadastrarProduto.add(quantidadeLabel);
-		quantidadeLabel.setBounds(33, 74, 71, 14);
+		quantidadeLabel.setBounds(33, 74, 93, 14);
 		quantidadeLabel.setFont(new Font("Tahoma", Font.BOLD, 11));		
 		
 		id_estoqueTF = new JTextField();
 		cadastrarProduto.add(id_estoqueTF);
-		id_estoqueTF.setBounds(284, 71, 101, 20);
+		id_estoqueTF.setBounds(362, 71, 101, 20);
 		id_estoqueTF.setColumns(10);
 		
 		JTextField txtQtd = new JTextField();
 		cadastrarProduto.add(txtQtd);
-		txtQtd.setBounds(114, 71, 78, 20);
+		txtQtd.setBounds(138, 71, 138, 20);
 		txtQtd.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Valor :");
@@ -247,10 +231,50 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		getContentPane().add(txtDataS);
 		txtDataS.setColumns(10);
 		
-		JLabel txtIdEstoque = new JLabel("Id Estoque");
+		JLabel txtIdEstoque = new JLabel("Id Estoque : ");
 		txtIdEstoque.setFont(new Font("Tahoma", Font.BOLD, 11));
-		txtIdEstoque.setBounds(215, 74, 60, 14);
+		txtIdEstoque.setBounds(286, 74, 78, 14);
 		cadastrarProduto.add(txtIdEstoque);
+		
+		
+			// BOTOES CONSULTAR E CADASTRAR
+		
+		JButton botaoConsultar = new JButton("Consultar produto");
+		botaoConsultar.setBounds(199, 146, 282, 45);
+		botaoConsultar.setFont(new Font("Tahoma", Font.BOLD, 13));
+		botaoConsultar.addActionListener( new ActionListener() {
+			
+			public boolean validacao() {
+				try {
+					if(escolha.equals("id")) {		
+					Integer.parseInt(txtIdConsultar.getText());
+					} else {
+						txtProdConsultar.getText();
+					}
+						return true;
+				} catch (Exception a) {
+					return false;
+				}
+		
+			}
+			
+			public void actionPerformed(ActionEvent e) {	
+				
+				ProdutosConsulta produtosConsulta = new ProdutosConsulta();
+				if (validacao()) {
+				produtosConsulta.setTblData(tblData_1);
+				produtosConsulta.setQuery(escolha, txtIdConsultar.getText(), txtProdConsultar.getText());						
+				produtosConsulta.consultarProdutos();
+				} else {
+					JOptionPane.showMessageDialog(rootPane, "Campo escolhido preenchido de forma inválida, pesquise por um número válido");
+				}
+			
+		      
+			}
+		 });
+		consultarProduto.add(botaoConsultar);
+		
+	
 		
 		JButton botaoCadastrar = new JButton("Cadastrar Produto");
 		botaoCadastrar.setBounds(215, 159, 282, 45);
@@ -258,12 +282,13 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		botaoCadastrar.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+				
 				Produto produto = new Produto();
-				produto.setId_produto(txtId.getText());
+				produto.setId_produto(Integer.parseInt(txtId.getText()));
 				produto.setNome_produto(txtProd.getText());
-				produto.setQuantidade(Integer.parseInt(txtQtd.getText()));
-				produto.setValor(Double.parseDouble(txtVlr.getText()));
-				produto.setId_estoque(id_estoqueTF.getText());
+				produto.setCnpj(txtQtd.getText());
+				produto.setValorVenda(Double.parseDouble(txtVlr.getText()));
+				produto.setId_estoque(Integer.parseInt(id_estoqueTF.getText()));
 				
 				
 				ProdutosCadastrar produtosCadastrar = new ProdutosCadastrar();
