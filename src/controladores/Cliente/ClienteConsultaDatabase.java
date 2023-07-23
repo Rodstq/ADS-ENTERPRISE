@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 public class ClienteConsultaDatabase {
 	
-	public  List<Object[]> consultaNomeClienteEndereco(String nomeCliente) {
+	public  static List<Object[]> consultaNomeClienteEndereco(String nomeCliente) {
 		
 		List<Object[]> resultados = new ArrayList<>();
 		try {
@@ -50,7 +50,7 @@ public class ClienteConsultaDatabase {
 
 
 
-		public  List<Object[]> consultaCpfClienteEndereco(String cpfCliente) {
+		public static List<Object[]> consultaCpfClienteEndereco(String cpfCliente) {
 	
 		List<Object[]> resultados = new ArrayList<>();
 		try {

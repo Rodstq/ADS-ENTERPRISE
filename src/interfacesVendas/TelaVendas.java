@@ -72,7 +72,7 @@ public class TelaVendas extends JFrame {
         });
         Db.Connect();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 400, 445);
+        setBounds(100, 100, 452, 499);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -294,12 +294,15 @@ public class TelaVendas extends JFrame {
         });
         SubmitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                LinkCPF.main();
+                /*
                 int rowCount = tableModel.getRowCount();
                 for (int i = 0; i < rowCount; i++) {
                     int idProduto = (int) tableModel.getValueAt(i, 0);
                     EstoqueController.venderProduto(idProduto);
                 }
                 tableModel.setRowCount(0);
+                 */
             }
         });
     }
