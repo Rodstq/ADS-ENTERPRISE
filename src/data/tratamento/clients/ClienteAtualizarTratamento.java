@@ -2,6 +2,7 @@ package data.tratamento.clients;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+<<<<<<< HEAD
 import java.time.format.DateTimeFormatter;
 import java.util.zip.DataFormatException;
 
@@ -12,6 +13,14 @@ import controladores.InterfaceClienteEstatic;
 import controladores.infoClienteException;
 
 public class ClienteAtualizarTratamento {
+=======
+
+import controladores.Cliente.ClienteAtualizarDatabase;
+import controladores.Cliente.ClienteConsultaDatabase;
+import controladores.infoClienteException;
+
+public class ClienteAtualizarTratamento extends Clientes{
+>>>>>>> 8aa2ae468dd063d4a288b39e6f1b36c84f618b57
 
 	ClienteConsultaDatabase clienteConsulta = new ClienteConsultaDatabase();
 
@@ -140,6 +149,7 @@ public class ClienteAtualizarTratamento {
 	       datas.infoCliente(info);
 		
 	}
+<<<<<<< HEAD
     
 	public void clienteAtualizarEnderecoCliente (String cpf, String cepCliente, String estadoCliente, String cidadeCliente, String bairroCliente,
 			String ruaCliente, String descricaoRuaCliente) throws infoClienteException {
@@ -199,6 +209,18 @@ public class ClienteAtualizarTratamento {
 		Clientes info = new Clientes();		
 		info.setEnderecoCliente(cepCliente, estadoCliente, cidadeCliente, bairroCliente, ruaCliente, descricaoRuaCliente, cpf);
 		datas.enderecoCliente(info);
+=======
+
+	public void clienteAtualizarEnderecoCliente(String cepCliente, String estadoCliente, String cidadeCliente, String bairroCliente,
+			String ruaCliente, String descricaoRuaCliente) {
+			setCepCliente(cepCliente);
+			setEstadoCliente(estadoCliente);
+			setCidadeCliente(cidadeCliente);
+			setBairroCliente(bairroCliente);
+			setRuaCliente(ruaCliente);
+			setDescricaoRuaCliente(descricaoRuaCliente);
+			clienteDatabase.atualizarEnderecoCliente(this);
+>>>>>>> 8aa2ae468dd063d4a288b39e6f1b36c84f618b57
 	}
 
 	

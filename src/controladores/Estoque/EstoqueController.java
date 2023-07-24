@@ -1,22 +1,27 @@
-package Estoque;
+package controladores.Estoque;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import conexaoDb.Db;
 
-public class EstoqueManager {
+public class EstoqueController {
     public static void venderProduto(int idProduto) {
-        String query = "UPDATE estoque SET quantidade = quantidade - 1 WHERE id_estoque = ?";
+        String query = "UPDATE estoque SET quantidade_produto = quantidade_produto - 1 WHERE id_estoque = ?";
         PreparedStatement stmt = null;
 
         try {
             Connection con = Db.getCon();
             stmt = con.prepareStatement(query);
             stmt.setInt(1, idProduto);
-            stmt.executeUpdate();
+            int rowsAffected = stmt.executeUpdate();
 
-            System.out.println("Produto vendido com sucesso!");
+            if (rowsAffected > 0) {
+                System.out.println("Produto vendido com sucesso!");
+            } else {
+                System.out.println("Produto não encontrado ou estoque insuficiente.");
+            }
 
             stmt.close();
         } catch (SQLException ex) {

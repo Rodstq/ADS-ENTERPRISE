@@ -1,4 +1,4 @@
-package interfacess;
+package interfaces;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -6,21 +6,13 @@ import java.awt.Font;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import guiCliente.GuiClientesConsulta;
 import guiCliente.GuiClientesPrincipal;
 import interfacesProdutos.InterfaceProdutosPrincipal;
 import interfacesVendas.TelaVendas;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Choice;
 import java.awt.Color;
-import java.awt.Label;
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.Checkbox;
-import java.awt.Canvas;
 
 public class Main extends JFrame {
 

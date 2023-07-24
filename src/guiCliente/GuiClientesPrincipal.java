@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import interfacess.Main;
+import interfaces.Main;
 
 public class GuiClientesPrincipal extends JFrame {
 
