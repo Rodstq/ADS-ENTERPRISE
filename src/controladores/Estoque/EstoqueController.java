@@ -1,4 +1,5 @@
 package controladores.Estoque;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,9 +15,13 @@ public class EstoqueController {
             Connection con = Db.getCon();
             stmt = con.prepareStatement(query);
             stmt.setInt(1, idProduto);
-            stmt.executeUpdate();
+            int rowsAffected = stmt.executeUpdate();
 
-            System.out.println("Produto vendido com sucesso!");
+            if (rowsAffected > 0) {
+                System.out.println("Produto vendido com sucesso!");
+            } else {
+                System.out.println("Produto não encontrado ou estoque insuficiente.");
+            }
 
             stmt.close();
         } catch (SQLException ex) {

@@ -1,25 +1,30 @@
 package interfacesVendas;
 
 import controladores.Cliente.ClienteConsultaDatabase;
+import data.tratamento.clients.Clientes;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import java.awt.GridLayout;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class LinkCPF extends JFrame {
 
@@ -28,6 +33,8 @@ public class LinkCPF extends JFrame {
 	private JTextField NomeField;
 	private static DefaultTableModel tableModel;
 	private JTable table;
+
+	private ClienteConsultaDatabase clienteConsultaDatabase;
 
 	/**
 	 * Launch the application.
@@ -49,6 +56,8 @@ public class LinkCPF extends JFrame {
 	 * Create the frame.
 	 */
 	public LinkCPF() {
+		clienteConsultaDatabase = new ClienteConsultaDatabase();
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 636, 464);
 		contentPane = new JPanel();
@@ -56,14 +65,14 @@ public class LinkCPF extends JFrame {
 
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[] { 566, 0 };
-		gbl_contentPane.rowHeights = new int[] { 73, 275, 0, 0 };
-		gbl_contentPane.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_contentPane.rowWeights = new double[] { 0.0, 1.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPane.columnWidths = new int[]{566, 0};
+		gbl_contentPane.rowHeights = new int[]{73, 275, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 
-		// Criação do modelo da tabela com os cabeçalhos "Nome" e "CPF"
-		String[] colunas = { "CPF", "Nome" };
+		// Criação do modelo da tabela com os cabeçalhos "CPF" e "Nome"
+		String[] colunas = {"CPF", "Nome"};
 		tableModel = new DefaultTableModel(colunas, 0);
 
 		JPanel FormPanel = new JPanel();
@@ -85,6 +94,8 @@ public class LinkCPF extends JFrame {
 		FormPanel.add(lblNewLabel, gbc_lblNewLabel);
 
 		CPFField = new JTextField();
+
+		
 		GridBagConstraints gbc_CPFField = new GridBagConstraints();
 		gbc_CPFField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_CPFField.insets = new Insets(0, 0, 5, 0);
@@ -101,6 +112,8 @@ public class LinkCPF extends JFrame {
 		FormPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 
 		NomeField = new JTextField();
+
+
 		GridBagConstraints gbc_NomeField = new GridBagConstraints();
 		gbc_NomeField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_NomeField.insets = new Insets(0, 0, 5, 0);
@@ -110,38 +123,39 @@ public class LinkCPF extends JFrame {
 		NomeField.setColumns(10);
 
 		JButton SearchButton = new JButton("Pesquisar");
-		SearchButton.addActionListener(new ActionListener() {
 
+		SearchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
 				String nome = NomeField.getText();
 				String cpf = CPFField.getText();
-				if (nome.length() > 0 ) {
-					List<Object[]> resultados = ClienteConsultaDatabase.consultaNomeClienteEndereco(nome);
+
+				if (!cpf.isEmpty()) {
+					Clientes cliente = new Clientes();
+					cliente.setCpf(cpf);
+
+					List<Object[]> resultados = clienteConsultaDatabase.infoClienteCpf(cliente);
 					// Limpa os dados atuais da tabela
 					tableModel.setRowCount(0);
 					// Preenche a tabela com os dados retornados do banco de dados
-					for (Object[] cliente : resultados) {
-						// Adiciona somente o nome e o CPF na tabela
-						tableModel.addRow(new Object[]{cliente[0], cliente[1]});
+					for (Object[] clienteDados : resultados) {
+						// Adiciona somente o CPF e o nome na tabela
+						tableModel.addRow(new Object[]{clienteDados[1], clienteDados[0]});
+					}
+				} else if (!nome.isEmpty()) {
+					Clientes cliente = new Clientes();
+					cliente.setNomeCliente(nome);
+
+					List<Object[]> resultados = clienteConsultaDatabase.infoCliente(cliente);
+					// Limpa os dados atuais da tabela
+					tableModel.setRowCount(0);
+					// Preenche a tabela com os dados retornados do banco de dados
+					for (Object[] clienteDados : resultados) {
+						// Adiciona somente o CPF e o nome na tabela
+						tableModel.addRow(new Object[]{clienteDados[1], clienteDados[0]});
 					}
 				}
-				else if (cpf.length() > 0){
-					List<Object[]> resultados = ClienteConsultaDatabase.infoClienteCpf(cpf);
-					// Limpa os dados atuais da tabela
-					tableModel.setRowCount(0);
-					// Preenche a tabela com os dados retornados do banco de dados
-					for (Object[] cliente : resultados) {
-						// Adiciona somente o nome e o CPF na tabela
-						tableModel.addRow(new Object[] { cliente[1], cliente[0] });
-				}
-			}*/
 			}
-
-
 		});
-
-
 
 		GridBagConstraints gbc_SearchButton = new GridBagConstraints();
 		gbc_SearchButton.fill = GridBagConstraints.HORIZONTAL;
@@ -163,7 +177,7 @@ public class LinkCPF extends JFrame {
 		gbl_Tabblepanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		gbl_Tabblepanel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		Tabblepanel.setLayout(gbl_Tabblepanel);
-		
+
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridwidth = 2;
@@ -178,7 +192,7 @@ public class LinkCPF extends JFrame {
 		gbl_panel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
-		
+
 		JLabel Nomelbl = new JLabel("Nome:");
 		GridBagConstraints gbc_Nomelbl = new GridBagConstraints();
 		gbc_Nomelbl.anchor = GridBagConstraints.WEST;
@@ -186,14 +200,14 @@ public class LinkCPF extends JFrame {
 		gbc_Nomelbl.gridx = 0;
 		gbc_Nomelbl.gridy = 0;
 		panel.add(Nomelbl, gbc_Nomelbl);
-		
+
 		JLabel lblCpf = new JLabel("CPF:");
 		GridBagConstraints gbc_lblCpf = new GridBagConstraints();
 		gbc_lblCpf.anchor = GridBagConstraints.WEST;
 		gbc_lblCpf.gridx = 1;
 		gbc_lblCpf.gridy = 0;
 		panel.add(lblCpf, gbc_lblCpf);
-		
+
 		JPanel panel_2 = new JPanel();
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.anchor = GridBagConstraints.WEST;
@@ -203,20 +217,20 @@ public class LinkCPF extends JFrame {
 		gbc_panel_2.gridx = 0;
 		gbc_panel_2.gridy = 1;
 		Tabblepanel.add(panel_2, gbc_panel_2);
-				GridBagLayout gbl_panel_2 = new GridBagLayout();
-				gbl_panel_2.columnWidths = new int[]{577, 0};
-				gbl_panel_2.rowHeights = new int[]{1, 0};
-				gbl_panel_2.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-				gbl_panel_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-				panel_2.setLayout(gbl_panel_2);
-				
-						table = new JTable(tableModel);
-						GridBagConstraints gbc_table = new GridBagConstraints();
-						gbc_table.fill = GridBagConstraints.HORIZONTAL;
-						gbc_table.anchor = GridBagConstraints.NORTH;
-						gbc_table.gridx = 0;
-						gbc_table.gridy = 0;
-						panel_2.add(table, gbc_table);
+		GridBagLayout gbl_panel_2 = new GridBagLayout();
+		gbl_panel_2.columnWidths = new int[]{577, 0};
+		gbl_panel_2.rowHeights = new int[]{1, 0};
+		gbl_panel_2.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel_2.setLayout(gbl_panel_2);
+
+		table = new JTable(tableModel);
+		GridBagConstraints gbc_table = new GridBagConstraints();
+		gbc_table.fill = GridBagConstraints.HORIZONTAL;
+		gbc_table.anchor = GridBagConstraints.NORTH;
+		gbc_table.gridx = 0;
+		gbc_table.gridy = 0;
+		panel_2.add(table, gbc_table);
 
 		JPanel SubmitPannel = new JPanel();
 		GridBagConstraints gbc_SubmitPannel = new GridBagConstraints();
@@ -231,6 +245,41 @@ public class LinkCPF extends JFrame {
 				// Implemente a lógica para o botão "Finalizar" aqui, se necessário
 			}
 		});
+		
+
+		CPFField.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				NomeField.setEnabled(false);
+				
+			}
+		});
+		CPFField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (CPFField.getText().isEmpty()){
+					NomeField.setEnabled(true);
+				}
+			}
+		});
+		
+		NomeField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				CPFField.setEnabled(false);
+			}
+		});
+		
+		NomeField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (NomeField.getText().isEmpty()){
+					CPFField.setEnabled(true);
+				}
+			}
+		});
+		
+		SearchButton.requestFocusInWindow();
 		SubmitPannel.add(SubmitButton);
 	}
 }

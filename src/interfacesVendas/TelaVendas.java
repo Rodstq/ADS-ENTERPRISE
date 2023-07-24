@@ -161,7 +161,7 @@ public class TelaVendas extends JFrame {
                 int codProd = Integer.parseInt(CodProdField.getText());
                 String nomeProd = NomeProdField.getText();
 
-                String query = "SELECT * FROM produtos WHERE id_produto = ?";
+                String query = "SELECT * FROM produto WHERE id_produto = ?";
                 PreparedStatement stmt = null;
 
                 try {
@@ -295,14 +295,12 @@ public class TelaVendas extends JFrame {
         SubmitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 LinkCPF.main();
-                /*
                 int rowCount = tableModel.getRowCount();
                 for (int i = 0; i < rowCount; i++) {
                     int idProduto = (int) tableModel.getValueAt(i, 0);
                     EstoqueController.venderProduto(idProduto);
                 }
                 tableModel.setRowCount(0);
-                 */
             }
         });
     }
