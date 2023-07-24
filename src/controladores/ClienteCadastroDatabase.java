@@ -9,7 +9,7 @@ import conexaoDb.Db;
 import data.tratamento.clients.ClienteCadastroTratamento;
 import data.tratamento.clients.Clientes;
 
-public class ClienteCadastroDatabase implements InterfaceCadastroClient {
+public class ClienteCadastroDatabase implements InterfaceClienteEstatic {
 	
     public void infoCliente(Clientes cliente) {
     			

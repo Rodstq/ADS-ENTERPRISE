@@ -229,7 +229,7 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 				                    tabelaInfoCliente.addRow(cliente); 
 				                }              	
 		
-								
+				                btnSalvarPdf.setEnabled(true);
 							} catch (infoClienteException erro) {
 								
 								JOptionPane.showMessageDialog(null, erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -250,7 +250,7 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 	                    for (Object[] produtos : resultadosProduto) {
 		                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
 		                    tabelaInfoPedidos.addRow(produtos); 
-	                   
+		                    btnSalvarPdf.setEnabled(true);
               
 	                }
 	            }

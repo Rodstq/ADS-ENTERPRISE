@@ -5,21 +5,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.zip.DataFormatException;
 
 import controladores.ClienteCadastroDatabase;
-import controladores.InterfaceCadastroClient;
+import controladores.InterfaceClienteEstatic;
 import controladores.infoClienteException;
 
 
 public class ClienteCadastroTratamento{
 	
-	
-//    private ClienteCadastroDatabase clienteDatabase;
-    
-	
-    private InterfaceCadastroClient datas;
+
+    private InterfaceClienteEstatic datas;
     
     private LocalDate nascimento;
     
-    public ClienteCadastroTratamento(InterfaceCadastroClient datas){
+    public ClienteCadastroTratamento(InterfaceClienteEstatic datas){
     	
     	this.datas = datas;
     }
@@ -86,7 +83,7 @@ public class ClienteCadastroTratamento{
 	    		    	
 	    
 	        Clientes info = new Clientes();      
-	        info.setCadastrarClienteInfo(cpfCliente, nomeCliente, nascimento, telefoneCliente);
+	        info.setClienteInfo(cpfCliente, nomeCliente, nascimento, telefoneCliente);
 	        datas.infoCliente(info);
 	        
 	    }
@@ -108,18 +105,10 @@ public class ClienteCadastroTratamento{
 			
 		}
 		
-		if(cepCliente.isBlank()) {
-			throw new infoClienteException("o cep está em branco");
-		}else if(cepCliente.length() != 8) {
-			
-			throw new infoClienteException("O cep precisa ter 8 digitos");
-		}
-			
 		if(cidadeCliente.isBlank()) {
 			
 			throw new infoClienteException("o nome da cidade está em branco");
 		}
-		
 		
 		if(bairroCliente.isBlank()) {
 			throw new infoClienteException("o nome do bairro está em branco");
@@ -131,6 +120,13 @@ public class ClienteCadastroTratamento{
 			throw new infoClienteException("nome da rua está em branco");
 		}
 		
+		if(cepCliente.isBlank()) {
+			throw new infoClienteException("o cep está em branco");
+		}else if(cepCliente.length() != 8) {
+			
+			throw new infoClienteException("O cep precisa ter 8 digitos");
+		}
+				
 		if(descricaoRuaCliente.isBlank()) {
 			
 			throw new infoClienteException("a descrição do endereço está em branco");
@@ -139,7 +135,7 @@ public class ClienteCadastroTratamento{
 		
 
 		
-		Clientes info = new Clientes();				info.setCadastrarEnderecoCliente(cepCliente, estadoCliente, cidadeCliente, bairroCliente, ruaCliente, descricaoRuaCliente, cpfCliente);
+		Clientes info = new Clientes();				info.setEnderecoCliente(cepCliente, estadoCliente, cidadeCliente, bairroCliente, ruaCliente, descricaoRuaCliente, cpfCliente);
 		datas.enderecoCliente(info);
 	}
     

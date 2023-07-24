@@ -102,7 +102,7 @@ public class Clientes {
     public String getDescricaoRuaCliente() {
         return this.descricaoRuaCliente;
     }
-    public void setCadastrarClienteInfo(String cpfCliente, String nomeCliente, LocalDate dataNascimento, 
+    public void setClienteInfo(String cpfCliente, String nomeCliente, LocalDate dataNascimento, 
             String telefoneCliente){
      
         setCpf(cpfCliente);
@@ -112,7 +112,7 @@ public class Clientes {
    
     }
     
-	public void setCadastrarEnderecoCliente( String cepCliente, String estadoCliente, String cidadeCliente, String bairroCliente, 
+	public void setEnderecoCliente( String cepCliente, String estadoCliente, String cidadeCliente, String bairroCliente, 
 			String ruaCliente, String descricaoRuaCliente, String cpfCliente){
 		
 		setCepCliente(cepCliente);
