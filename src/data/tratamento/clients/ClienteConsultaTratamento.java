@@ -1,17 +1,10 @@
 package data.tratamento.clients;
 import java.util.List;
 
-<<<<<<< HEAD
-import controladores.ClienteCadastroDatabase;
-import controladores.ClienteConsultaDatabase;
-import controladores.ClienteConsultaPedidosDatabase;
-import controladores.InterfaceClienteEstatic;
-=======
 import controladores.Cliente.ClienteCadastroDatabase;
 import controladores.Cliente.ClienteConsultaDatabase;
 import controladores.Cliente.ClienteConsultaPedidosDatabase;
-import controladores.InterfaceCadastroClient;
->>>>>>> 8aa2ae468dd063d4a288b39e6f1b36c84f618b57
+import controladores.InterfaceClienteEstatic;
 import controladores.InterfaceConsultaCliente;
 import controladores.infoClienteException;
 

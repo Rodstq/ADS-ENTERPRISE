@@ -3,26 +3,25 @@ package guiCliente;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.zip.DataFormatException;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-<<<<<<< HEAD
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
-=======
->>>>>>> 8aa2ae468dd063d4a288b39e6f1b36c84f618b57
 import javax.swing.JRadioButton;
 
 import controladores.Cliente.ClienteAtualizarDatabase;
@@ -94,39 +93,6 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 		btnLimparInfo.setBounds(678, 425, 117, 25);
 		contentPane.add(btnLimparInfo);
 
-<<<<<<< HEAD
-=======
-		JButton btnAtualizarCliente = new JButton("Atualizar");
-		btnAtualizarCliente.setBounds(807, 425, 117, 25);
-		contentPane.add(btnAtualizarCliente);
-		btnAtualizarCliente.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        ClienteAtualizarDatabase atualizarCliente = new ClienteAtualizarDatabase();
-		        
-		        Clientes cliente =new Clientes();
-		        
-		        ClienteAtualizarTratamento atualizar =new ClienteAtualizarTratamento();
-		        	LocalDate teste = null;
-		        	if(!textFieldDataNascimento.getText().isBlank() || !textFieldDataNascimento.getText().isEmpty()) {
-		        	LocalDate dataNascimento = LocalDate.parse(textFieldDataNascimento.getText(), DateTimeFormatter.ofPattern("ddMMyyyy"));
-		        	teste = dataNascimento;
-		        	}
-          
-		            try {
-						atualizar.clienteAtualizarCadastroCliente(teste, textFieldCPF.getText(),  textFieldNomeCliente.getText(), textFieldTelefone.getText());
-					} catch (infoClienteException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-		            
-		            
-		            atualizar.clienteAtualizarEnderecoCliente( textFieldCep.getText(), textFieldEstado.getText(), textFieldCidade.getText(), 
-		            		textFieldBairro.getText(), textFieldRua.getText(),textFieldDescricaoEndereco.getText());
-
-		            
-		    }
-		});
->>>>>>> 8aa2ae468dd063d4a288b39e6f1b36c84f618b57
 
 
 		ClienteAtualizarTratamento flag =new ClienteAtualizarTratamento();	

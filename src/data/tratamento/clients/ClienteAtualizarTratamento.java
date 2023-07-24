@@ -2,25 +2,16 @@ package data.tratamento.clients;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-<<<<<<< HEAD
 import java.time.format.DateTimeFormatter;
 import java.util.zip.DataFormatException;
 
-import controladores.ClienteAtualizarDatabase;
-import controladores.ClienteCadastroDatabase;
-import controladores.ClienteConsultaDatabase;
+import controladores.Cliente.ClienteAtualizarDatabase;
+import controladores.Cliente.ClienteCadastroDatabase;
+import controladores.Cliente.ClienteConsultaDatabase;
 import controladores.InterfaceClienteEstatic;
 import controladores.infoClienteException;
 
 public class ClienteAtualizarTratamento {
-=======
-
-import controladores.Cliente.ClienteAtualizarDatabase;
-import controladores.Cliente.ClienteConsultaDatabase;
-import controladores.infoClienteException;
-
-public class ClienteAtualizarTratamento extends Clientes{
->>>>>>> 8aa2ae468dd063d4a288b39e6f1b36c84f618b57
 
 	ClienteConsultaDatabase clienteConsulta = new ClienteConsultaDatabase();
 
@@ -92,11 +83,7 @@ public class ClienteAtualizarTratamento extends Clientes{
     
 	public void clienteAtualizarCadastroCliente(String dataNascimento, String cpf, String nomeCliente, String telefoneCliente) throws infoClienteException, DataFormatException {
 		
-    		if(nomeCliente.isBlank() && telefoneCliente.isBlank()) {
-    		
-    		allEmpty = true;
-    		
-    		}
+
 		
 		
     		if(cpf.isBlank()) {
@@ -142,14 +129,17 @@ public class ClienteAtualizarTratamento extends Clientes{
     		
     	}
     	
+		if(nomeCliente.isBlank() && telefoneCliente.isBlank() && dataNascimento.isBlank()) {
+    		
+		allEmpty = true;
 		
+		}
 	
     	  Clientes info = new Clientes();
     	  info.setClienteInfo(cpf, nomeCliente, nascimento, telefoneCliente);
 	       datas.infoCliente(info);
 		
 	}
-<<<<<<< HEAD
     
 	public void clienteAtualizarEnderecoCliente (String cpf, String cepCliente, String estadoCliente, String cidadeCliente, String bairroCliente,
 			String ruaCliente, String descricaoRuaCliente) throws infoClienteException {
@@ -209,18 +199,6 @@ public class ClienteAtualizarTratamento extends Clientes{
 		Clientes info = new Clientes();		
 		info.setEnderecoCliente(cepCliente, estadoCliente, cidadeCliente, bairroCliente, ruaCliente, descricaoRuaCliente, cpf);
 		datas.enderecoCliente(info);
-=======
-
-	public void clienteAtualizarEnderecoCliente(String cepCliente, String estadoCliente, String cidadeCliente, String bairroCliente,
-			String ruaCliente, String descricaoRuaCliente) {
-			setCepCliente(cepCliente);
-			setEstadoCliente(estadoCliente);
-			setCidadeCliente(cidadeCliente);
-			setBairroCliente(bairroCliente);
-			setRuaCliente(ruaCliente);
-			setDescricaoRuaCliente(descricaoRuaCliente);
-			clienteDatabase.atualizarEnderecoCliente(this);
->>>>>>> 8aa2ae468dd063d4a288b39e6f1b36c84f618b57
 	}
 
 	

@@ -4,13 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.zip.DataFormatException;
 
-<<<<<<< HEAD
-import controladores.ClienteCadastroDatabase;
-import controladores.InterfaceClienteEstatic;
-=======
 import controladores.Cliente.ClienteCadastroDatabase;
-import controladores.InterfaceCadastroClient;
->>>>>>> 8aa2ae468dd063d4a288b39e6f1b36c84f618b57
+import controladores.InterfaceClienteEstatic;
 import controladores.infoClienteException;
 
 
@@ -140,12 +135,7 @@ public class ClienteCadastroTratamento{
 		
 
 		
-<<<<<<< HEAD
 		Clientes info = new Clientes();				info.setEnderecoCliente(cepCliente, estadoCliente, cidadeCliente, bairroCliente, ruaCliente, descricaoRuaCliente, cpfCliente);
-=======
-		Clientes info = new Clientes();		
-		info.setCadastrarEnderecoCliente(cepCliente, estadoCliente, cidadeCliente, bairroCliente, ruaCliente, descricaoRuaCliente, cpfCliente);
->>>>>>> 8aa2ae468dd063d4a288b39e6f1b36c84f618b57
 		datas.enderecoCliente(info);
 	}
     

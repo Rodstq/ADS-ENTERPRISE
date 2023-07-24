@@ -5,9 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import classesCliente.ClienteCadastroTratamento;
+import data.tratamento.clients.ClienteCadastroTratamento;
 import conexaoDb.Db;
-import controladores.InterfaceCadastroClient;
+import controladores.InterfaceClienteEstatic;
 import data.tratamento.clients.Clientes;
 
 public class ClienteCadastroDatabase implements InterfaceClienteEstatic {
@@ -58,13 +58,5 @@ public class ClienteCadastroDatabase implements InterfaceClienteEstatic {
         }
     }
 
-    @Override
-    public void setCadastrarInfoCliente(ClienteCadastroTratamento clienteCadastroTratamento) {
-
-    }
-
-    @Override
-    public void cadastrarEnderecoCliente(ClienteCadastroTratamento clienteCadastroTratamento) {
-
-    }
+  
 }
