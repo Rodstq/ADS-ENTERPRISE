@@ -158,38 +158,78 @@ public class TelaVendas extends JFrame {
         JButton AddButton = new JButton("Adicionar");
         AddButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                int codProd = Integer.parseInt(CodProdField.getText());
-                String nomeProd = NomeProdField.getText();
+                int codProd = 0;
+                String nomeProd = "";
+                if (!CodProdField.getText().isEmpty()){
 
-                String query = "SELECT * FROM produto WHERE id_produto = ?";
-                PreparedStatement stmt = null;
+                    codProd = Integer.parseInt(CodProdField.getText());
+                    nomeProd = NomeProdField.getText();
 
-                try {
-                    Connection con = Db.getCon();
-                    stmt = con.prepareStatement(query);
-                    stmt.setInt(1, codProd);
+                    String query = "SELECT * FROM produto WHERE id_produto = ?";
+                    PreparedStatement stmt = null;
 
-                    ResultSet rs = stmt.executeQuery();
+                    try {
+                        Connection con = Db.getCon();
+                        stmt = con.prepareStatement(query);
+                        stmt.setInt(1, codProd);
 
-                    // Item encontrado
-                    if (rs.next()) {
-                        String nomeProduto = rs.getString("nome_produto");
-                        nomeProd = nomeProduto;
-                        tableModel.addRow(new Object[]{codProd, nomeProd});
-                        System.out.println("Nome do produto encontrado: " + nomeProduto);
-                    } else {
-                        // Item não encontrado
-                        System.out.println(
-                                "Item não encontrado na tabela Produtos com o id_produto: " + codProd);
-                        AddError.main(null);
+                        ResultSet rs = stmt.executeQuery();
+
+                        // Item encontrado
+                        if (rs.next()) {
+                            String nomeProduto = rs.getString("nome_produto");
+                            nomeProd = nomeProduto;
+                            tableModel.addRow(new Object[]{codProd, nomeProd});
+                            System.out.println("Nome do produto encontrado: " + nomeProduto);
+                        } else {
+                            // Item não encontrado
+                            System.out.println(
+                                    "Item não encontrado na tabela Produtos com o id_produto: " + codProd);
+                            AddError.main(null);
+                        }
+
+                        rs.close();
+                        stmt.close();
+
+                    } catch (SQLException ex) {
+                        throw new RuntimeException("Erro ao executar a consulta: " + ex.getMessage(), ex);
                     }
-
-                    rs.close();
-                    stmt.close();
-
-                } catch (SQLException ex) {
-                    throw new RuntimeException("Erro ao executar a consulta: " + ex.getMessage(), ex);
                 }
+                else if (!NomeProdField.getText().isEmpty()){
+                    String query = "SELECT * FROM produto WHERE nome_produto = ?";
+                    PreparedStatement stmt = null;
+
+                    try {
+                        Connection con = Db.getCon();
+                        stmt = con.prepareStatement(query);
+                        stmt.setInt(1, codProd);
+
+                        ResultSet rs = stmt.executeQuery();
+
+                        // Item encontrado
+                        if (rs.next()) {
+                            String nomeProduto = rs.getString("nome_produto");
+                            nomeProd = nomeProduto;
+                            tableModel.addRow(new Object[]{codProd, nomeProd});
+                            System.out.println("Nome do produto encontrado: " + nomeProduto);
+                        } else {
+                            // Item não encontrado
+                            String nomeProduto = rs.getString("nome_produto");
+                            nomeProd = nomeProduto;
+                            System.out.println(
+                                    "Item não encontrado na tabela Produtos com o nome_produto: " + nomeProduto);
+                            AddError.main(null);
+                        }
+
+                        rs.close();
+                        stmt.close();
+
+                    } catch (SQLException ex) {
+                        throw new RuntimeException("Erro ao executar a consulta: " + ex.getMessage(), ex);
+                    }
+                }
+
+
             }
         });
 
