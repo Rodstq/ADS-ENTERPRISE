@@ -40,14 +40,4 @@ public String getCnpj() {
 	return this.cnpj_fornecedor;
 }
 
-//public boolean validacao() {
-//	
-//	if (id_produto == (int)id_produto &&  nome_produto.equals((String)nome_produto) && valorVenda == (double)valorVenda && id_estoque ==(int)id_estoque && cnpj_fornecedor.equals((String)cnpj_fornecedor))
-//	{
-//	   return true;
-//	}else {
-//		return false;
-//	}
-//}
-//	
 }

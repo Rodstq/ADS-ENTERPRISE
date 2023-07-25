@@ -15,8 +15,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import controladores.Produtos.ProdutosConsulta;
+import controladores.Fornecedores.FornecedoresCadastrar;
+import utils.Validadora;
 import controladores.Produtos.ProdutosCadastrar;
 import classesProdutos.Produto;
 import javax.swing.JTabbedPane;
@@ -30,11 +33,14 @@ public class InterfaceProdutosPrincipal extends JFrame {
 
 	private JPanel cadastrarProduto;
 	private JPanel consultarProduto;
+	private JPanel cadastrarFornecedor;
 	JTable tblData;
 	private JTextField id_estoqueTF;
 	private JTabbedPane tabbedPane;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private String escolha;
+	private JTextField cnpjFornecedor;
+	private JTextField nomeFornecedor;
 
 	/**
 	 * Launch the application.
@@ -70,6 +76,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 				
 		// ADICIONANDO ELEMENTOS DO CONSULTAR
 				JTextField txtProdConsultar = new JTextField();
+				txtProdConsultar.setDocument(new Validadora(50,Validadora.dadoInserido.dadoLivre));
 				txtProdConsultar.setBounds(141, 69, 254, 20);
 				txtProdConsultar.setColumns(10);
 				consultarProduto.add(txtProdConsultar);
@@ -93,6 +100,10 @@ public class InterfaceProdutosPrincipal extends JFrame {
 				lblNewLabelConsultar.setFont(new Font("Tahoma", Font.BOLD, 11));
 				
 				JTextField txtIdConsultar = new JTextField();
+				
+//				nome do campo  metodo usado   classe  qtd limite   tipo de dado a ser inserido
+				txtIdConsultar.setDocument(new Validadora(50, Validadora.dadoInserido.numeroInt));
+				
 				consultarProduto.add(txtIdConsultar);
 				txtIdConsultar.setBounds(109, 41, 45, 20);
 				txtIdConsultar.setColumns(10);		
@@ -193,40 +204,64 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		produtoNome.setBounds(33, 45, 60, 14);
 		produtoNome.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
-		JLabel lblNewLabel_4 = new JLabel("Data de Validade :");
-		lblNewLabel_4.setBounds(490, 38, 101, 14);
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
-		getContentPane().add(lblNewLabel_4);
-		
-		JLabel lblNewLabel_5 = new JLabel("Data de Entrada :");
-		lblNewLabel_5.setBounds(490, 63, 97, 14);
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 11));
-		getContentPane().add(lblNewLabel_5);
-		
-		JLabel lblNewLabel_6 = new JLabel("Data de Saída : ");
-		lblNewLabel_6.setBounds(490, 88, 87, 14);
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 11));
-		getContentPane().add(lblNewLabel_6);
-		
-		JTextField txtDataE = new JTextField();
-		txtDataE.setBounds(594, 60, 86, 20);
-		getContentPane().add(txtDataE);
-		txtDataE.setColumns(10);
-		
-		JTextField txtDataV = new JTextField();
-		txtDataV.setBounds(594, 35, 86, 20);
-		getContentPane().add(txtDataV);
-		txtDataV.setColumns(10);
-		
-		JTextField txtDataS = new JTextField();
-		txtDataS.setBounds(594, 85, 86, 20);
-		getContentPane().add(txtDataS);
-		txtDataS.setColumns(10);
-		
 		JLabel txtIdEstoque = new JLabel("Id Estoque : ");
 		txtIdEstoque.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtIdEstoque.setBounds(286, 74, 78, 14);
 		cadastrarProduto.add(txtIdEstoque);
+		
+		// CRIANDO PANEL CADASTRAR FORNECEDOR
+		cadastrarFornecedor = new JPanel();
+		consultarProduto.setBorder(new EmptyBorder(5, 5, 5, 5));
+		consultarProduto.setLayout(null);
+		tabbedPane.add(cadastrarFornecedor, "cadastrar Fornecedor");
+		cadastrarFornecedor.setLayout(null);
+		
+		JLabel cnpjLbl = new JLabel("CNPJ Vendedor :");
+		cnpjLbl.setBounds(36, 52, 113, 14);
+		cnpjLbl.setFont(new Font("Tahoma", Font.BOLD, 11));
+		cadastrarFornecedor.add(cnpjLbl);
+		
+		cnpjFornecedor = new JTextField();
+		cnpjFornecedor.setDocument(new Validadora(14,Validadora.dadoInserido.numeroInt));
+		cnpjFornecedor.setBounds(145, 49, 215, 20);
+		cnpjFornecedor.setColumns(10);
+		cadastrarFornecedor.add(cnpjFornecedor);
+		
+		nomeFornecedor = new JTextField();
+		nomeFornecedor.setDocument(new Validadora(50,Validadora.dadoInserido.dadoLivre));
+		nomeFornecedor.setBounds(145, 88, 86, 20);
+		nomeFornecedor.setColumns(10);
+		cadastrarFornecedor.add(nomeFornecedor);
+		
+		JLabel txtIdEstoque_1 = new JLabel("Nome Fornecedor : ");
+		txtIdEstoque_1.setBounds(36, 91, 113, 14);
+		txtIdEstoque_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		cadastrarFornecedor.add(txtIdEstoque_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Cadastrar Fornecedor ");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_2.setBounds(36, 11, 149, 14);
+		cadastrarFornecedor.add(lblNewLabel_2);
+		
+		JButton btnCadFornecedor = new JButton("Cadastrar Fornecedor");
+		btnCadFornecedor.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCadFornecedor.setBounds(67, 138, 253, 45);
+		btnCadFornecedor.addActionListener(new ActionListener() {
+	
+			public void actionPerformed(ActionEvent e) {
+				
+				FornecedoresCadastrar fornecedor = new FornecedoresCadastrar();
+				fornecedor.setCnpj(cnpjFornecedor.getText());
+				fornecedor.setNome(nomeFornecedor.getText());
+				fornecedor.cadastrarFornecedor(fornecedor);
+				
+			}
+			
+			
+		});
+		cadastrarFornecedor.add(btnCadFornecedor);
+		
+		
 		
 		
 			// BOTOES CONSULTAR E CADASTRAR
