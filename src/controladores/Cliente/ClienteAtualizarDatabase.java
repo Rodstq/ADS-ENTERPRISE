@@ -6,11 +6,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import conexaoDb.Db;
+import controladores.InterfaceClienteEstatic;
 import data.tratamento.clients.Clientes;
 
-public class ClienteAtualizarDatabase {
+public class ClienteAtualizarDatabase implements InterfaceClienteEstatic{
 	
-	public void setAtualizarDadosCliente(Clientes cliente) {
+	public void infoCliente (Clientes cliente) {
 	    ArrayList<Object> infoCliente = new ArrayList<Object>();
 	    infoCliente.add(cliente.getNomeCliente());
 	    infoCliente.add(cliente.getDataNascimentoCliente());
@@ -41,7 +42,7 @@ public class ClienteAtualizarDatabase {
 	    }
 	}
 
-	public void atualizarEnderecoCliente(Clientes cliente) {
+	public void enderecoCliente(Clientes cliente) {
 	    ArrayList<Object> enderecoCliente = new ArrayList<Object>();
 	    enderecoCliente.add(cliente.getCepCliente());
 	    enderecoCliente.add(cliente.getEstadoCliente());

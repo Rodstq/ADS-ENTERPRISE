@@ -4,7 +4,7 @@ import java.util.List;
 import controladores.Cliente.ClienteCadastroDatabase;
 import controladores.Cliente.ClienteConsultaDatabase;
 import controladores.Cliente.ClienteConsultaPedidosDatabase;
-import controladores.InterfaceCadastroClient;
+import controladores.InterfaceClienteEstatic;
 import controladores.InterfaceConsultaCliente;
 import controladores.infoClienteException;
 

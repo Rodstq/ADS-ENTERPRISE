@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ClienteConsultaDatabase  implements InterfaceConsultaCliente {
 	
-	public  List<Object[]> infoCliente(Clientes cliente) {
+	public List<Object[]> infoCliente(Clientes cliente) {
 		
 		List<Object[]> resultados = new ArrayList<>();
 		try {
