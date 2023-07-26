@@ -54,6 +54,7 @@ public class TelaVendas extends JFrame {
     private JTextField CPFField;
     private JTextField NomeField;
     private JTable ClientesTable;
+    private String CPF_vendedor = "12345678901";
     ArrayList<Integer> ProdutosComprados = new ArrayList<Integer>();
 
     public static void setCpfSelecionado(String cpf) {
@@ -65,14 +66,15 @@ public class TelaVendas extends JFrame {
     }
 
     ClienteConsultaDatabase ClienteConsultaDatabase = new ClienteConsultaDatabase();
+
     /**
      * Launch the application.
      */
     public static void TelaCaixa() {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                    TelaVendas frame = new TelaVendas();
-                    frame.setVisible(true);
+                TelaVendas frame = new TelaVendas();
+                frame.setVisible(true);
             }
         });
     }
@@ -173,14 +175,13 @@ public class TelaVendas extends JFrame {
         NomeProdField.setColumns(10);
 
 
-
         JButton AddButton = new JButton("Adicionar");
         AddButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 Db.Connect();
                 int codProd = 0;
                 String nomeProd = "";
-                if (!CodProdField.getText().isEmpty()){
+                if (!CodProdField.getText().isEmpty()) {
 
                     codProd = Integer.parseInt(CodProdField.getText());
                     nomeProd = NomeProdField.getText();
@@ -214,8 +215,7 @@ public class TelaVendas extends JFrame {
                     } catch (SQLException ex) {
                         throw new RuntimeException("Erro ao executar a consulta: " + ex.getMessage(), ex);
                     }
-                }
-                else if (!NomeProdField.getText().isEmpty()){
+                } else if (!NomeProdField.getText().isEmpty()) {
                     String query = "SELECT * FROM produto WHERE nome_produto = ?";
                     PreparedStatement stmt = null;
 
@@ -340,7 +340,7 @@ public class TelaVendas extends JFrame {
             }
         });
         panel_1.add(RemoveButton);
-        
+
         JPanel LinkCpfPanel = new JPanel();
         LinkCpfPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         GridBagConstraints gbc_LinkCpfPanel = new GridBagConstraints();
@@ -354,7 +354,7 @@ public class TelaVendas extends JFrame {
         gbl_LinkCpfPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
         gbl_LinkCpfPanel.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
         LinkCpfPanel.setLayout(gbl_LinkCpfPanel);
-        
+
         JPanel FormPanel_1 = new JPanel();
         GridBagConstraints gbc_FormPanel_1 = new GridBagConstraints();
         gbc_FormPanel_1.anchor = GridBagConstraints.NORTHWEST;
@@ -368,7 +368,7 @@ public class TelaVendas extends JFrame {
         gbl_FormPanel_1.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
         gbl_FormPanel_1.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
         FormPanel_1.setLayout(gbl_FormPanel_1);
-        
+
         JLabel lblNewLabel_1 = new JLabel("CPF do cliente:");
         GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
         gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
@@ -376,7 +376,7 @@ public class TelaVendas extends JFrame {
         gbc_lblNewLabel_1.gridx = 0;
         gbc_lblNewLabel_1.gridy = 0;
         FormPanel_1.add(lblNewLabel_1, gbc_lblNewLabel_1);
-        
+
         CPFField = new JTextField();
 
 
@@ -387,16 +387,16 @@ public class TelaVendas extends JFrame {
         gbc_CPFField.gridx = 1;
         gbc_CPFField.gridy = 0;
         FormPanel_1.add(CPFField, gbc_CPFField);
-        
+
         JLabel lblNewLabel_1_1 = new JLabel("Nome do cliente: ");
         GridBagConstraints gbc_lblNewLabel_1_1 = new GridBagConstraints();
         gbc_lblNewLabel_1_1.insets = new Insets(0, 0, 5, 5);
         gbc_lblNewLabel_1_1.gridx = 0;
         gbc_lblNewLabel_1_1.gridy = 1;
         FormPanel_1.add(lblNewLabel_1_1, gbc_lblNewLabel_1_1);
-        
+
         NomeField = new JTextField();
-        
+
         NomeField.setColumns(10);
         GridBagConstraints gbc_NomeField = new GridBagConstraints();
         gbc_NomeField.fill = GridBagConstraints.HORIZONTAL;
@@ -404,7 +404,7 @@ public class TelaVendas extends JFrame {
         gbc_NomeField.gridx = 1;
         gbc_NomeField.gridy = 1;
         FormPanel_1.add(NomeField, gbc_NomeField);
-        
+
         JButton SearchButton = new JButton("Pesquisar");
 
         SearchButton.addActionListener(new ActionListener() {
@@ -449,7 +449,7 @@ public class TelaVendas extends JFrame {
         gbc_SearchButton.gridx = 1;
         gbc_SearchButton.gridy = 2;
         FormPanel_1.add(SearchButton, gbc_SearchButton);
-        
+
         JPanel Tabblepanel = new JPanel();
         GridBagConstraints gbc_Tabblepanel = new GridBagConstraints();
         gbc_Tabblepanel.fill = GridBagConstraints.BOTH;
@@ -463,7 +463,7 @@ public class TelaVendas extends JFrame {
         gbl_Tabblepanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
         gbl_Tabblepanel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
         Tabblepanel.setLayout(gbl_Tabblepanel);
-        
+
         JPanel LabelTablepanel = new JPanel();
         GridBagConstraints gbc_LabelTablepanel = new GridBagConstraints();
         gbc_LabelTablepanel.anchor = GridBagConstraints.NORTHWEST;
@@ -478,7 +478,7 @@ public class TelaVendas extends JFrame {
         gbl_LabelTablepanel.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
         gbl_LabelTablepanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
         LabelTablepanel.setLayout(gbl_LabelTablepanel);
-        
+
         JLabel Nomelbl = new JLabel("Nome:");
         GridBagConstraints gbc_Nomelbl = new GridBagConstraints();
         gbc_Nomelbl.anchor = GridBagConstraints.WEST;
@@ -486,14 +486,14 @@ public class TelaVendas extends JFrame {
         gbc_Nomelbl.gridx = 0;
         gbc_Nomelbl.gridy = 0;
         LabelTablepanel.add(Nomelbl, gbc_Nomelbl);
-        
+
         JLabel lblCpf = new JLabel("CPF:");
         GridBagConstraints gbc_lblCpf = new GridBagConstraints();
         gbc_lblCpf.anchor = GridBagConstraints.WEST;
         gbc_lblCpf.gridx = 1;
         gbc_lblCpf.gridy = 0;
         LabelTablepanel.add(lblCpf, gbc_lblCpf);
-        
+
         JPanel ClientesTablePanel = new JPanel();
         GridBagConstraints gbc_ClientesTablePanel = new GridBagConstraints();
         gbc_ClientesTablePanel.insets = new Insets(0, 0, 0, 5);
@@ -517,26 +517,26 @@ public class TelaVendas extends JFrame {
         gbc_ClientesTable.gridx = 0;
         gbc_ClientesTable.gridy = 0;
         ClientesTablePanel.add(ClientesTable, gbc_ClientesTable);
-        
+
         JPanel SubmitPannel = new JPanel();
         GridBagConstraints gbc_SubmitPannel = new GridBagConstraints();
         gbc_SubmitPannel.anchor = GridBagConstraints.EAST;
         gbc_SubmitPannel.gridx = 0;
         gbc_SubmitPannel.gridy = 2;
         LinkCpfPanel.add(SubmitPannel, gbc_SubmitPannel);
-        
+
         JButton SubmitButton = new JButton("Finalizar");
         SubmitButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 Db.Connect();
-
                 try {
-                    PedidoController.criarPedido(ProdutosComprados, cpfSelecionado);
+                    System.out.println(ProdutosComprados + cpfSelecionado + CPF_vendedor);
+                    PedidoController.criarPedido(ProdutosComprados, cpfSelecionado, CPF_vendedor);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
                 Db.CloseDb();
-        	}
+            }
         });
 
         SubmitPannel.add(SubmitButton);
@@ -545,7 +545,7 @@ public class TelaVendas extends JFrame {
             public void valueChanged(ListSelectionEvent event) {
                 int selectedRow = ClientesTable.getSelectedRow();
                 if (selectedRow != -1) {
-                    cpfSelecionado = (String) ClientesTable.getValueAt(selectedRow, 1);
+                    cpfSelecionado = (String) ClientesTable.getValueAt(selectedRow, 0);
                 }
             }
         });
@@ -560,38 +560,38 @@ public class TelaVendas extends JFrame {
                 }
             }
         });
-        
+
         CPFField.addKeyListener(new KeyAdapter() {
-        	public void keyTyped(KeyEvent e) {
-        		if (NomeField.getText().isEmpty()){
+            public void keyTyped(KeyEvent e) {
+                if (NomeField.getText().isEmpty()) {
                     NomeField.setEnabled(false);
                 }
-        	}
+            }
         });
         CPFField.addMouseListener(new MouseAdapter() {
-        	public void mouseClicked(MouseEvent e) {
-                if (NomeField.getText().isEmpty()){
+            public void mouseClicked(MouseEvent e) {
+                if (NomeField.getText().isEmpty()) {
                     CPFField.setEnabled(true);
                 }
-        	}
+            }
         });
-        
+
         NomeField.addKeyListener(new KeyAdapter() {
-        	public void keyTyped(KeyEvent e) {
-        		if (CPFField.getText().isEmpty()) {
-        			CPFField.setEnabled(false);
-        		}
-        	}
+            public void keyTyped(KeyEvent e) {
+                if (CPFField.getText().isEmpty()) {
+                    CPFField.setEnabled(false);
+                }
+            }
         });
-        
+
         NomeField.addMouseListener(new MouseAdapter() {
-        	public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 if (CPFField.getText().isEmpty()) {
                     NomeField.setEnabled(true);
                 }
-        	}
+            }
         });
-        
+
         FecharCompraButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int rowCount = tableModel.getRowCount();

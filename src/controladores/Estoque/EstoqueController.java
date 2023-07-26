@@ -32,8 +32,10 @@ public class EstoqueController {
 
     public static double getValorDeVendaProduto(int idProduto) {
         String query = "SELECT valor_de_venda FROM produto WHERE id_produto = ?";
-        try (Connection con = Db.getCon();
-             PreparedStatement stmt = con.prepareStatement(query)) {
+        try{
+            Connection con = Db.getCon();
+            PreparedStatement stmt = con.prepareStatement(query);
+
             stmt.setInt(1, idProduto);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
