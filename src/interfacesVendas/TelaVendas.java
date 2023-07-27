@@ -42,6 +42,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.SimpleTimeZone;
 
 public class TelaVendas extends JFrame {
 
@@ -54,7 +55,6 @@ public class TelaVendas extends JFrame {
     private JTextField CPFField;
     private JTextField NomeField;
     private JTable ClientesTable;
-    private String CPF_vendedor = "12345678901";
     ArrayList<Integer> ProdutosComprados = new ArrayList<Integer>();
 
     public static void setCpfSelecionado(String cpf) {
@@ -70,10 +70,10 @@ public class TelaVendas extends JFrame {
     /**
      * Launch the application.
      */
-    public static void TelaCaixa() {
+    public static void TelaCaixa(String nomeVendedor, String VendedorCPF) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaVendas frame = new TelaVendas();
+                TelaVendas frame = new TelaVendas(nomeVendedor, VendedorCPF);
                 frame.setVisible(true);
             }
         });
@@ -82,7 +82,7 @@ public class TelaVendas extends JFrame {
     /**
      * Create the frame.
      */
-    public TelaVendas() {
+    public TelaVendas(String nomeVendedor, String VendedorCPF) {
         setTitle("Tela de vendas");
         addWindowListener(new WindowAdapter() {
             @Override
@@ -116,7 +116,7 @@ public class TelaVendas extends JFrame {
         gbc_lblVendas.gridy = 0;
         MainPanel.add(lblVendas, gbc_lblVendas);
 
-        JLabel lblOlFulano = new JLabel("Olá, Fulano!");
+        JLabel lblOlFulano = new JLabel("Olá, " + nomeVendedor + "!");
         GridBagConstraints gbc_lblOlFulano = new GridBagConstraints();
         gbc_lblOlFulano.insets = new Insets(0, 0, 5, 0);
         gbc_lblOlFulano.gridx = 0;
@@ -530,8 +530,8 @@ public class TelaVendas extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Db.Connect();
                 try {
-                    System.out.println(ProdutosComprados + cpfSelecionado + CPF_vendedor);
-                    PedidoController.criarPedido(ProdutosComprados, cpfSelecionado, CPF_vendedor);
+                    System.out.println(ProdutosComprados + cpfSelecionado + VendedorCPF);
+                    PedidoController.criarPedido(ProdutosComprados, cpfSelecionado, VendedorCPF);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

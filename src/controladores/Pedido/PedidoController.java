@@ -42,8 +42,7 @@ public class PedidoController {
                 stmtPedidoProduto.setDouble(3, valorTotalProdutoComprado);
                 stmtPedidoProduto.setInt(4, quantidadeComprada);
                 stmtPedidoProduto.executeUpdate();
-
-                // Update the stock quantity in the 'estoque' table
+                
                 EstoqueController.venderProduto(idProduto);
 
             }

@@ -17,8 +17,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class ProdutosConsulta{
-	
-	
+
 	ResultSet rs;
 	ResultSetMetaData rsmd;
 	int cols;
