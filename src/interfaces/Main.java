@@ -18,15 +18,16 @@ public class Main extends JFrame {
 
 	private JPanel contentPane;
 
+
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Main frame = new Main();
-					frame.setVisible(true);
+					Login.telaLogin();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -49,7 +50,7 @@ public class Main extends JFrame {
 		JButton btnModuloVendas = new JButton("Módulo de Vendas");
 		btnModuloVendas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaVendas.TelaCaixa();
+				TelaVendas.TelaCaixa(Login.getVendedor(), Login.getCPFVendedor());
 			}
 		});
 	
