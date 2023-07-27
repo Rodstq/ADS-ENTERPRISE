@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import controladores.Produtos.ProdutosConsulta;
+import interfaces.Main;
 import controladores.Fornecedores.FornecedoresCadastrar;
 import utils.Validadora;
 import controladores.Produtos.ProdutosCadastrar;
@@ -89,7 +90,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 				
 				JScrollPane scrollPane_1 = new JScrollPane();
 				scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-				scrollPane_1.setBounds(10, 215, 685, 251);
+				scrollPane_1.setBounds(10, 215, 685, 215);
 				consultarProduto.add(scrollPane_1);
 				
 				JTable tblData_1 = new JTable();
@@ -151,122 +152,144 @@ public class InterfaceProdutosPrincipal extends JFrame {
 				RadioButtonNomeConsulta.setBounds(56, 66, 21, 23);
 				consultarProduto.add(RadioButtonNomeConsulta);
 				
+				JButton btnMenuPrincial = new JButton("menu principal");
+				btnMenuPrincial.setBounds(10, 441, 154, 25);
+				consultarProduto.add(btnMenuPrincial);
+				btnMenuPrincial.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Main.main(null);
+						dispose();
+						
+					}
+				});
+				
 				
 		
+								
+						//	 CRIANDO PANEL CADASTRAR		
+						cadastrarProduto = new JPanel();
+						tabbedPane.add(cadastrarProduto, "cadastrar");
+						cadastrarProduto.setLayout(null);	
+						
+						// ADICIONANDO ELEMENTOS DO CADASTRAR
+						JLabel lblNewLabel = new JLabel("id :");
+						cadastrarProduto.add(lblNewLabel);
+						lblNewLabel.setBounds(33, 17, 16, 14);
+						lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+						
+						JTextField txtId = new JTextField();
+						txtId.setDocument(new Validadora(9, Validadora.dadoInserido.numeroInt));
+						cadastrarProduto.add(txtId);
+						txtId.setBounds(59, 14, 133, 20);
+						txtId.setColumns(10);		
+						
+						JLabel quantidadeLabel = new JLabel("CNPJ Vendedor :");
+						cadastrarProduto.add(quantidadeLabel);
+						quantidadeLabel.setBounds(33, 74, 93, 14);
+						quantidadeLabel.setFont(new Font("Tahoma", Font.BOLD, 11));		
+						
+						JTextField txtQtd = new JTextField();
+						txtQtd.setDocument(new Validadora(14, Validadora.dadoInserido.numeroInt));
+						cadastrarProduto.add(txtQtd);
+						txtQtd.setBounds(138, 71, 138, 20);
+						txtQtd.setColumns(10);
+						
+						JLabel lblNewLabel_3 = new JLabel("Valor :");
+						lblNewLabel_3.setBounds(215, 17, 35, 14);
+						lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
+						cadastrarProduto.add(lblNewLabel_3);
+						
+						JTextField txtVlr = new JTextField();
+						txtVlr.setDocument(new Validadora(8, Validadora.dadoInserido.numeroDouble));
+						txtVlr.setBounds(284, 14, 101, 20);
+						cadastrarProduto.add(txtVlr);
+						txtVlr.setColumns(10);
+						
+						JTextField txtProd = new JTextField();
+						cadastrarProduto.add(txtProd);
+						txtProd.setBounds(90, 43, 373, 20);
+						txtProd.setColumns(10);
+						
+						JLabel produtoNome = new JLabel("Produto :");
+						cadastrarProduto.add(produtoNome);
+						produtoNome.setBounds(33, 45, 60, 14);
+						produtoNome.setFont(new Font("Tahoma", Font.BOLD, 11));
+						
+						JButton btnMenuPrincialProd = new JButton("menu principal");
+						btnMenuPrincialProd.setBounds(10, 441, 154, 25);
+						cadastrarProduto.add(btnMenuPrincialProd);
+						btnMenuPrincialProd.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								Main.main(null);
+								dispose();
+								
+							}
+						});
 				
-		//	 CRIANDO PANEL CADASTRAR		
-		cadastrarProduto = new JPanel();
-		tabbedPane.add(cadastrarProduto, "cadastrar");
-		cadastrarProduto.setLayout(null);	
-		
-		// ADICIONANDO ELEMENTOS DO CADASTRAR
-		JLabel lblNewLabel = new JLabel("id :");
-		cadastrarProduto.add(lblNewLabel);
-		lblNewLabel.setBounds(33, 17, 16, 14);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		
-		JTextField txtId = new JTextField();
-		txtId.setDocument(new Validadora(9, Validadora.dadoInserido.numeroInt));
-		cadastrarProduto.add(txtId);
-		txtId.setBounds(59, 14, 133, 20);
-		txtId.setColumns(10);		
-		
-		JLabel quantidadeLabel = new JLabel("CNPJ Vendedor :");
-		cadastrarProduto.add(quantidadeLabel);
-		quantidadeLabel.setBounds(33, 74, 93, 14);
-		quantidadeLabel.setFont(new Font("Tahoma", Font.BOLD, 11));		
-		
-//		id_estoqueTF = new JTextField();
-//		id_estoqueTF.setDocument(new Validadora(9, Validadora.dadoInserido.numeroInt));
-//		cadastrarProduto.add(id_estoqueTF);
-//		id_estoqueTF.setBounds(362, 71, 101, 20);
-//		id_estoqueTF.setColumns(10);
-		
-		JTextField txtQtd = new JTextField();
-		txtQtd.setDocument(new Validadora(14, Validadora.dadoInserido.numeroInt));
-		cadastrarProduto.add(txtQtd);
-		txtQtd.setBounds(138, 71, 138, 20);
-		txtQtd.setColumns(10);
-		
-		JLabel lblNewLabel_3 = new JLabel("Valor :");
-		lblNewLabel_3.setBounds(215, 17, 35, 14);
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
-		cadastrarProduto.add(lblNewLabel_3);
-		
-		JTextField txtVlr = new JTextField();
-		txtVlr.setDocument(new Validadora(8, Validadora.dadoInserido.numeroDouble));
-		txtVlr.setBounds(284, 14, 101, 20);
-		cadastrarProduto.add(txtVlr);
-		txtVlr.setColumns(10);
-		
-		JTextField txtProd = new JTextField();
-		cadastrarProduto.add(txtProd);
-		txtProd.setBounds(90, 43, 373, 20);
-		txtProd.setColumns(10);
-		
-		JLabel produtoNome = new JLabel("Produto :");
-		cadastrarProduto.add(produtoNome);
-		produtoNome.setBounds(33, 45, 60, 14);
-		produtoNome.setFont(new Font("Tahoma", Font.BOLD, 11));
-//		
-//		JLabel txtIdEstoque = new JLabel("Id Estoque : ");
-//		txtIdEstoque.setFont(new Font("Tahoma", Font.BOLD, 11));
-//		txtIdEstoque.setBounds(286, 74, 78, 14);
-//		cadastrarProduto.add(txtIdEstoque);
-		
-		// CRIANDO PANEL CADASTRAR FORNECEDOR
-		cadastrarFornecedor = new JPanel();
-		consultarProduto.setBorder(new EmptyBorder(5, 5, 5, 5));
-		consultarProduto.setLayout(null);
-		tabbedPane.add(cadastrarFornecedor, "cadastrar Fornecedor");
-		cadastrarFornecedor.setLayout(null);
-		
-		JLabel cnpjLbl = new JLabel("CNPJ Vendedor :");
-		cnpjLbl.setBounds(36, 52, 113, 14);
-		cnpjLbl.setFont(new Font("Tahoma", Font.BOLD, 11));
-		cadastrarFornecedor.add(cnpjLbl);
-		
-		cnpjFornecedor = new JTextField();
-		cnpjFornecedor.setDocument(new Validadora(14,Validadora.dadoInserido.numeroInt));
-		cnpjFornecedor.setBounds(145, 49, 215, 20);
-		cnpjFornecedor.setColumns(10);
-		cadastrarFornecedor.add(cnpjFornecedor);
-//		
-//		nomeFornecedor = new JTextField();
-//		nomeFornecedor.setDocument(new Validadora(50,Validadora.dadoInserido.dadoLivre));
-//		nomeFornecedor.setBounds(145, 88, 86, 20);
-//		nomeFornecedor.setColumns(10);
-//		cadastrarFornecedor.add(nomeFornecedor);
-		
-//		JLabel txtIdEstoque_1 = new JLabel("Nome Fornecedor : ");
-//		txtIdEstoque_1.setBounds(36, 91, 113, 14);
-//		txtIdEstoque_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-//		cadastrarFornecedor.add(txtIdEstoque_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("Cadastrar Fornecedor ");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_2.setBounds(36, 11, 149, 14);
-		cadastrarFornecedor.add(lblNewLabel_2);
-		
-		JButton btnCadFornecedor = new JButton("Cadastrar Fornecedor");
-		btnCadFornecedor.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCadFornecedor.setBounds(67, 138, 253, 45);
-		btnCadFornecedor.addActionListener(new ActionListener() {
-	
-			public void actionPerformed(ActionEvent e) {
-				
-				FornecedoresCadastrar fornecedor = new FornecedoresCadastrar();
-				fornecedor.setCnpj(cnpjFornecedor.getText());
-				fornecedor.setNome(nomeFornecedor.getText());
-				fornecedor.cadastrarFornecedor(fornecedor);
-				
-			}
-			
-			
-		});
-		cadastrarFornecedor.add(btnCadFornecedor);
-		
-		
+						
+										// CRIANDO PANEL CADASTRAR FORNECEDOR
+										cadastrarFornecedor = new JPanel();
+										consultarProduto.setBorder(new EmptyBorder(5, 5, 5, 5));
+										consultarProduto.setLayout(null);
+										tabbedPane.add(cadastrarFornecedor, "cadastrar Fornecedor");
+										cadastrarFornecedor.setLayout(null);
+										
+										JLabel cnpjLbl = new JLabel("CNPJ Vendedor :");
+										cnpjLbl.setBounds(36, 52, 113, 14);
+										cnpjLbl.setFont(new Font("Tahoma", Font.BOLD, 11));
+										cadastrarFornecedor.add(cnpjLbl);
+										
+										cnpjFornecedor = new JTextField();
+										cnpjFornecedor.setDocument(new Validadora(14,Validadora.dadoInserido.numeroInt));
+										cnpjFornecedor.setBounds(145, 49, 215, 20);
+										cnpjFornecedor.setColumns(10);
+										cadastrarFornecedor.add(cnpjFornecedor);	
+										
+										JLabel NomeFornecedorLbl = new JLabel("Nome Vendedor :");
+										NomeFornecedorLbl.setBounds(36, 82, 113, 14);
+										NomeFornecedorLbl.setFont(new Font("Tahoma", Font.BOLD, 11));
+										cadastrarFornecedor.add(NomeFornecedorLbl);
+										
+										nomeFornecedor = new JTextField();
+										nomeFornecedor.setDocument(new Validadora(14,Validadora.dadoInserido.numeroInt));
+										nomeFornecedor.setBounds(145, 79, 215, 20);
+										nomeFornecedor.setColumns(10);
+										cadastrarFornecedor.add(nomeFornecedor);	
+										
+										JLabel lblNewLabel_2 = new JLabel("Cadastrar Fornecedor ");
+										lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+										lblNewLabel_2.setBounds(36, 11, 149, 14);
+										cadastrarFornecedor.add(lblNewLabel_2);
+										
+										JButton btnCadFornecedor = new JButton("Cadastrar Fornecedor");
+										btnCadFornecedor.setFont(new Font("Tahoma", Font.BOLD, 12));
+										btnCadFornecedor.setBounds(67, 138, 253, 45);
+										btnCadFornecedor.addActionListener(new ActionListener() {
+									
+											public void actionPerformed(ActionEvent e) {
+												
+												FornecedoresCadastrar fornecedor = new FornecedoresCadastrar();
+												fornecedor.setCnpj(cnpjFornecedor.getText());
+												fornecedor.setNome(nomeFornecedor.getText());
+												fornecedor.cadastrarFornecedor(fornecedor);
+												
+											}
+										});
+										JButton btnMenuPrincialCNPJ = new JButton("menu principal");
+										btnMenuPrincialCNPJ.setBounds(10, 441, 154, 25);
+										cadastrarFornecedor.add(btnMenuPrincialCNPJ);
+										btnMenuPrincialCNPJ.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												Main.main(null);
+												dispose();
+												
+											}
+										});
+										
+										cadastrarFornecedor.add(btnCadFornecedor);
+										
+						
+						
 		
 		
 			// BOTOES CONSULTAR E CADASTRAR
@@ -309,6 +332,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		 });
 		consultarProduto.add(botaoConsultar);
 		
+		
 	
 		
 		JButton botaoCadastrar = new JButton("Cadastrar Produto");
@@ -340,12 +364,9 @@ public class InterfaceProdutosPrincipal extends JFrame {
 					a.printStackTrace();
 					JOptionPane.showMessageDialog(rootPane, "Existem campos em branco, preencha-os");
 				}
-					
-					
-					
-			
 			}});
 		cadastrarProduto.add(botaoCadastrar);
+		
 		getContentPane().add(tabbedPane);		
 	
 	  }
