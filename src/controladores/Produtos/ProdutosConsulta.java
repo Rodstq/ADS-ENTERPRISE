@@ -62,9 +62,9 @@ public class ProdutosConsulta{
 			 String nome_produto = rs.getString("nome_produto");
 			 String cnpj = rs.getString("cnpj_fornecedor");
 			 double valor = rs.getDouble("valor_de_venda");
-			 int id_estoque = rs.getInt("id_produto");
+			 int id_estoque = rs.getInt("id_estoque");
 			 resultado = id_produto + nome_produto + cnpj + valor + id_estoque;
-			 Object[] results = {id_produto,nome_produto,cnpj,valor,id_estoque};
+			 Object[] results = {id_produto,nome_produto,valor,id_estoque,cnpj};
 			 model.addRow(results);
 		}
 		

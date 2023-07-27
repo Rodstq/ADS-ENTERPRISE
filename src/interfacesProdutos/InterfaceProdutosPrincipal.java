@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -112,7 +113,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 				lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 				lblNewLabel_1.setBounds(10, 11, 110, 14);
 				consultarProduto.add(lblNewLabel_1);
-				
+
 				JRadioButton RadioButtonIdConsultar = new JRadioButton("");
 				RadioButtonIdConsultar.addActionListener(new ActionListener() {
 										
@@ -165,6 +166,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		JTextField txtId = new JTextField();
+		txtId.setDocument(new Validadora(9, Validadora.dadoInserido.numeroInt));
 		cadastrarProduto.add(txtId);
 		txtId.setBounds(59, 14, 133, 20);
 		txtId.setColumns(10);		
@@ -174,12 +176,14 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		quantidadeLabel.setBounds(33, 74, 93, 14);
 		quantidadeLabel.setFont(new Font("Tahoma", Font.BOLD, 11));		
 		
-		id_estoqueTF = new JTextField();
-		cadastrarProduto.add(id_estoqueTF);
-		id_estoqueTF.setBounds(362, 71, 101, 20);
-		id_estoqueTF.setColumns(10);
+//		id_estoqueTF = new JTextField();
+//		id_estoqueTF.setDocument(new Validadora(9, Validadora.dadoInserido.numeroInt));
+//		cadastrarProduto.add(id_estoqueTF);
+//		id_estoqueTF.setBounds(362, 71, 101, 20);
+//		id_estoqueTF.setColumns(10);
 		
 		JTextField txtQtd = new JTextField();
+		txtQtd.setDocument(new Validadora(14, Validadora.dadoInserido.numeroInt));
 		cadastrarProduto.add(txtQtd);
 		txtQtd.setBounds(138, 71, 138, 20);
 		txtQtd.setColumns(10);
@@ -190,6 +194,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		cadastrarProduto.add(lblNewLabel_3);
 		
 		JTextField txtVlr = new JTextField();
+		txtVlr.setDocument(new Validadora(8, Validadora.dadoInserido.numeroDouble));
 		txtVlr.setBounds(284, 14, 101, 20);
 		cadastrarProduto.add(txtVlr);
 		txtVlr.setColumns(10);
@@ -203,11 +208,11 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		cadastrarProduto.add(produtoNome);
 		produtoNome.setBounds(33, 45, 60, 14);
 		produtoNome.setFont(new Font("Tahoma", Font.BOLD, 11));
-		
-		JLabel txtIdEstoque = new JLabel("Id Estoque : ");
-		txtIdEstoque.setFont(new Font("Tahoma", Font.BOLD, 11));
-		txtIdEstoque.setBounds(286, 74, 78, 14);
-		cadastrarProduto.add(txtIdEstoque);
+//		
+//		JLabel txtIdEstoque = new JLabel("Id Estoque : ");
+//		txtIdEstoque.setFont(new Font("Tahoma", Font.BOLD, 11));
+//		txtIdEstoque.setBounds(286, 74, 78, 14);
+//		cadastrarProduto.add(txtIdEstoque);
 		
 		// CRIANDO PANEL CADASTRAR FORNECEDOR
 		cadastrarFornecedor = new JPanel();
@@ -226,17 +231,17 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		cnpjFornecedor.setBounds(145, 49, 215, 20);
 		cnpjFornecedor.setColumns(10);
 		cadastrarFornecedor.add(cnpjFornecedor);
+//		
+//		nomeFornecedor = new JTextField();
+//		nomeFornecedor.setDocument(new Validadora(50,Validadora.dadoInserido.dadoLivre));
+//		nomeFornecedor.setBounds(145, 88, 86, 20);
+//		nomeFornecedor.setColumns(10);
+//		cadastrarFornecedor.add(nomeFornecedor);
 		
-		nomeFornecedor = new JTextField();
-		nomeFornecedor.setDocument(new Validadora(50,Validadora.dadoInserido.dadoLivre));
-		nomeFornecedor.setBounds(145, 88, 86, 20);
-		nomeFornecedor.setColumns(10);
-		cadastrarFornecedor.add(nomeFornecedor);
-		
-		JLabel txtIdEstoque_1 = new JLabel("Nome Fornecedor : ");
-		txtIdEstoque_1.setBounds(36, 91, 113, 14);
-		txtIdEstoque_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		cadastrarFornecedor.add(txtIdEstoque_1);
+//		JLabel txtIdEstoque_1 = new JLabel("Nome Fornecedor : ");
+//		txtIdEstoque_1.setBounds(36, 91, 113, 14);
+//		txtIdEstoque_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+//		cadastrarFornecedor.add(txtIdEstoque_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Cadastrar Fornecedor ");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -274,7 +279,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 			public boolean validacao() {
 				try {
 					if(escolha.equals("id")) {		
-					Integer.parseInt(txtIdConsultar.getText());
+						Integer.parseInt(txtIdConsultar.getText());
 					} else {
 						txtProdConsultar.getText();
 					}
@@ -285,17 +290,20 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		
 			}
 			
-			public void actionPerformed(ActionEvent e) {	
+			public void actionPerformed(ActionEvent e) {
 				
 				ProdutosConsulta produtosConsulta = new ProdutosConsulta();
-				if (validacao()) {
-				produtosConsulta.setTblData(tblData_1);
-				produtosConsulta.setQuery(escolha, txtIdConsultar.getText(), txtProdConsultar.getText());						
-				produtosConsulta.consultarProdutos();
-				} else {
-					JOptionPane.showMessageDialog(rootPane, "Campo escolhido preenchido de forma inválida, pesquise por um número válido");
-				}
-			
+				if(escolha!=null) {
+					if (validacao()) {
+					produtosConsulta.setTblData(tblData_1);
+					produtosConsulta.setQuery(escolha, txtIdConsultar.getText(), txtProdConsultar.getText());						
+					produtosConsulta.consultarProdutos();
+					} else {
+						JOptionPane.showMessageDialog(rootPane, "Campo escolhido preenchido de forma inválida, pesquise por um número válido");
+					}
+			} else {
+				JOptionPane.showMessageDialog(rootPane, "Escolha um campo de consulta");
+			}
 		      
 			}
 		 });
@@ -309,18 +317,33 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		botaoCadastrar.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+				try {
+					Produto produto = new Produto();
+					produto.setId_produto(Integer.parseInt(txtId.getText()));
+					produto.setNome_produto(txtProd.getText());
+					produto.setCnpj(txtQtd.getText());
+					produto.setValorVenda(Double.parseDouble(txtVlr.getText()));
+					produto.setId_estoque(1);
+										
+					ProdutosCadastrar produtosCadastrar = new ProdutosCadastrar();
+					try {					
+						produtosCadastrar.cadastrarProdutos(produto);
+					} catch (SQLException i) {
+						if(produtosCadastrar.getErroMessage().equals("cnpj")) {
+							JOptionPane.showMessageDialog(rootPane, "Cnpj inexistente, registre-o ou verifique novamente");
+						} else {
+							JOptionPane.showMessageDialog(rootPane, produtosCadastrar.getErroMessage());
+						}
+					}
 				
-				Produto produto = new Produto();
-				produto.setId_produto(Integer.parseInt(txtId.getText()));
-				produto.setNome_produto(txtProd.getText());
-				produto.setCnpj(txtQtd.getText());
-				produto.setValorVenda(Double.parseDouble(txtVlr.getText()));
-				produto.setId_estoque(Integer.parseInt(id_estoqueTF.getText()));
-				
-				
-				ProdutosCadastrar produtosCadastrar = new ProdutosCadastrar();
-				produtosCadastrar.cadastrarProdutos(produto);
-				
+				} catch (Exception a) {
+					a.printStackTrace();
+					JOptionPane.showMessageDialog(rootPane, "Existem campos em branco, preencha-os");
+				}
+					
+					
+					
+			
 			}});
 		cadastrarProduto.add(botaoCadastrar);
 		getContentPane().add(tabbedPane);		
