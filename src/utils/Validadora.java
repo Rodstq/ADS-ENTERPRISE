@@ -20,8 +20,6 @@ public class Validadora extends PlainDocument{
 		this.dadoEntrada = dadoEntrada;
 	}
 
-
-
 	@Override
 	public void insertString(int i, String str, AttributeSet a) throws BadLocationException {
 		
