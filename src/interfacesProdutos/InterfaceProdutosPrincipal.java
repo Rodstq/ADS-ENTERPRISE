@@ -30,6 +30,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JRadioButtonMenuItem;
 import java.awt.Checkbox;
 import javax.swing.ButtonGroup;
+import data.tratamento.produtos.ProdutoCadastrarTratamento;
 
 public class InterfaceProdutosPrincipal extends JFrame {
 
@@ -251,7 +252,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 										cadastrarFornecedor.add(NomeFornecedorLbl);
 										
 										nomeFornecedor = new JTextField();
-										nomeFornecedor.setDocument(new Validadora(14,Validadora.dadoInserido.numeroInt));
+										nomeFornecedor.setDocument(new Validadora(14,Validadora.dadoInserido.numeroInt));										
 										nomeFornecedor.setBounds(145, 79, 215, 20);
 										nomeFornecedor.setColumns(10);
 										cadastrarFornecedor.add(nomeFornecedor);	
@@ -275,6 +276,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 												
 											}
 										});
+										
 										JButton btnMenuPrincialCNPJ = new JButton("menu principal");
 										btnMenuPrincialCNPJ.setBounds(10, 441, 154, 25);
 										cadastrarFornecedor.add(btnMenuPrincialCNPJ);
@@ -309,8 +311,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 						return true;
 				} catch (Exception a) {
 					return false;
-				}
-		
+				}		
 			}
 			
 			public void actionPerformed(ActionEvent e) {
@@ -330,10 +331,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		      
 			}
 		 });
-		consultarProduto.add(botaoConsultar);
-		
-		
-	
+		consultarProduto.add(botaoConsultar);	
 		
 		JButton botaoCadastrar = new JButton("Cadastrar Produto");
 		botaoCadastrar.setBounds(215, 159, 282, 45);
@@ -342,29 +340,33 @@ public class InterfaceProdutosPrincipal extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Produto produto = new Produto();
-					produto.setId_produto(Integer.parseInt(txtId.getText()));
-					produto.setNome_produto(txtProd.getText());
-					produto.setCnpj(txtQtd.getText());
-					produto.setValorVenda(Double.parseDouble(txtVlr.getText()));
-					produto.setId_estoque(1);
-										
-					ProdutosCadastrar produtosCadastrar = new ProdutosCadastrar();
-					try {					
-						produtosCadastrar.cadastrarProdutos(produto);
-					} catch (SQLException i) {
-						if(produtosCadastrar.getErroMessage().equals("cnpj")) {
-							JOptionPane.showMessageDialog(rootPane, "Cnpj inexistente, registre-o ou verifique novamente");
-						} else {
-							JOptionPane.showMessageDialog(rootPane, produtosCadastrar.getErroMessage());
+						Produto produto = new Produto();
+						
+						produto.setId_produto(Integer.parseInt(txtId.getText()));
+						produto.setNome_produto(txtProd.getText());
+						produto.setCnpj(txtQtd.getText());
+						produto.setValorVenda(Double.parseDouble(txtVlr.getText()));
+						produto.setId_estoque(1);
+											
+						ProdutosCadastrar produtosCadastrar = new ProdutosCadastrar();
+						ProdutoCadastrarTratamento verificarCnpj = new ProdutoCadastrarTratamento();
+						verificarCnpj.verificarVazios(txtId.getText(),txtProd.getText(),txtQtd.getText(),txtVlr.getText(),1);
+						
+						try {					
+							produtosCadastrar.cadastrarProdutos(produto);
+						} catch (Exception i) {						
+							
+					
+						verificarCnpj.verificaErro(produtosCadastrar.getErroMessage());
+						JOptionPane.showMessageDialog(rootPane, produtosCadastrar.getErroMessage());					
 						}
-					}
-				
+					
 				} catch (Exception a) {
 					a.printStackTrace();
 					JOptionPane.showMessageDialog(rootPane, "Existem campos em branco, preencha-os");
 				}
 			}});
+		
 		cadastrarProduto.add(botaoCadastrar);
 		
 		getContentPane().add(tabbedPane);		

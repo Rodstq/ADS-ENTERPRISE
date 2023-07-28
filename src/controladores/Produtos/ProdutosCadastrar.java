@@ -1,6 +1,7 @@
 package controladores.Produtos;
 
 import conexaoDb.Db;
+import data.tratamento.produtos.ProdutoCadastrarTratamento;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +16,7 @@ public class ProdutosCadastrar extends Produto {
 
 	private String erro;
 	
-	public void cadastrarProdutos(Produto produto) throws SQLException{
+	public void cadastrarProdutos(Produto produto) throws Exception{
 		
 		
 		try (Connection connection = Db.Connect();
@@ -28,17 +29,15 @@ public class ProdutosCadastrar extends Produto {
 				stmt.setInt(4,1);
 				stmt.setObject(5,produto.getCnpj());
 				
-				
-				 stmt.executeUpdate();
+				stmt.executeUpdate();
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
+			ProdutoCadastrarTratamento verificar = new ProdutoCadastrarTratamento();
+			e.printStackTrace();
 			String erro = e.getMessage();
-			System.out.println(erro);
-			if(erro.contains("Cannot add or update a child row: a foreign key constraint fails (`ads`.`produto`, CONSTRAINT `produto_ibfk_2` FOREIGN KEY (`cnpj_fornecedor`) REFERENCES `fornecedor` (`cnpj_fornecedor`))")) {
-				this.erro = "cnpj";
-			} else if (erro.contains("Duplicate entry")){
-				this.erro = "Id informado já pertence a um produto, digite novamente";
-			}
+			System.out.println(" ============" + erro);
+			verificar.verificaErro(erro);
+			this.erro = verificar.verificaErro(erro);
 			throw new SQLException();			
 		}
 		
