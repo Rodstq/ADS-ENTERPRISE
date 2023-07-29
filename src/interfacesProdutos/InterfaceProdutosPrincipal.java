@@ -18,6 +18,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import classesFornecedores.Fornecedor;
 import controladores.Produtos.ProdutosConsulta;
 import interfaces.Main;
 import controladores.Fornecedores.FornecedoresCadastrar;
@@ -30,7 +31,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JRadioButtonMenuItem;
 import java.awt.Checkbox;
 import javax.swing.ButtonGroup;
-import data.tratamento.produtos.ProdutoCadastrarTratamento;
+import data.tratamento.produtos.CadastrarTratamento;
 
 public class InterfaceProdutosPrincipal extends JFrame {
 
@@ -44,6 +45,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 	private String escolha;
 	private JTextField cnpjFornecedor;
 	private JTextField nomeFornecedor;
+	private JTextField quantidadeTF;
 
 	/**
 	 * Launch the application.
@@ -181,13 +183,25 @@ public class InterfaceProdutosPrincipal extends JFrame {
 						JTextField txtId = new JTextField();
 						txtId.setDocument(new Validadora(9, Validadora.dadoInserido.numeroInt));
 						cadastrarProduto.add(txtId);
-						txtId.setBounds(59, 14, 133, 20);
+						txtId.setBounds(59, 14, 138, 20);
 						txtId.setColumns(10);		
 						
-						JLabel quantidadeLabel = new JLabel("CNPJ Vendedor :");
-						cadastrarProduto.add(quantidadeLabel);
-						quantidadeLabel.setBounds(33, 74, 93, 14);
-						quantidadeLabel.setFont(new Font("Tahoma", Font.BOLD, 11));		
+
+						quantidadeTF = new JTextField();
+						quantidadeTF.setDocument(new Validadora(10, Validadora.dadoInserido.numeroInt));
+						quantidadeTF.setBounds(363, 71, 110, 20);
+						cadastrarProduto.add(quantidadeTF);
+						quantidadeTF.setColumns(10);
+						
+						JLabel QuantidadeLbl = new JLabel("Quantidade :");
+						QuantidadeLbl.setFont(new Font("Tahoma", Font.BOLD, 11));
+						QuantidadeLbl.setBounds(286, 74, 72, 14);
+						cadastrarProduto.add(QuantidadeLbl);
+						
+						JLabel cnpjFornecedorLabel = new JLabel("CNPJ Fornecedor:");
+						cadastrarProduto.add(cnpjFornecedorLabel);
+						cnpjFornecedorLabel.setBounds(33, 74, 93, 14);
+						cnpjFornecedorLabel.setFont(new Font("Tahoma", Font.BOLD, 11));		
 						
 						JTextField txtQtd = new JTextField();
 						txtQtd.setDocument(new Validadora(14, Validadora.dadoInserido.numeroInt));
@@ -196,19 +210,19 @@ public class InterfaceProdutosPrincipal extends JFrame {
 						txtQtd.setColumns(10);
 						
 						JLabel lblNewLabel_3 = new JLabel("Valor :");
-						lblNewLabel_3.setBounds(215, 17, 35, 14);
+						lblNewLabel_3.setBounds(327, 17, 35, 14);
 						lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
 						cadastrarProduto.add(lblNewLabel_3);
 						
 						JTextField txtVlr = new JTextField();
 						txtVlr.setDocument(new Validadora(8, Validadora.dadoInserido.numeroDouble));
-						txtVlr.setBounds(284, 14, 101, 20);
+						txtVlr.setBounds(372, 14, 101, 20);
 						cadastrarProduto.add(txtVlr);
 						txtVlr.setColumns(10);
 						
 						JTextField txtProd = new JTextField();
 						cadastrarProduto.add(txtProd);
-						txtProd.setBounds(90, 43, 373, 20);
+						txtProd.setBounds(90, 43, 383, 20);
 						txtProd.setColumns(10);
 						
 						JLabel produtoNome = new JLabel("Produto :");
@@ -235,7 +249,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 										tabbedPane.add(cadastrarFornecedor, "cadastrar Fornecedor");
 										cadastrarFornecedor.setLayout(null);
 										
-										JLabel cnpjLbl = new JLabel("CNPJ Vendedor :");
+										JLabel cnpjLbl = new JLabel("CNPJ Fornecedor :");
 										cnpjLbl.setBounds(36, 52, 113, 14);
 										cnpjLbl.setFont(new Font("Tahoma", Font.BOLD, 11));
 										cadastrarFornecedor.add(cnpjLbl);
@@ -246,13 +260,13 @@ public class InterfaceProdutosPrincipal extends JFrame {
 										cnpjFornecedor.setColumns(10);
 										cadastrarFornecedor.add(cnpjFornecedor);	
 										
-										JLabel NomeFornecedorLbl = new JLabel("Nome Vendedor :");
+										JLabel NomeFornecedorLbl = new JLabel("Nome Fornecedor :");
 										NomeFornecedorLbl.setBounds(36, 82, 113, 14);
 										NomeFornecedorLbl.setFont(new Font("Tahoma", Font.BOLD, 11));
 										cadastrarFornecedor.add(NomeFornecedorLbl);
 										
 										nomeFornecedor = new JTextField();
-										nomeFornecedor.setDocument(new Validadora(14,Validadora.dadoInserido.numeroInt));										
+										nomeFornecedor.setDocument(new Validadora(14,Validadora.dadoInserido.dadoLivre));										
 										nomeFornecedor.setBounds(145, 79, 215, 20);
 										nomeFornecedor.setColumns(10);
 										cadastrarFornecedor.add(nomeFornecedor);	
@@ -268,11 +282,27 @@ public class InterfaceProdutosPrincipal extends JFrame {
 										btnCadFornecedor.addActionListener(new ActionListener() {
 									
 											public void actionPerformed(ActionEvent e) {
-												
-												FornecedoresCadastrar fornecedor = new FornecedoresCadastrar();
-												fornecedor.setCnpj(cnpjFornecedor.getText());
-												fornecedor.setNome(nomeFornecedor.getText());
-												fornecedor.cadastrarFornecedor(fornecedor);
+												try {
+													
+														Fornecedor fornecedor = new Fornecedor();
+														
+														FornecedoresCadastrar fornecedorCadastrar = new FornecedoresCadastrar();
+														CadastrarTratamento fornecedorCheck = new CadastrarTratamento();
+														fornecedor.setCnpj(cnpjFornecedor.getText());
+														fornecedor.setNome(nomeFornecedor.getText());
+														
+														fornecedorCheck.verificarVaziosFornecedor(cnpjFornecedor.getText(), nomeFornecedor.getText());
+														
+														try {
+															fornecedorCadastrar.cadastrarFornecedor(fornecedor);
+														} catch (Exception f) {
+															fornecedorCheck.verificaErro(fornecedorCadastrar.getErroMessage());
+															JOptionPane.showMessageDialog(rootPane, fornecedorCadastrar.getErroMessage());
+													}
+														
+												} catch (Exception g) {
+													JOptionPane.showMessageDialog(rootPane, "Existem campos em branco, preencha-os");
+												}
 												
 											}
 										});
@@ -320,7 +350,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 				if(escolha!=null) {
 					if (validacao()) {
 					produtosConsulta.setTblData(tblData_1);
-					produtosConsulta.setQuery(escolha, txtIdConsultar.getText(), txtProdConsultar.getText());						
+					produtosConsulta.getEscolha(escolha,txtIdConsultar.getText(),txtProdConsultar.getText());					
 					produtosConsulta.consultarProdutos();
 					} else {
 						JOptionPane.showMessageDialog(rootPane, "Campo escolhido preenchido de forma inválida, pesquise por um número válido");
@@ -347,17 +377,18 @@ public class InterfaceProdutosPrincipal extends JFrame {
 						produto.setCnpj(txtQtd.getText());
 						produto.setValorVenda(Double.parseDouble(txtVlr.getText()));
 						produto.setId_estoque(1);
+						produto.setQuantidade(Integer.parseInt(quantidadeTF.getText()));
 											
 						ProdutosCadastrar produtosCadastrar = new ProdutosCadastrar();
-						ProdutoCadastrarTratamento verificarCnpj = new ProdutoCadastrarTratamento();
-						verificarCnpj.verificarVazios(txtId.getText(),txtProd.getText(),txtQtd.getText(),txtVlr.getText(),1);
+						CadastrarTratamento verificarVazio = new CadastrarTratamento();
+						verificarVazio.verificarVazios(txtId.getText(),txtProd.getText(),txtQtd.getText(),txtVlr.getText(),txtId.getText(),quantidadeTF.getText());
 						
 						try {					
 							produtosCadastrar.cadastrarProdutos(produto);
 						} catch (Exception i) {						
 							
 					
-						verificarCnpj.verificaErro(produtosCadastrar.getErroMessage());
+						verificarVazio.verificaErro(produtosCadastrar.getErroMessage());
 						JOptionPane.showMessageDialog(rootPane, produtosCadastrar.getErroMessage());					
 						}
 					

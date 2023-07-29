@@ -1,5 +1,6 @@
 CREATE TABLE estoque(
   id_estoque int PRIMARY KEY NOT NULL,
+  nome_produto varchar(50) NOT NULL,
   quantidade_produto int NOT NULL
 );
 
@@ -92,11 +93,11 @@ CREATE TABLE pedido_produto(
   foreign key (id_pedido) references pedido (id_pedido)
 );
 
-INSERT INTO estoque (id_estoque, quantidade_produto)
-VALUES (1, 50);
+INSERT INTO estoque (id_estoque, nome_produto, quantidade_produto)
+VALUES (1,'arroz', 50);
 
-INSERT INTO estoque (id_estoque, quantidade_produto)
-VALUES (2, 50);
+INSERT INTO estoque (id_estoque, nome_produto, quantidade_produto)
+VALUES (2,'café', 50);
 
 INSERT INTO vendedor (cpf_vendedor, nome_vendedor, data_nascimento)
 VALUES ('12345678901', 'otavio', '1990-01-01');
