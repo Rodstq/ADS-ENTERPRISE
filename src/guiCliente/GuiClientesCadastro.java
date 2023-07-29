@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import data.tratamento.clients.ClienteCadastroTratamento;
+
+import data.tratamento.clients.ClienteValidadoraInput;
+
 import data.tratamento.clients.infoClienteException;
 import interfaces.Main;
 
@@ -21,6 +24,7 @@ import javax.swing.SwingConstants;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class GuiClientesCadastro extends GuiClientesPrincipal {
 
@@ -56,7 +60,7 @@ public class GuiClientesCadastro extends GuiClientesPrincipal {
 	 * Create the frame.
 	 */
 	public GuiClientesCadastro () {
-	
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -105,6 +109,7 @@ public class GuiClientesCadastro extends GuiClientesPrincipal {
 		
 		//Ler o que foi digitado
 		inputNomeCliente = new JTextField();
+		inputNomeCliente.setDocument(new ClienteValidadoraInput(30, ClienteValidadoraInput.dadoInserido.nomeCliente));
 		inputNomeCliente.setBounds(140, 17, 388, 19);
 		contentPane.add(inputNomeCliente);
 		inputNomeCliente.setColumns(10);
@@ -112,52 +117,61 @@ public class GuiClientesCadastro extends GuiClientesPrincipal {
 		
 			
 		inputDescricaoCliente = new JTextField();
+		inputDescricaoCliente.setDocument(new ClienteValidadoraInput(25, ClienteValidadoraInput.dadoInserido.descricaoCliente));
 		inputDescricaoCliente.setColumns(10);
 		inputDescricaoCliente.setBounds(104, 154, 388, 19);
 		contentPane.add(inputDescricaoCliente);
 		
 		
 		inputRuaCliente = new JTextField();
+		inputRuaCliente.setDocument(new ClienteValidadoraInput(25, ClienteValidadoraInput.dadoInserido.ruaCliente));
 		inputRuaCliente.setColumns(10);
 		inputRuaCliente.setBounds(49, 122, 388, 19);
 		contentPane.add(inputRuaCliente);
 		
 		inputDataNascimentoCliente = new JTextField();
+		inputDataNascimentoCliente.setDocument(new ClienteValidadoraInput(8, ClienteValidadoraInput.dadoInserido.nascimentoCliente));
 		inputDataNascimentoCliente.setColumns(10);
 		inputDataNascimentoCliente.setBounds(313, 51, 163, 19);
 		contentPane.add(inputDataNascimentoCliente);
 		
 		
 		inputTelefoneCliente = new JTextField();
+		inputTelefoneCliente.setDocument(new ClienteValidadoraInput(11, ClienteValidadoraInput.dadoInserido.telefoneCliente));
 		inputTelefoneCliente.setColumns(10);
 		inputTelefoneCliente.setBounds(559, 51, 145, 19);
 		contentPane.add(inputTelefoneCliente);
 		
 		inputCepCliente = new JTextField();
+		inputCepCliente.setDocument(new ClienteValidadoraInput(8, ClienteValidadoraInput.dadoInserido.cepCliente));
 		inputCepCliente.setColumns(10);
 		inputCepCliente.setBounds(559, 86, 145, 19);
 		contentPane.add(inputCepCliente);
 		
 		
 		inputBairroCliente = new JTextField();
+		inputBairroCliente.setDocument(new ClienteValidadoraInput(25, ClienteValidadoraInput.dadoInserido.bairroCliente));
 		inputBairroCliente.setColumns(10);
 		inputBairroCliente.setBounds(402, 86, 110, 19);
 		contentPane.add(inputBairroCliente);
 		
 		
 		inputCidadeCliente = new JTextField();
+		inputCidadeCliente.setDocument(new ClienteValidadoraInput(25, ClienteValidadoraInput.dadoInserido.cidadeCliente));
 		inputCidadeCliente.setColumns(10);
 		inputCidadeCliente.setBounds(233, 86, 110, 19);
 		contentPane.add(inputCidadeCliente);
 		
 		
 		inputCpfCLiente = new JTextField();
+		inputCpfCLiente.setDocument(new ClienteValidadoraInput(11, ClienteValidadoraInput.dadoInserido.cpfCliente));
 		inputCpfCLiente.setColumns(10);
 		inputCpfCLiente.setBounds(49, 51, 110, 19);
 		contentPane.add(inputCpfCLiente);
 		
 		
 		inputEstadoCliente = new JTextField();
+		inputEstadoCliente.setDocument(new ClienteValidadoraInput(25, ClienteValidadoraInput.dadoInserido.estadoCliente));
 		inputEstadoCliente.setColumns(10);
 		inputEstadoCliente.setBounds(73, 86, 90, 19);
 		contentPane.add(inputEstadoCliente);
@@ -194,8 +208,6 @@ public class GuiClientesCadastro extends GuiClientesPrincipal {
 		    	String cpfCliente = inputCpfCLiente.getText();
 		    	String dataNascimento = inputDataNascimentoCliente.getText();
 		    	String  telefoneCliente = inputTelefoneCliente.getText();
-		    	
-		    
 		    	String cepCliente = inputCepCliente.getText();
 		    	String estadoCliente = inputEstadoCliente.getText();
 		    	String cidadeCliente = inputCidadeCliente.getText();
@@ -218,22 +230,25 @@ public class GuiClientesCadastro extends GuiClientesPrincipal {
 		                	
 		                	JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		                	
+		                }catch (SQLException e2) {
+		                	
+		                	JOptionPane.showMessageDialog(null, e2.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		                }
 		            
 		        
 
 		
 		//Limpa após inserir os dados
-		inputNomeCliente.setText("");
-		inputCpfCLiente.setText("");
-		inputDataNascimentoCliente.setText("");				
-		inputTelefoneCliente.setText("");
-		inputEstadoCliente.setText("");
-		inputCidadeCliente.setText("");
-		inputBairroCliente.setText("");				
-		inputCepCliente.setText("");
-		inputRuaCliente.setText("");
-		inputDescricaoCliente.setText("");
+//		inputNomeCliente.setText("");
+//		inputCpfCLiente.setText("");
+//		inputDataNascimentoCliente.setText("");				
+//		inputTelefoneCliente.setText("");
+//		inputEstadoCliente.setText("");
+//		inputCidadeCliente.setText("");
+//		inputBairroCliente.setText("");				
+//		inputCepCliente.setText("");
+//		inputRuaCliente.setText("");
+//		inputDescricaoCliente.setText("");
 
 		    	
 		    }

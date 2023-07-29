@@ -6,8 +6,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import conexaoDb.Db;
+
 import interfacesCliente.InterfaceClienteEstatic;
+
 import data.tratamento.clients.Clientes;
+import interfacesCliente.InterfaceClienteEstatic;
 
 public class ClienteAtualizarDatabase implements InterfaceClienteEstatic{
 	

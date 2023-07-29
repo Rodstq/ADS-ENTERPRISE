@@ -1,9 +1,9 @@
 package testes;
 
 import conexaoDb.Db;
-import java.util.Scanner;
+import interfacesCliente.*;
 
-import controladores.*;
+import java.util.Scanner;
 public class teste {
 
 	public static void main(String[] args) {

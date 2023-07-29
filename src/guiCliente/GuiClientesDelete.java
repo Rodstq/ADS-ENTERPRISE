@@ -8,10 +8,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-
 import data.tratamento.clients.ClienteDeleteTratamento;
+import data.tratamento.clients.ClienteValidadoraInput;
+import data.tratamento.clients.infoClienteException;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -47,11 +49,13 @@ public class GuiClientesDelete extends GuiClientesPrincipal {
 		getContentPane().add(lblDeletarCadastroCliente);
 		
 		inputDeletePedido = new JTextField();
+		inputDeletePedido.setDocument(new ClienteValidadoraInput(11, ClienteValidadoraInput.dadoInserido.cpfCliente));
 		inputDeletePedido.setBounds(89, 43, 167, 19);
 		getContentPane().add(inputDeletePedido);
 		inputDeletePedido.setColumns(10);
 		
 		inputCpfDeleteCadastro = new JTextField();
+		inputCpfDeleteCadastro.setDocument(new ClienteValidadoraInput(11, ClienteValidadoraInput.dadoInserido.cpfCliente));
 		inputCpfDeleteCadastro.setColumns(10);
 		inputCpfDeleteCadastro.setBounds(89, 113, 167, 19);
 		getContentPane().add(inputCpfDeleteCadastro);
@@ -94,8 +98,14 @@ public class GuiClientesDelete extends GuiClientesPrincipal {
 		    	ClienteDeleteTratamento delete = new ClienteDeleteTratamento();
 		    
 
-		    		delete.deleteClienteCadastro(inputCpfDeleteCadastro.getText());
-					delete.deleteClientePedido(inputDeletePedido.getText());
+		    		
+					try {
+						delete.deleteClientePedido(inputDeletePedido.getText());
+						delete.deleteClienteCadastro(inputCpfDeleteCadastro.getText());
+						
+					} catch (infoClienteException e1) {
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+					}
 
 		    	
 

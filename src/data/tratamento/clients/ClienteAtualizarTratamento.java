@@ -9,6 +9,7 @@ import controladores.Cliente.ClienteAtualizarDatabase;
 import controladores.Cliente.ClienteCadastroDatabase;
 import controladores.Cliente.ClienteConsultaDatabase;
 import interfacesCliente.InterfaceClienteEstatic;
+
 import data.tratamento.clients.infoClienteException;
 
 public class ClienteAtualizarTratamento {

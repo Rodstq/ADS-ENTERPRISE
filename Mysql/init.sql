@@ -42,14 +42,10 @@ CREATE TABLE cliente_endereco(
  foreign key (cpf_cliente) references cliente (cpf_cliente)
 );
 
-
-
-
 CREATE TABLE fornecedor(
    cnpj_fornecedor char(14) PRIMARY KEY NOT NULL,
    nome_fornecedor varchar(50) NOT NULL
 );
-
 
 CREATE TABLE fornecedor_endereco(
  cep char(8) NOT NULL,
@@ -105,10 +101,8 @@ VALUES ('12345678901', 'otavio', '1990-01-01');
 INSERT INTO vendedor_endereco (cep, estado, cidade, rua, complemento, cpf_vendedor)
 VALUES ('12345678', 'São Paulo', 'São Paulo', 'Rua A', 'Complemento A', '12345678901');
 
-
 INSERT INTO cliente (cpf_cliente, nome_cliente, nascimento_cliente, telefone)
 VALUES ('98765432101', 'julia', '1995-05-10', '(11) 98765-4321');
-
 
 INSERT INTO cliente_endereco (cep, estado, cidade, bairro, rua, complemento, cpf_cliente)
 VALUES ('87654321', 'Acre', 'acre', 'Centro', 'Rua B', 'Complemento B', '98765432101');

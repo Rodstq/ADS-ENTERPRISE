@@ -7,28 +7,35 @@ import java.time.LocalDate;
 
 import data.tratamento.clients.ClienteCadastroTratamento;
 import conexaoDb.Db;
+
 import interfacesCliente.InterfaceClienteEstatic;
+
 import data.tratamento.clients.Clientes;
+import data.tratamento.clients.infoClienteException;
+import interfacesCliente.InterfaceClienteEstatic;
 
 public class ClienteCadastroDatabase implements InterfaceClienteEstatic {
 	
-    public void infoCliente(Clientes cliente) {
+    public void infoCliente(Clientes cliente) throws infoClienteException{
     			
         try (Connection connection = Db.Connect();
              PreparedStatement stmt = connection.prepareStatement("INSERT INTO cliente (cpf_cliente, nome_cliente, nascimento_cliente, telefone) VALUES (?, ?, ?, ?)")) {
 
-            stmt.setString(1, cliente.getCpf()); //cpf
-            stmt.setString(2, cliente.getNomeCliente()); //nome
-            stmt.setObject(3, cliente.getDataNascimentoCliente());  //date
-            stmt.setString(4, cliente.getTelefoneCliente()); //telefone
-
+            stmt.setString(1, cliente.getCpf()); 
+            stmt.setString(2, cliente.getNomeCliente()); 
+            stmt.setObject(3, cliente.getDataNascimentoCliente()); 
+            stmt.setString(4, cliente.getTelefoneCliente()); 
             stmt.executeUpdate();
             
             
             
         } catch (SQLException e) {
      
-            e.printStackTrace();
+        	if (e.getMessage().contains("Duplicate entry")){
+        		throw new infoClienteException("já existe um cliente cadastrado com esse cpf");
+			}
+        	
+        	
         } finally {
             Db.CloseDb();
         }

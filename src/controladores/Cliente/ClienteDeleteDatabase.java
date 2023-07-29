@@ -5,11 +5,14 @@ import java.sql.Statement;
 
 import conexaoDb.Db;
 import data.tratamento.clients.Clientes;
-public class ClienteDeleteDatabase {
+import data.tratamento.clients.infoClienteException;
+import interfacesCliente.interfaceClientePedido;
+public class ClienteDeleteDatabase implements interfaceClientePedido{
 
 	
-	public void deletarClienteCadastro(Clientes clienteDeleteCadastro) {
+	public void deletarClienteCadastro(Clientes clienteDeleteCadastro) throws infoClienteException  {
 	    try {
+	    	
 	        Connection connection = Db.Connect();
 	        String deleteEndereco = "DELETE FROM cliente_endereco WHERE cpf_cliente=?";
 	        String deleteCliente = "DELETE FROM cliente WHERE cpf_cliente=?";
@@ -28,7 +31,16 @@ public class ClienteDeleteDatabase {
 	        pstmt.executeUpdate();
 
 	    } catch (Exception e) {
-	        e.printStackTrace();
+	    	
+	    	if(e.getMessage().contains("Cannot delete or "
+	    			+ "update a parent row: a foreign key constraint fails "
+	    			+ "(`ads`.`pedido`, CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`cpf_cliente`) "
+	    			+ "REFERENCES `cliente` (`cpf_cliente`))")) {
+	    		
+	    		throw new infoClienteException("o cadastro do cliente não pode ser deletado, porque há pedidos atrelados a ele");
+	    	}
+	    	
+	    	
 	    } finally {
 	        Db.CloseDb();
 	    }
