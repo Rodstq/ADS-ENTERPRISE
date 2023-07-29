@@ -8,7 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import data.tratamento.clients.ClienteCadastroTratamento;
+<<<<<<< HEAD
 import data.tratamento.clients.ClienteValidadoraInput;
+=======
+>>>>>>> 8a6ae09405037b49a33a26b985a9cdd4ae694462
 import data.tratamento.clients.infoClienteException;
 import interfaces.Main;
 

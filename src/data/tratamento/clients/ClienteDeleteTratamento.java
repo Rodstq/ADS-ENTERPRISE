@@ -5,9 +5,15 @@ import java.time.LocalDate;
 import controladores.Cliente.ClienteCadastroDatabase;
 import controladores.Cliente.ClienteConsultaDatabase;
 import controladores.Cliente.ClienteDeleteDatabase;
+<<<<<<< HEAD
 import interfacesCliente.InterfaceClienteEstatic;
 import interfacesCliente.interfaceClientePedido;
 public class ClienteDeleteTratamento{
+=======
+import data.tratamento.clients.infoClienteException;
+
+public class ClienteDeleteTratamento extends Clientes{
+>>>>>>> 8a6ae09405037b49a33a26b985a9cdd4ae694462
 
 	
 	   private interfaceClientePedido datas;

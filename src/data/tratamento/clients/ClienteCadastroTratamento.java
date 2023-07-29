@@ -7,6 +7,10 @@ import java.util.zip.DataFormatException;
 
 import controladores.Cliente.ClienteCadastroDatabase;
 import interfacesCliente.InterfaceClienteEstatic;
+<<<<<<< HEAD
+=======
+import data.tratamento.clients.infoClienteException;
+>>>>>>> 8a6ae09405037b49a33a26b985a9cdd4ae694462
 
 
 public class ClienteCadastroTratamento{

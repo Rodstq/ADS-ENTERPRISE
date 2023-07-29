@@ -6,6 +6,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import conexaoDb.Db;
+<<<<<<< HEAD
+=======
+import interfacesCliente.InterfaceClienteEstatic;
+>>>>>>> 8a6ae09405037b49a33a26b985a9cdd4ae694462
 import data.tratamento.clients.Clientes;
 import interfacesCliente.InterfaceClienteEstatic;
 
