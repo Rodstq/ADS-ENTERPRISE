@@ -6,8 +6,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controladores.Cliente.ClienteConsultaPedidosDatabase;
-import controladores.infoClienteException;
+
 import data.tratamento.clients.ClienteConsultaTratamento;
+import data.tratamento.clients.infoClienteException;
 import interfaces.Main;
 import utils.PDF;
 

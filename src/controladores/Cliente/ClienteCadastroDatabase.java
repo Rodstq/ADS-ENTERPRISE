@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 import data.tratamento.clients.ClienteCadastroTratamento;
 import conexaoDb.Db;
-import controladores.InterfaceClienteEstatic;
+import interfacesCliente.InterfaceClienteEstatic;
 import data.tratamento.clients.Clientes;
 
 public class ClienteCadastroDatabase implements InterfaceClienteEstatic {

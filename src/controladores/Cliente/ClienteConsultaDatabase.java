@@ -1,8 +1,8 @@
 package controladores.Cliente;
 import conexaoDb.Db;
-import controladores.InterfaceConsultaCliente;
+import interfacesCliente.InterfaceClienteEstatic;
 import data.tratamento.clients.Clientes;
-
+import interfacesCliente.InterfaceConsultaCliente;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;

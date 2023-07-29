@@ -25,9 +25,10 @@ import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
 import controladores.Cliente.ClienteAtualizarDatabase;
-import controladores.infoClienteException;
+
 import data.tratamento.clients.ClienteAtualizarTratamento;
 import data.tratamento.clients.Clientes;
+import data.tratamento.clients.infoClienteException;
 import interfaces.Main;
 public class GuiClientesAtualizar extends GuiClientesPrincipal {
 

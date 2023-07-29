@@ -3,7 +3,8 @@ package data.tratamento.clients;
 import controladores.Cliente.ClienteCadastroDatabase;
 import controladores.Cliente.ClienteConsultaDatabase;
 import controladores.Cliente.ClienteDeleteDatabase;
-import controladores.infoClienteException;
+import data.tratamento.clients.infoClienteException;
+
 public class ClienteDeleteTratamento extends Clientes{
 
 	

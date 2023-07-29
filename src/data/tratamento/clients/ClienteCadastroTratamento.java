@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.zip.DataFormatException;
 
 import controladores.Cliente.ClienteCadastroDatabase;
-import controladores.InterfaceClienteEstatic;
-import controladores.infoClienteException;
+import interfacesCliente.InterfaceClienteEstatic;
+import data.tratamento.clients.infoClienteException;
 
 
 public class ClienteCadastroTratamento{

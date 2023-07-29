@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controladores.Cliente.ClienteConsultaPedidosDatabase;
-import controladores.infoClienteException;
+import data.tratamento.clients.infoClienteException;
 
 public class Clientes {
 

@@ -7,8 +7,8 @@ import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controladores.infoClienteException;
 import data.tratamento.clients.ClienteCadastroTratamento;
+import data.tratamento.clients.infoClienteException;
 import interfaces.Main;
 
 import java.util.zip.DataFormatException;
