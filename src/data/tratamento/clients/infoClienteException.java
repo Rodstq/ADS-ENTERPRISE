@@ -1,4 +1,4 @@
-package controladores;
+package data.tratamento.clients;
 
 public class infoClienteException  extends Exception{
 

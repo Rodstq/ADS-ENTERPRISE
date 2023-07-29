@@ -8,8 +8,7 @@ import java.util.zip.DataFormatException;
 import controladores.Cliente.ClienteAtualizarDatabase;
 import controladores.Cliente.ClienteCadastroDatabase;
 import controladores.Cliente.ClienteConsultaDatabase;
-import controladores.InterfaceClienteEstatic;
-import controladores.infoClienteException;
+import interfacesCliente.InterfaceClienteEstatic;
 
 public class ClienteAtualizarTratamento {
 

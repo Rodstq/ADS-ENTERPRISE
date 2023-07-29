@@ -6,10 +6,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controladores.Cliente.ClienteConsultaPedidosDatabase;
-import controladores.infoClienteException;
 import data.tratamento.clients.ClienteConsultaTratamento;
+import data.tratamento.clients.ClienteValidadoraInput;
+import data.tratamento.clients.infoClienteException;
 import interfaces.Main;
 import utils.PDF;
+import utils.Validadora;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -54,6 +56,8 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 	 * Create the frame.
 	 */
 	public GuiClientesConsulta () {
+		
+		
 
 
 		contentPane = new JPanel();
@@ -71,13 +75,15 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 		contentPane.add(lblCpf);
 		
 		//Ler o que foi digitado
-		inputNomeCliente = new JTextField();
+		inputNomeCliente = new JTextField();		
+		inputNomeCliente.setDocument(new ClienteValidadoraInput(50, ClienteValidadoraInput.dadoInserido.nomeCliente));
 		inputNomeCliente.setBounds(140, 17, 388, 19);
 		contentPane.add(inputNomeCliente);
 		inputNomeCliente.setColumns(10);
 		
 		
 		inputCpfCLiente = new JTextField();
+		inputCpfCLiente.setDocument(new ClienteValidadoraInput(11, ClienteValidadoraInput.dadoInserido.cpfCliente));
 		inputCpfCLiente.setColumns(10);
 		inputCpfCLiente.setBounds(49, 51, 110, 19);
 		contentPane.add(inputCpfCLiente);

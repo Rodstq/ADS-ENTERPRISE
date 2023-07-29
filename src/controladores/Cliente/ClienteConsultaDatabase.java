@@ -1,7 +1,7 @@
 package controladores.Cliente;
 import conexaoDb.Db;
-import controladores.InterfaceConsultaCliente;
 import data.tratamento.clients.Clientes;
+import interfacesCliente.InterfaceConsultaCliente;
 
 import java.sql.Connection;
 import java.sql.Date;

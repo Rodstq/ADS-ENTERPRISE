@@ -4,9 +4,8 @@ import java.util.List;
 import controladores.Cliente.ClienteCadastroDatabase;
 import controladores.Cliente.ClienteConsultaDatabase;
 import controladores.Cliente.ClienteConsultaPedidosDatabase;
-import controladores.InterfaceClienteEstatic;
-import controladores.InterfaceConsultaCliente;
-import controladores.infoClienteException;
+import interfacesCliente.InterfaceClienteEstatic;
+import interfacesCliente.InterfaceConsultaCliente;
 
 public class ClienteConsultaTratamento{
 	

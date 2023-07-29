@@ -1,12 +1,12 @@
 package data.tratamento.clients;
+import java.sql.SQLException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.zip.DataFormatException;
 
 import controladores.Cliente.ClienteCadastroDatabase;
-import controladores.InterfaceClienteEstatic;
-import controladores.infoClienteException;
+import interfacesCliente.InterfaceClienteEstatic;
 
 
 public class ClienteCadastroTratamento{
@@ -29,7 +29,7 @@ public class ClienteCadastroTratamento{
     
       
 	    public void cadastrarClienteInfoTratamento (String cpfCliente, String nomeCliente, String dataNascimento, 
-	            String telefoneCliente)  throws infoClienteException, DataFormatException{
+	            String telefoneCliente)  throws infoClienteException, DataFormatException, SQLException{
 	    	
 	    	  	    	
 	    	if(cpfCliente.isBlank() && nomeCliente.isBlank() && telefoneCliente.isBlank()) {
@@ -42,7 +42,7 @@ public class ClienteCadastroTratamento{
 	    		throw new infoClienteException("o nome do cliente está em branco");
 	    	}
 
-
+	    	
 	    	if(cpfCliente.isBlank()) {
 	    		
 	    		throw new infoClienteException("o cpf está em branco");    
@@ -69,6 +69,7 @@ public class ClienteCadastroTratamento{
 	    		 
 	    		throw new  infoClienteException("o formato correto é ddmmyyyy, voce deve ter preenchido errado");
 	    		 
+	    		
 	    	 } 
 	    	 
 	    	
@@ -80,12 +81,12 @@ public class ClienteCadastroTratamento{
 	    		throw new infoClienteException("o telefone precisa ter 11 digitos");
 	    		
 	    	}
-	    		    	
-	    
-	        Clientes info = new Clientes();      
+	    		 
+	    	Clientes info = new Clientes();      
 	        info.setClienteInfo(cpfCliente, nomeCliente, nascimento, telefoneCliente);
 	        datas.infoCliente(info);
 	        
+
 	    }
 	       
 
