@@ -159,13 +159,14 @@ public void gerarPdf() throws DocumentException {
                         "Lista de pedidos dos clientes: ",
                         FontFactory.getFont(FontFactory.HELVETICA, 10)));
                 paragrafoResultadoPedidos.setSpacingBefore(15);
-                PdfPTable pedidosInfo = new PdfPTable(4);
+                PdfPTable pedidosInfo = new PdfPTable(5);
+                float[] colunasPedido= {150,150f, 150f, 150f, 150f};
                 
-                pedidosInfo.setWidthPercentage(widthsColunas, r);
+                pedidosInfo.setWidthPercentage(colunasPedido, r);
                 pedidosInfo.setTotalWidth(500);
                 pedidosInfo.setLockedWidth(true);
                 
-                for (int i = 0; i < 4; i++) {
+                for (int i = 0; i < 5; i++) {
                 	
                                 	
                   pedidosInfo.addCell(listInfoPedidosCliente.getColumnName(i));
@@ -178,7 +179,7 @@ public void gerarPdf() throws DocumentException {
                 for (int i = 0; i < listInfoPedidosCliente.getRowCount(); i++) {
                 	
                
-                    for (int k = 0; k < 4; k++) {
+                    for (int k = 0; k < 5; k++) {
 
                         	Object cellValue = listInfoPedidosCliente.getValueAt(i,k);
                         	 pedidosInfo.addCell(cellValue.toString());

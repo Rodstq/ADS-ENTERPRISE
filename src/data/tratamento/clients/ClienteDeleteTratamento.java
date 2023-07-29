@@ -31,7 +31,7 @@ public class ClienteDeleteTratamento extends Clientes{
 	    	
 	    }
 		
-	public void deleteClientePedido(String cpfCliente) throws infoClienteException {
+	public void deleteAllPedidos(String cpfCliente) throws infoClienteException {
 			
 			if(!cpfCliente.isBlank()) {		
 				flag = true;		
@@ -41,26 +41,43 @@ public class ClienteDeleteTratamento extends Clientes{
 	    		
 	    		throw new infoClienteException("o cpf precisa ter 11 digitos");
 	    		
+	    		
+	    	}else {
+	    		Clientes info = new Clientes(); 
+				info.setCpf(cpfCliente);
+				datas.deletarClientePedido(info);
 	    	}
 
-			Clientes info = new Clientes(); 
-			info.setCpf(cpfCliente);
-			datas.deletarClientePedido(info);
+		
 			
 		}
 	   
 	public void deleteClienteCadastro(String cpfCliente) throws infoClienteException {
 		
+		
+		
+		
 		if(cpfCliente.length() != 11  && flag !=true) {
     		
     		throw new infoClienteException("o cpf precisa ter 11 digitos");
     		
-    	}
+    	}else {
+    		
 
+    		Clientes info = new Clientes(); 
+    		info.setCpf(cpfCliente);
+    		datas.deletarClienteCadastro(info);
+    	}
+				
+	}
+	
+	
+	
+	public void deleteUnicoPedido(String cpfCliente, int IdPedido) throws infoClienteException {
 		
-		Clientes info = new Clientes(); 
+		Clientes info = new Clientes();
 		info.setCpf(cpfCliente);
-		datas.deletarClienteCadastro(info);
+		datas.deletarUnicoPedido(info, IdPedido);		
 		
 	}
 	

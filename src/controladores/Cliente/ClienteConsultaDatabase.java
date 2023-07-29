@@ -26,9 +26,11 @@ public class ClienteConsultaDatabase  implements InterfaceConsultaCliente {
 		try {
 			Connection connection = Db.Connect();
 			
-			PreparedStatement pstmt = connection.prepareStatement ("SELECT * FROM cliente JOIN cliente_endereco ON cliente.cpf_cliente = cliente_endereco.cpf_cliente WHERE cliente.nome_cliente = ?");
+			PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM cliente JOIN cliente_endereco ON cliente.cpf_cliente = cliente_endereco.cpf_cliente WHERE cliente.nome_cliente LIKE ?");
+
 			
-			pstmt.setString(1, cliente.getNomeCliente());
+			pstmt.setString(1, "%" + cliente.getNomeCliente() + "%");
+
 			ResultSet rs = pstmt.executeQuery();
 
 			while(rs.next()){

@@ -19,7 +19,7 @@ public class ClienteConsultaPedidosDatabase {
 
 	    try {
 	        Connection connection = Db.Connect();
-	        String query = "SELECT pedido.cpf_cliente, pedido.data_pedido, vendedor.nome_vendedor, SUM(pedido_produto.valor_total_produto_comprado) AS valor_total_comprado " +
+	        String query = "SELECT pedido.id_pedido, pedido.cpf_cliente, pedido.data_pedido, vendedor.nome_vendedor, SUM(pedido_produto.valor_total_produto_comprado) AS valor_total_comprado " +
 	                "FROM pedido " +
 	                "JOIN vendedor ON pedido.cpf_vendedor = vendedor.cpf_vendedor " +
 	                "JOIN cliente ON pedido.cpf_cliente = cliente.cpf_cliente " +
@@ -33,12 +33,13 @@ public class ClienteConsultaPedidosDatabase {
 	            ResultSet rs = pstmt.executeQuery();
 
 	            while (rs.next()) {
+	            	int id_pedido = rs.getInt("id_pedido");
 	                String cpf_cliente = rs.getString("cpf_cliente");
 	                Date data_pedido = rs.getDate("data_pedido");
 	                String nome_vendedor = rs.getString("nome_vendedor");
 	                float valor_total = rs.getFloat("valor_total_comprado");
 
-	                Object[] produtosInfo = {cpf_cliente, data_pedido, nome_vendedor, valor_total};
+	                Object[] produtosInfo = {id_pedido, cpf_cliente, data_pedido, nome_vendedor, valor_total};
 	                resultadosProdutos.add(produtosInfo);
 	            }
 	        } else if (!cpfCliente.isEmpty()) {
@@ -48,12 +49,13 @@ public class ClienteConsultaPedidosDatabase {
 	            ResultSet rs = pstmt.executeQuery();
 
 	            while (rs.next()) {
+	            	int id_pedido = rs.getInt("id_pedido");
 	                String cpf_cliente = rs.getString("cpf_cliente");
 	                Date data_pedido = rs.getDate("data_pedido");
 	                String nome_vendedor = rs.getString("nome_vendedor");
 	                float valor_total = rs.getFloat("valor_total_comprado");
 
-	                Object[] produtosInfo = {cpf_cliente, data_pedido, nome_vendedor, valor_total};
+	                Object[] produtosInfo = {id_pedido, cpf_cliente, data_pedido, nome_vendedor, valor_total};
 	                resultadosProdutos.add(produtosInfo);
 	            }
 	        } else {

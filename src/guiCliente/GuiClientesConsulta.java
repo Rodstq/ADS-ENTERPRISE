@@ -136,7 +136,7 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 		
 		DefaultTableModel tabelaInfoPedidos = new DefaultTableModel(
 		        new Object[][] {},
-		        new String[] {  "cpf do cliente", "data do pedido", "nome do vendedor", "valor total do pedido"}) {
+		        new String[] {  "id do pedido", "cpf do cliente", "data do pedido", "nome do vendedor", "valor total do pedido"}) {
 	 	   
 	 	    public boolean isCellEditable(int row, int column) {
 	 	        return false;
@@ -145,9 +145,9 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 		JTable produtosResultadoCliente = new JTable(tabelaInfoPedidos);
 		produtosResultadoCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
 		produtosResultadoCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
-		produtosResultadoCliente.getColumnModel().getColumn(2).setPreferredWidth(120);
+		produtosResultadoCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
 		produtosResultadoCliente.getColumnModel().getColumn(3).setPreferredWidth(120);
-		produtosResultadoCliente.getColumnModel().getColumn(3).setPreferredWidth(120);
+		produtosResultadoCliente.getColumnModel().getColumn(4).setPreferredWidth(120);
 
 		JScrollPane scrollInformacoesProduto = new JScrollPane(produtosResultadoCliente);
 		scrollInformacoesProduto.setBounds(34, 272, 897, 141);
