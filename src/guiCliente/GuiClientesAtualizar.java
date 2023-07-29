@@ -25,10 +25,6 @@ import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
 import controladores.Cliente.ClienteAtualizarDatabase;
-<<<<<<< HEAD
-=======
-
->>>>>>> 8a6ae09405037b49a33a26b985a9cdd4ae694462
 import data.tratamento.clients.ClienteAtualizarTratamento;
 import data.tratamento.clients.ClienteValidadoraInput;
 import data.tratamento.clients.Clientes;

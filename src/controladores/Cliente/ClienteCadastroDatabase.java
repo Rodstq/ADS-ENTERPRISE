@@ -7,10 +7,9 @@ import java.time.LocalDate;
 
 import data.tratamento.clients.ClienteCadastroTratamento;
 import conexaoDb.Db;
-<<<<<<< HEAD
-=======
+
 import interfacesCliente.InterfaceClienteEstatic;
->>>>>>> 8a6ae09405037b49a33a26b985a9cdd4ae694462
+
 import data.tratamento.clients.Clientes;
 import data.tratamento.clients.infoClienteException;
 import interfacesCliente.InterfaceClienteEstatic;

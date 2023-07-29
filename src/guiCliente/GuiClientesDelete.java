@@ -8,10 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8a6ae09405037b49a33a26b985a9cdd4ae694462
 import data.tratamento.clients.ClienteDeleteTratamento;
 import data.tratamento.clients.ClienteValidadoraInput;
 import data.tratamento.clients.infoClienteException;

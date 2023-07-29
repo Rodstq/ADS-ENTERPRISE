@@ -6,13 +6,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controladores.Cliente.ClienteConsultaPedidosDatabase;
-<<<<<<< HEAD
-import data.tratamento.clients.ClienteConsultaTratamento;
-import data.tratamento.clients.ClienteValidadoraInput;
-=======
 
 import data.tratamento.clients.ClienteConsultaTratamento;
->>>>>>> 8a6ae09405037b49a33a26b985a9cdd4ae694462
+import data.tratamento.clients.ClienteValidadoraInput;
+
+
+import data.tratamento.clients.ClienteConsultaTratamento;
+
 import data.tratamento.clients.infoClienteException;
 import interfaces.Main;
 import utils.PDF;

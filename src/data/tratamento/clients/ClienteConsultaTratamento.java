@@ -4,14 +4,14 @@ import java.util.List;
 import controladores.Cliente.ClienteCadastroDatabase;
 import controladores.Cliente.ClienteConsultaDatabase;
 import controladores.Cliente.ClienteConsultaPedidosDatabase;
-<<<<<<< HEAD
+
 import interfacesCliente.InterfaceClienteEstatic;
 import interfacesCliente.InterfaceConsultaCliente;
-=======
+
 import interfacesCliente.InterfaceConsultaCliente;
 import interfacesCliente.InterfaceClienteEstatic;
 import data.tratamento.clients.infoClienteException;
->>>>>>> 8a6ae09405037b49a33a26b985a9cdd4ae694462
+
 
 public class ClienteConsultaTratamento{
 	
