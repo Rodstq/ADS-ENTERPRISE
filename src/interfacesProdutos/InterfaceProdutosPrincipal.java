@@ -46,6 +46,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 	private JTextField cnpjFornecedor;
 	private JTextField nomeFornecedor;
 	private JTextField quantidadeTF;
+	private Boolean quantidadeErro = false;
 
 	/**
 	 * Launch the application.
@@ -368,33 +369,52 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		botaoCadastrar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		botaoCadastrar.addActionListener(new ActionListener() {
 			
+			ProdutosCadastrar produtosCadastrar = new ProdutosCadastrar();
+
+			CadastrarTratamento verificarVazio = new CadastrarTratamento();
+			
+			
+			
 			public void actionPerformed(ActionEvent e) {
+				
 				try {
-						Produto produto = new Produto();
+					Produto produto = new Produto();
+				
+					
+					produto.setId_produto(Integer.parseInt(txtId.getText()));
+					produto.setNome_produto(txtProd.getText());
+					produto.setCnpj(txtQtd.getText());
+					produto.setValorVenda(Double.parseDouble(txtVlr.getText()));
+					produto.setId_estoque(1);
+					produto.setQuantidade(Integer.parseInt(quantidadeTF.getText()));
+					
+					if (!Integer.toString(produto.getQuantidade()).isBlank() && produto.getQuantidade() < 1) {
+						quantidadeErro = true;
+						throw new Exception();
+					}
+				
+					
+					verificarVazio.verificarVazios(txtId.getText(),txtProd.getText(),txtQtd.getText(),txtVlr.getText(),txtId.getText(),quantidadeTF.getText());
 						
-						produto.setId_produto(Integer.parseInt(txtId.getText()));
-						produto.setNome_produto(txtProd.getText());
-						produto.setCnpj(txtQtd.getText());
-						produto.setValorVenda(Double.parseDouble(txtVlr.getText()));
-						produto.setId_estoque(1);
-						produto.setQuantidade(Integer.parseInt(quantidadeTF.getText()));
-											
-						ProdutosCadastrar produtosCadastrar = new ProdutosCadastrar();
-						CadastrarTratamento verificarVazio = new CadastrarTratamento();
-						verificarVazio.verificarVazios(txtId.getText(),txtProd.getText(),txtQtd.getText(),txtVlr.getText(),txtId.getText(),quantidadeTF.getText());
+						try {
+								produtosCadastrar.cadastrarProdutos(produto);
 						
-						try {					
-							produtosCadastrar.cadastrarProdutos(produto);
-						} catch (Exception i) {						
+							} catch (Exception i) {	
 							
-					
-						verificarVazio.verificaErro(produtosCadastrar.getErroMessage());
-						JOptionPane.showMessageDialog(rootPane, produtosCadastrar.getErroMessage());					
-						}
-					
+								i.printStackTrace();
+								verificarVazio.verificaErro(produtosCadastrar.getErroMessage());
+								JOptionPane.showMessageDialog(rootPane, produtosCadastrar.getErroMessage());	
+								
+							}	
+						
 				} catch (Exception a) {
-					a.printStackTrace();
-					JOptionPane.showMessageDialog(rootPane, "Existem campos em branco, preencha-os");
+						a.printStackTrace();
+					if (quantidadeErro){
+						JOptionPane.showMessageDialog(rootPane, "Quantidade não pode ser menor que 1");
+						quantidadeErro=false;
+					}else {
+						JOptionPane.showMessageDialog(rootPane, "Existem campos em branco");
+					}
 				}
 			}});
 		
