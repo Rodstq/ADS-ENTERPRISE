@@ -30,7 +30,8 @@ public class ClienteConsultaTratamento{
 	
 		
 	public  List<Object[]> setConsultaNomeClienteEndereco(String nome) throws infoClienteException{
-		 
+	
+		
 		Clientes info = new Clientes();
 		info.setNomeCliente(nome);
 		

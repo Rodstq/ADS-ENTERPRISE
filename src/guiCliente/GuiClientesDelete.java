@@ -3,10 +3,15 @@ package guiCliente;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 
 import data.tratamento.clients.ClienteDeleteTratamento;
 import data.tratamento.clients.ClienteValidadoraInput;
@@ -17,11 +22,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFormattedTextField;
 
 public class GuiClientesDelete extends GuiClientesPrincipal {
 
 	private JPanel contentPane;
-	private JTextField inputDeleteCpfPedido;
+	
+	
+	
+	
 	private JTextField inputCpfDeleteCadastro;
 	private JTextField inputIddeletePedido;
 	private JTextField inputCpfDeleteUnicoPedido;
@@ -44,22 +53,27 @@ public class GuiClientesDelete extends GuiClientesPrincipal {
 
 	/**
 	 * Create the frame.
+	 * @throws ParseException 
 	 */
-	public GuiClientesDelete() {
-		
-		inputDeleteCpfPedido = new JTextField();
-		inputDeleteCpfPedido.setVisible(false);
-		inputDeleteCpfPedido.setDocument(new ClienteValidadoraInput(11, ClienteValidadoraInput.dadoInserido.cpfCliente));
-		inputDeleteCpfPedido.setBounds(343, 116, 167, 19);
-		getContentPane().add(inputDeleteCpfPedido);
-		inputDeleteCpfPedido.setColumns(10);
+	public GuiClientesDelete() throws ParseException {
+
+		JTextField inputDeleteCpfAllPedido = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+
+		inputDeleteCpfAllPedido.setVisible(false);		
+		inputDeleteCpfAllPedido.setBounds(343, 116, 167, 19);
+		getContentPane().add(inputDeleteCpfAllPedido);
+		inputDeleteCpfAllPedido.setColumns(14);
 		
 		inputCpfDeleteCadastro = new JTextField();
 		inputCpfDeleteCadastro.setVisible(false);
-		inputCpfDeleteCadastro.setDocument(new ClienteValidadoraInput(11, ClienteValidadoraInput.dadoInserido.cpfCliente));
+		
 		inputCpfDeleteCadastro.setColumns(10);
 		inputCpfDeleteCadastro.setBounds(343, 75, 167, 19);
 		getContentPane().add(inputCpfDeleteCadastro);
+		
+		
+		ClienteDeleteTratamento flag = new ClienteDeleteTratamento();
+		
 		
 		JButton btnLimpar = new JButton("Limpar");
 		btnLimpar.setBounds(673, 417, 117, 25);
@@ -69,8 +83,9 @@ public class GuiClientesDelete extends GuiClientesPrincipal {
 		    public void actionPerformed  (ActionEvent e) {
 		    	
 		    	inputCpfDeleteCadastro.setText("");
-		    	inputDeleteCpfPedido.setText("");
-		    	inputDeleteCpfPedido.setText("");
+		    	inputDeleteCpfAllPedido.setText(null);
+				
+		    	inputCpfDeleteUnicoPedido.setText("");
 		    	inputIddeletePedido.setText("");
 
 		    } 
@@ -94,45 +109,11 @@ public class GuiClientesDelete extends GuiClientesPrincipal {
 		JCheckBox boxDeleteAllPedido = new JCheckBox("Deletar todos os  pedidos ");
 		boxDeleteAllPedido.setBounds(46, 114, 214, 23);
 		getContentPane().add(boxDeleteAllPedido);
-		boxDeleteAllPedido.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-				if(boxDeleteAllPedido.isSelected()) {
-					lblCpfPedido.setVisible(true);
-					inputDeleteCpfPedido.setVisible(true);
-				}else {
-					
-					lblCpfPedido.setVisible(false);
-					inputDeleteCpfPedido.setVisible(false);
 
-					
-				}
-				
-			}
-		});
-		
 		JCheckBox boxDeleteCadastroCliente = new JCheckBox("deletar cadastro do cliente");
 		boxDeleteCadastroCliente.setBounds(46, 75, 247, 23);
 		getContentPane().add(boxDeleteCadastroCliente);
-		boxDeleteCadastroCliente.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				if(boxDeleteCadastroCliente.isSelected()) {
-					
-					lblCpfCadastroDelete.setVisible(true);
-					inputCpfDeleteCadastro.setVisible(true);
-					
-				}else {
-					
-					lblCpfCadastroDelete.setVisible(false);
-					inputCpfDeleteCadastro.setVisible(false);
-
-					
-				}
-				
-			}
-		});
-		
+	
 		JCheckBox boxDeleteUnicoPedido = new JCheckBox("delete um pedido especifico");
 		boxDeleteUnicoPedido.setBounds(46, 33, 247, 23);
 		getContentPane().add(boxDeleteUnicoPedido);
@@ -148,17 +129,19 @@ public class GuiClientesDelete extends GuiClientesPrincipal {
 		
 		inputIddeletePedido = new JTextField();
 		inputIddeletePedido.setVisible(false);
-		inputIddeletePedido.setDocument(new ClienteValidadoraInput(4, ClienteValidadoraInput.dadoInserido.cpfCliente));
-		inputIddeletePedido.setBounds(564, 35, 70, 19);
+		
+		inputIddeletePedido.setBounds(564, 35, 114, 19);
 		getContentPane().add(inputIddeletePedido);
 		inputIddeletePedido.setColumns(10);
 		
 		inputCpfDeleteUnicoPedido = new JTextField();
 		inputCpfDeleteUnicoPedido.setVisible(false);
-		inputCpfDeleteUnicoPedido.setDocument(new ClienteValidadoraInput(11, ClienteValidadoraInput.dadoInserido.cpfCliente));
+		
 		inputCpfDeleteUnicoPedido.setColumns(10);
 		inputCpfDeleteUnicoPedido.setBounds(342, 33, 168, 19);
 		getContentPane().add(inputCpfDeleteUnicoPedido);
+		
+		
 		boxDeleteUnicoPedido.addActionListener(new  ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
@@ -169,17 +152,116 @@ public class GuiClientesDelete extends GuiClientesPrincipal {
 					lblId.setVisible(true);
 					inputIddeletePedido.setVisible(true);
 					
+					lblCpfCadastroDelete.setVisible(false);
+					inputCpfDeleteCadastro.setVisible(false);
+					
+					lblCpfPedido.setVisible(false);
+					inputDeleteCpfAllPedido.setVisible(false);
+
+					boxDeleteAllPedido.setSelected(false);
+					boxDeleteCadastroCliente.setSelected(false);
+					
+					flag.flagDeleteUnico(true);
+					flag.flagDeleteId(true);
+					
+					inputIddeletePedido.setDocument(new ClienteValidadoraInput(4, ClienteValidadoraInput.dadoInserido.cpfCliente));
+					inputCpfDeleteUnicoPedido.setDocument(new ClienteValidadoraInput(11, ClienteValidadoraInput.dadoInserido.cpfCliente));
+					
+					
 				}else {
+					
 					
 					lblCpfUnicoPedido.setVisible(false);
 					inputCpfDeleteUnicoPedido.setVisible(false);
 					lblId.setVisible(false);
 					inputIddeletePedido.setVisible(false);
+					flag.flagDeleteUnico(false);
+					flag.flagDeleteId(false);
+					
+
+				}
+				
+			}
+		});
+		
+		
+	boxDeleteCadastroCliente.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				if(boxDeleteCadastroCliente.isSelected()) {
+					
+					lblCpfCadastroDelete.setVisible(true);
+					inputCpfDeleteCadastro.setVisible(true);
+
+					lblCpfUnicoPedido.setVisible(false);
+					inputCpfDeleteUnicoPedido.setVisible(false);
+					lblId.setVisible(false);
+					inputIddeletePedido.setVisible(false);
+					
+					lblCpfPedido.setVisible(false);
+					inputDeleteCpfAllPedido.setVisible(false);
+					
+					boxDeleteUnicoPedido.setSelected(false);
+					boxDeleteAllPedido.setSelected(false);
+					
+					flag.flagDeleteCadastro(true);
+					
+					inputCpfDeleteCadastro.setDocument(new ClienteValidadoraInput(11, ClienteValidadoraInput.dadoInserido.cpfCliente));
+					
+				}else {
+					
+					lblCpfCadastroDelete.setVisible(false);
+					inputCpfDeleteCadastro.setVisible(false);
+					flag.flagDeleteCadastro(false);
+					
+
 					
 				}
 				
 			}
 		});
+	
+	
+	
+	boxDeleteAllPedido.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		
+			if(boxDeleteAllPedido.isSelected()) {
+
+				lblCpfPedido.setVisible(true);
+				inputDeleteCpfAllPedido.setVisible(true);
+				
+				boxDeleteUnicoPedido.setSelected(false);
+				boxDeleteCadastroCliente.setSelected(false);
+				
+				lblCpfCadastroDelete.setVisible(false);
+				inputCpfDeleteCadastro.setVisible(false);
+
+				lblCpfUnicoPedido.setVisible(false);
+				inputCpfDeleteUnicoPedido.setVisible(false);
+				lblId.setVisible(false);
+				inputIddeletePedido.setVisible(false);
+				
+				flag.flagDeleteAllPedidos(true);
+				
+				inputDeleteCpfAllPedido.setDocument(new ClienteValidadoraInput(14, ClienteValidadoraInput.dadoInserido.cpfCliente));
+			
+	
+			}else {
+				
+				lblCpfPedido.setVisible(false);
+				inputDeleteCpfAllPedido.setVisible(false);
+				flag.flagDeleteAllPedidos(false);
+
+				
+			
+				
+			}
+			
+		}
+	});
+
+
 	
 		btnDeletarCliente.addActionListener(new ActionListener() {
 			
@@ -188,17 +270,35 @@ public class GuiClientesDelete extends GuiClientesPrincipal {
 		    	   	
 		    	ClienteDeleteTratamento delete = new ClienteDeleteTratamento();
 		    	    		
-		    	String allPedidoDel = inputDeleteCpfPedido.getText();
+		    	int idPedidoDel = 0;
+		    	String allPedidoDel = inputDeleteCpfAllPedido.getText();
 		    	String cadastroClienteDel = inputCpfDeleteCadastro.getText();
-		    	String unicoPedidoDel = inputCpfDeleteUnicoPedido.getText();		    	 
-		    	int idPedidoDel =  Integer.parseInt(inputIddeletePedido.getText());
+		    	String unicoPedidoDel = inputCpfDeleteUnicoPedido.getText();
+		    	
+		    	 if (!inputIddeletePedido.getText().isEmpty()) {
+		    	 idPedidoDel =  Integer.parseInt(inputIddeletePedido.getText());
+	                }
+		    
 		    	
 		    	
 					try {
-												
-						delete.deleteAllPedidos(allPedidoDel);
-						delete.deleteClienteCadastro(cadastroClienteDel);
-						delete.deleteUnicoPedido(unicoPedidoDel, idPedidoDel);
+						if(boxDeleteAllPedido.isVisible()) {
+							
+							delete.deleteAllPedidos(allPedidoDel);
+							
+						}
+						if(boxDeleteCadastroCliente.isVisible()) {
+							
+							delete.deleteClienteCadastro(cadastroClienteDel);
+							
+						}
+						if(boxDeleteUnicoPedido.isVisible()) {
+				
+							delete.deleteUnicoPedido(unicoPedidoDel, idPedidoDel);
+						}
+						
+						
+						
 						
 					} catch (infoClienteException e1) {
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

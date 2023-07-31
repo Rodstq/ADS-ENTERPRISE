@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import controladores.Cliente.ClienteConsultaPedidosDatabase;
 
@@ -61,9 +63,6 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 	 * Create the frame.
 	 */
 	public GuiClientesConsulta () {
-		
-		
-
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -194,32 +193,41 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 	                  	                         	                
 	                ClienteConsultaTratamento infoCliente = new ClienteConsultaTratamento();
 	               
+	                String cpfCliente =inputCpfCLiente.getText();
+	                String nomeCliente = inputNomeCliente.getText();
 	                
-	                if(!inputNomeCliente.getText().isBlank() && !inputNomeCliente.getText().isEmpty()) {
-	                //retorna os valores do database após passar pela classe de tratamentto de informações do cliente
+	                
+	                 if(!cpfCliente.isEmpty() && !cpfCliente.isBlank() && !nomeCliente.isBlank() && !nomeCliente.isEmpty()){
+	                	
+	                	 JOptionPane.showMessageDialog(null, "Digite nome ou cpf", "Error",  JOptionPane.ERROR_MESSAGE);
+	                	
+	                }else if(!nomeCliente.isBlank() && !nomeCliente.isEmpty()) {
+	               
 	                List<Object[]> resultadosNomeCliente;
 					try {
-						resultadosNomeCliente = infoCliente.setConsultaNomeClienteEndereco(inputNomeCliente.getText());
+						resultadosNomeCliente = infoCliente.setConsultaNomeClienteEndereco(nomeCliente);
 		                tabelaInfoCliente.setRowCount(0);
 
 		                for (Object[] cliente : resultadosNomeCliente) {
-		                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
+		                
 		                    tabelaInfoCliente.addRow(cliente); 
 		                }
 		                btnSalvarPdf.setEnabled(true);
+		                
+		                
 					} catch (infoClienteException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 					}
 	           
-
+	                    
 	                btnSalvarPdf.setEnabled(true);
-	                }else if(!inputCpfCLiente.getText().isBlank() && !inputCpfCLiente.getText().isEmpty()) {
+	                }else if(!cpfCliente.isBlank() && !cpfCliente.isEmpty()) {
 	                	
 		                List<Object[]> resultadosCpfCliente;
 				
 							try {
-								resultadosCpfCliente = infoCliente.setConsultaCpfClienteEndereco(inputCpfCLiente.getText());
+								resultadosCpfCliente = infoCliente.setConsultaCpfClienteEndereco(cpfCliente);
 								
 				                tabelaInfoCliente.setRowCount(0);
 
@@ -233,7 +241,6 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 								JOptionPane.showMessageDialog(null, erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 								
 							}
-		 	           
 
 	                }else {
 	                	
@@ -241,26 +248,54 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
               	
 	                }
 	                    
-	                    tabelaInfoPedidos.setRowCount(0);
-	                    
-	                    List<Object[]> resultadosProduto = ClienteConsultaPedidosDatabase.consultaProdutos(inputNomeCliente.getText(), inputCpfCLiente.getText());
-	                    
-	                    for (Object[] produtos : resultadosProduto) {
-		                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
-		                    tabelaInfoPedidos.addRow(produtos); 
-		                    btnSalvarPdf.setEnabled(true);
-              
-	                }
+	               
 	            }
 	        });
+		
+		
+        tabelaResultadoCliente.getSelectionModel().addListSelectionListener((ListSelectionListener) new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+           
+            	inputNomeCliente.setText("");
+            	
+            	if (!event.getValueIsAdjusting()) {
+                    int selectedRow = tabelaResultadoCliente.getSelectedRow();
+                    
+                    if (selectedRow != -1) {
+                    	
+                    	
+                        String cpfSelecionado = tabelaResultadoCliente.getValueAt(selectedRow, 1).toString();
+                        if (!cpfSelecionado.isEmpty() && !cpfSelecionado.isBlank()) {
+                        
+                        	List<Object[]> resultadosProduto;
+							try {
+								resultadosProduto = ClienteConsultaPedidosDatabase.consultaProdutos(inputNomeCliente.getText(), cpfSelecionado);
+								  tabelaInfoPedidos.setRowCount(0);
+		                            for (Object[] produtos : resultadosProduto) {
+		                                tabelaInfoPedidos.addRow(produtos);
+		                                btnSalvarPdf.setEnabled(true);
+		                                
+		                            }
+							} catch (infoClienteException e) {
+								 JOptionPane.showMessageDialog(null, e, "Error",  JOptionPane.ERROR_MESSAGE);
+							}
+                          
+                        }
+                    }
+                }
+            	
+            }
+          
+        });
+	
 		JButton btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				//Limpa as informações
+				
 				inputNomeCliente.setText("");
 				inputCpfCLiente.setText("");
-				tabelaInfoCliente.setRowCount(0); //vai zerar a tabela quando apertar o botao consultar
+				tabelaInfoCliente.setRowCount(0); 
 				tabelaInfoPedidos.setRowCount(0);
 				btnSalvarPdf.setEnabled(false);
 			}
