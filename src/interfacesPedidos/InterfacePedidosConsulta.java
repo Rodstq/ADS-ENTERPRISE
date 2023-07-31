@@ -1,11 +1,15 @@
 package interfacesPedidos;
 
 import java.awt.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import classesPedidos.PedidosConsulta;
+import controladores.PedidosConsultaDb;
+import java.util.List;
 
 public class InterfacePedidosConsulta extends JFrame {
     private JPanel contentPane;
@@ -45,6 +49,7 @@ public class InterfacePedidosConsulta extends JFrame {
 
         JPanel panelNorth = new JPanel();
         contentPane.add(panelNorth, BorderLayout.NORTH);
+        
 
         JLabel lblFiltro = new JLabel("Filtro:");
         panelNorth.add(lblFiltro);
@@ -75,12 +80,57 @@ public class InterfacePedidosConsulta extends JFrame {
 
         table = new JTable();
         scrollPane.setViewportView(table);
+        
+        
+        
+        comboBoxFiltro.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String filtroSelecionado = (String) comboBoxFiltro.getSelectedItem();
+                if (filtroSelecionado.equals("Nenhum")) {
+                    textFieldFiltro.setEnabled(false);
+                } else {
+                    textFieldFiltro.setEnabled(true);
+                }
+            }
+        });
+        
+        if (comboBoxFiltro.getSelectedItem().equals("Nenhum")) {
+            textFieldFiltro.setEnabled(false);
+        }
+
 
         btnConsultar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-              //  consultarPedidos();
+                String filtro = textFieldFiltro.getText();
+                String tipoFiltro = (String) comboBoxFiltro.getSelectedItem();
+
+                PedidosConsultaDb pedidoConsultaDb = new PedidosConsultaDb();
+                List<PedidosConsulta> resultados = pedidoConsultaDb.consultarPedidos(filtro, tipoFiltro);
+
+                
+                DefaultTableModel model = new DefaultTableModel();
+                model.addColumn("ID do Pedido");
+                model.addColumn("Data do Pedido");
+                model.addColumn("CPF do Vendedor");
+                model.addColumn("CPF do Cliente");
+                model.addColumn("Valor dos Produtos");
+
+                for (PedidosConsulta pedido : resultados) {
+                    model.addRow(new Object[]{
+                            pedido.getIdPedido(),
+                            pedido.getDataPedido(),
+                            pedido.getCpfVendedor(),
+                            pedido.getCpfCliente(),
+                            pedido.getValorProdutos()
+                    });
+                }
+
+                table.setModel(model);
             }
+            
+            
         });
+
 
         btnLimparFiltro.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -95,7 +145,6 @@ public class InterfacePedidosConsulta extends JFrame {
     private void limparFiltro() {
         textFieldFiltro.setText("");
         comboBoxFiltro.setSelectedIndex(0);
-       // consultarPedidos();
     }
 
     public static void main(String[] args) {

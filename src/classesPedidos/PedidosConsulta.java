@@ -1,33 +1,51 @@
 package classesPedidos;
+
 import java.util.Date;
 
 public class PedidosConsulta {
-    private int id_pedido;
-    private Date data_pedido;
-    private double valor_produtos;
-    private int cpf_vendedor;
-    private int cpf_cliente;
+    private int idPedido;
+    private Date dataPedido;
+    private double valorProdutos;
+    private String cpfVendedor;
+    private String cpfCliente;
 
-    public int getId_pedido() {
-        return id_pedido;
+    public int getIdPedido() {
+        return idPedido;
     }
 
-    public Date getData_pedido() {
-        return data_pedido;
+    public void setIdPedido(int idPedido) {
+        this.idPedido = idPedido;
     }
 
-    public double getValor_produtos() {
-        return valor_produtos;
+    public Date getDataPedido() {
+        return dataPedido;
     }
 
-    public int getCpf_vendedor() {
-        return cpf_vendedor;
+    public void setDataPedido(Date dataPedido) {
+        this.dataPedido = dataPedido;
     }
 
-    public int getCpf_cliente() {
-        return cpf_cliente;
+    public double getValorProdutos() {
+        return valorProdutos;
     }
 
+    public void setValorProdutos(double valorProdutos) {
+        this.valorProdutos = valorProdutos;
+    }
 
+    public String getCpfVendedor() {
+        return cpfVendedor;
+    }
 
+    public void setCpfVendedor(String cpfVendedor) {
+        this.cpfVendedor = cpfVendedor;
+    }
+
+    public String getCpfCliente() {
+        return cpfCliente;
+    }
+
+    public void setCpfCliente(String cpfCliente) {
+        this.cpfCliente = cpfCliente;
+    }
 }
