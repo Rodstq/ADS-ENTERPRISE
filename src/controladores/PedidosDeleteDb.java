@@ -8,10 +8,18 @@ public class PedidosDeleteDb {
 
     public boolean deletarPedido(String idPedido) {
         try {
-            String query = "DELETE FROM pedido WHERE id_pedido = ?";
-            PreparedStatement stmt = Db.Connect().prepareStatement(query);
-            stmt.setString(1, idPedido);
-            int rowsDeleted = stmt.executeUpdate();
+        	// deleta os registros de pedido_produto antes, por causa da chave estrangeira
+            String deletePedidoProdutoQuery = "DELETE FROM pedido_produto WHERE id_pedido = ?";
+            PreparedStatement deletePedidoProdutoStmt = Db.Connect().prepareStatement(deletePedidoProdutoQuery);
+            deletePedidoProdutoStmt.setString(1, idPedido);
+            deletePedidoProdutoStmt.executeUpdate();
+            
+            String deletePedidoQuery = "DELETE FROM pedido WHERE id_pedido = ?";
+            PreparedStatement deletePedidoStmt = Db.Connect().prepareStatement(deletePedidoQuery);
+            deletePedidoStmt.setString(1, idPedido);
+            int rowsDeleted = deletePedidoStmt.executeUpdate();
+
+            
             return rowsDeleted > 0;
         } catch (Exception e) {
             e.printStackTrace();
