@@ -8,6 +8,7 @@ public class PedidosConsulta {
     private double valorProdutos;
     private String cpfVendedor;
     private String cpfCliente;
+    private int quantitadeTotalProdutos;
 
     public int getIdPedido() {
         return idPedido;
@@ -17,6 +18,14 @@ public class PedidosConsulta {
         this.idPedido = idPedido;
     }
 
+    public int getQuantitadeTotalProdutos() {
+        return quantitadeTotalProdutos;
+    }
+
+    public void setQuantitadeTotalProdutos(int quantitadeTotalProdutos) {
+        this.quantitadeTotalProdutos = quantitadeTotalProdutos;
+    }
+    
     public Date getDataPedido() {
         return dataPedido;
     }

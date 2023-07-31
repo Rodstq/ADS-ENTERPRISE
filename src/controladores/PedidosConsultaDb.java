@@ -13,6 +13,37 @@ import javax.swing.JOptionPane;
 
 
 public class PedidosConsultaDb {
+	
+	public double calcularSomaValoresProdutos(int idPedido) {
+	    double soma = 0;
+	    try {
+	        Statement stmt = Db.Connect().createStatement();
+	        String query = "SELECT SUM(valor_total_produto_comprado * quantidade_comprada) AS total FROM pedido_produto WHERE id_pedido = " + idPedido;
+	        ResultSet rs = stmt.executeQuery(query);
+	        if (rs.next()) {
+	            soma = rs.getDouble("total");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return soma;
+	}
+	
+	public int calcularQuantidadeProdutos(int idPedido) {
+	    int soma = 0;
+	    try {
+	        Statement stmt = Db.Connect().createStatement();
+	        String query = "SELECT SUM(quantidade_comprada) AS quantidadetotalcomprada FROM pedido_produto WHERE id_pedido = " + idPedido;
+	        ResultSet rs = stmt.executeQuery(query);
+	        if (rs.next()) {
+	            soma = rs.getInt("quantidadetotalcomprada");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return soma;
+	}
+
 
     public List<PedidosConsulta> consultarPedidos(String filtro, String tipoFiltro) {
         List<PedidosConsulta> resultados = new ArrayList<>();
@@ -39,18 +70,19 @@ public class PedidosConsultaDb {
                 int idPedido = rs.getInt("id_pedido");
                 String cpfVendedor = rs.getString("cpf_vendedor");
                 String cpfCliente = rs.getString("cpf_cliente");
-                double valorProdutos = rs.getDouble("valor_produtos");
                 Date dataPedido = rs.getDate("data_pedido");
+                double valorTotalCompra = calcularSomaValoresProdutos(idPedido);
+                int quantidadeTotalComprada = calcularQuantidadeProdutos(idPedido);
 
                 PedidosConsulta pedido = new PedidosConsulta();
                 pedido.setIdPedido(idPedido);
                 pedido.setCpfVendedor(cpfVendedor);
                 pedido.setCpfCliente(cpfCliente);
-                pedido.setValorProdutos(valorProdutos);
                 pedido.setDataPedido(dataPedido);
+                pedido.setValorProdutos(valorTotalCompra);
+                pedido.setQuantitadeTotalProdutos(quantidadeTotalComprada);
 
                 resultados.add(pedido);
-                
                 
             }
         } catch (Exception e) {

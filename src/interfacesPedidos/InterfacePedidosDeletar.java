@@ -11,6 +11,7 @@ public class InterfacePedidosDeletar extends JFrame {
     private JPanel contentPane;
     private JTextField textFieldIdPedido;
     private JButton btnDeletar;
+    private JButton btnVoltar;
 
     /**
      * Launch the application.
@@ -71,6 +72,19 @@ public class InterfacePedidosDeletar extends JFrame {
         gbcBtnDeletar.gridx = 1;
         gbcBtnDeletar.gridy = 2;
         contentPane.add(btnDeletar, gbcBtnDeletar);
+        
+        btnVoltar = new JButton("Voltar");
+        GridBagConstraints gbcBtnVoltar = new GridBagConstraints();
+        gbcBtnVoltar.gridx = 2;
+        gbcBtnVoltar.gridy = 2;
+        contentPane.add(btnVoltar, gbcBtnVoltar);
+
+        btnVoltar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                InterfacePedidosPrincipal.AbrirInterfacePedidos();
+                dispose();
+            }
+        });
 
         btnDeletar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

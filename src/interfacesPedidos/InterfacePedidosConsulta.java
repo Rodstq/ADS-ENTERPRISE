@@ -18,6 +18,7 @@ public class InterfacePedidosConsulta extends JFrame {
     private JTextField textFieldFiltro;
     private JButton btnConsultar;
     private JButton btnLimparFiltro;
+    private JButton btnVoltar;
     
 	/**
 	 * Launch the application.
@@ -71,6 +72,9 @@ public class InterfacePedidosConsulta extends JFrame {
 
         btnLimparFiltro = new JButton("Limpar Filtro");
         panelNorth.add(btnLimparFiltro);
+        
+        btnVoltar = new JButton("Voltar");
+        panelNorth.add(btnVoltar);
 
         JPanel panelCenter = new JPanel(new BorderLayout());
         contentPane.add(panelCenter, BorderLayout.CENTER);
@@ -121,7 +125,8 @@ public class InterfacePedidosConsulta extends JFrame {
                 model.addColumn("Data do Pedido");
                 model.addColumn("CPF do Vendedor");
                 model.addColumn("CPF do Cliente");
-                model.addColumn("Valor dos Produtos");
+                model.addColumn("Valor total dos Produtos");
+                model.addColumn("Quantidade de produtos");
 
                 for (PedidosConsulta pedido : resultados) {
                     model.addRow(new Object[]{
@@ -129,7 +134,8 @@ public class InterfacePedidosConsulta extends JFrame {
                             pedido.getDataPedido(),
                             pedido.getCpfVendedor(),
                             pedido.getCpfCliente(),
-                            pedido.getValorProdutos()
+                            pedido.getValorProdutos(),
+                            pedido.getQuantitadeTotalProdutos()
                     });
                 }
 
@@ -146,7 +152,17 @@ public class InterfacePedidosConsulta extends JFrame {
                 limparFiltro();
             }
         });
+        
 
+
+        btnVoltar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                InterfacePedidosPrincipal.AbrirInterfacePedidos();
+                dispose();
+            }
+        });
+
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
