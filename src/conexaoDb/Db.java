@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class Db {
     private static String url = "jdbc:mysql://127.0.0.1:3306/adsDb";
     private static String user = "root";
-    private static String password = "root";
+    private static String password = "";
     
    public static Connection con = null;
    

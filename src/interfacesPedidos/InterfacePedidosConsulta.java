@@ -105,7 +105,15 @@ public class InterfacePedidosConsulta extends JFrame {
                 String tipoFiltro = (String) comboBoxFiltro.getSelectedItem();
 
                 PedidosConsultaDb pedidoConsultaDb = new PedidosConsultaDb();
+                
+                
                 List<PedidosConsulta> resultados = pedidoConsultaDb.consultarPedidos(filtro, tipoFiltro);
+
+                if (resultados.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Não há pedidos com o filtro informado!", "Filtro",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return; // sem o return volta vazio
+                }
 
                 
                 DefaultTableModel model = new DefaultTableModel();
@@ -126,6 +134,7 @@ public class InterfacePedidosConsulta extends JFrame {
                 }
 
                 table.setModel(model);
+                
             }
             
             
