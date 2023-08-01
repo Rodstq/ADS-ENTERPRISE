@@ -3,7 +3,6 @@ package interfaces;
 import conexaoDb.Db;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
