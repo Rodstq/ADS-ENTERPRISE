@@ -1,5 +1,6 @@
 CREATE TABLE estoque(
   id_estoque int PRIMARY KEY NOT NULL,
+  nome_produto varchar(50) NOT NULL,
   quantidade_produto int NOT NULL
 );
 
@@ -41,14 +42,10 @@ CREATE TABLE cliente_endereco(
  foreign key (cpf_cliente) references cliente (cpf_cliente)
 );
 
-
-
-
 CREATE TABLE fornecedor(
    cnpj_fornecedor char(14) PRIMARY KEY NOT NULL,
    nome_fornecedor varchar(50) NOT NULL
 );
-
 
 CREATE TABLE fornecedor_endereco(
  cep char(8) NOT NULL,
@@ -92,11 +89,11 @@ CREATE TABLE pedido_produto(
   foreign key (id_pedido) references pedido (id_pedido)
 );
 
-INSERT INTO estoque (id_estoque, quantidade_produto)
-VALUES (1, 50);
+INSERT INTO estoque (id_estoque, nome_produto, quantidade_produto)
+VALUES (1,'arroz', 50);
 
-INSERT INTO estoque (id_estoque, quantidade_produto)
-VALUES (2, 50);
+INSERT INTO estoque (id_estoque, nome_produto, quantidade_produto)
+VALUES (2,'café', 50);
 
 INSERT INTO vendedor (cpf_vendedor, nome_vendedor, data_nascimento)
 VALUES ('12345678901', 'otavio', '1990-01-01');
@@ -104,10 +101,8 @@ VALUES ('12345678901', 'otavio', '1990-01-01');
 INSERT INTO vendedor_endereco (cep, estado, cidade, rua, complemento, cpf_vendedor)
 VALUES ('12345678', 'São Paulo', 'São Paulo', 'Rua A', 'Complemento A', '12345678901');
 
-
 INSERT INTO cliente (cpf_cliente, nome_cliente, nascimento_cliente, telefone)
 VALUES ('98765432101', 'julia', '1995-05-10', '(11) 98765-4321');
-
 
 INSERT INTO cliente_endereco (cep, estado, cidade, bairro, rua, complemento, cpf_cliente)
 VALUES ('87654321', 'Acre', 'acre', 'Centro', 'Rua B', 'Complemento B', '98765432101');

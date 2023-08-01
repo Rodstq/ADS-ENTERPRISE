@@ -4,12 +4,21 @@ import java.awt.EventQueue;
 
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import controladores.Cliente.ClienteConsultaPedidosDatabase;
-import controladores.infoClienteException;
+
 import data.tratamento.clients.ClienteConsultaTratamento;
+import data.tratamento.clients.ClienteValidadoraInput;
+
+
+import data.tratamento.clients.ClienteConsultaTratamento;
+
+import data.tratamento.clients.infoClienteException;
 import interfaces.Main;
 import utils.PDF;
+import utils.Validadora;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -55,7 +64,6 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 	 */
 	public GuiClientesConsulta () {
 
-
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -71,13 +79,15 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 		contentPane.add(lblCpf);
 		
 		//Ler o que foi digitado
-		inputNomeCliente = new JTextField();
+		inputNomeCliente = new JTextField();		
+		inputNomeCliente.setDocument(new ClienteValidadoraInput(50, ClienteValidadoraInput.dadoInserido.nomeCliente));
 		inputNomeCliente.setBounds(140, 17, 388, 19);
 		contentPane.add(inputNomeCliente);
 		inputNomeCliente.setColumns(10);
 		
 		
 		inputCpfCLiente = new JTextField();
+		inputCpfCLiente.setDocument(new ClienteValidadoraInput(11, ClienteValidadoraInput.dadoInserido.cpfCliente));
 		inputCpfCLiente.setColumns(10);
 		inputCpfCLiente.setBounds(49, 51, 110, 19);
 		contentPane.add(inputCpfCLiente);
@@ -125,7 +135,7 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 		
 		DefaultTableModel tabelaInfoPedidos = new DefaultTableModel(
 		        new Object[][] {},
-		        new String[] {  "cpf do cliente", "data do pedido", "nome do vendedor", "valor total do pedido"}) {
+		        new String[] {  "id do pedido", "cpf do cliente", "data do pedido", "nome do vendedor", "valor total do pedido"}) {
 	 	   
 	 	    public boolean isCellEditable(int row, int column) {
 	 	        return false;
@@ -134,9 +144,9 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 		JTable produtosResultadoCliente = new JTable(tabelaInfoPedidos);
 		produtosResultadoCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
 		produtosResultadoCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
-		produtosResultadoCliente.getColumnModel().getColumn(2).setPreferredWidth(120);
+		produtosResultadoCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
 		produtosResultadoCliente.getColumnModel().getColumn(3).setPreferredWidth(120);
-		produtosResultadoCliente.getColumnModel().getColumn(3).setPreferredWidth(120);
+		produtosResultadoCliente.getColumnModel().getColumn(4).setPreferredWidth(120);
 
 		JScrollPane scrollInformacoesProduto = new JScrollPane(produtosResultadoCliente);
 		scrollInformacoesProduto.setBounds(34, 272, 897, 141);
@@ -183,73 +193,122 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 	                  	                         	                
 	                ClienteConsultaTratamento infoCliente = new ClienteConsultaTratamento();
 	               
+	                String cpfCliente =inputCpfCLiente.getText();
+	                String nomeCliente = inputNomeCliente.getText();
 	                
-	                if(!inputNomeCliente.getText().isBlank() && !inputNomeCliente.getText().isEmpty()) {
-	                //retorna os valores do database após passar pela classe de tratamentto de informações do cliente
+	                
+	                 if(!cpfCliente.isEmpty() && !cpfCliente.isBlank() && !nomeCliente.isBlank() && !nomeCliente.isEmpty()){
+	                	
+	                	 JOptionPane.showMessageDialog(null, "Digite nome ou cpf", "Error",  JOptionPane.ERROR_MESSAGE);
+	                	
+	                }else if(!nomeCliente.isBlank() && !nomeCliente.isEmpty()) {
+	               
 	                List<Object[]> resultadosNomeCliente;
 					try {
-						resultadosNomeCliente = infoCliente.setConsultaNomeClienteEndereco(inputNomeCliente.getText());
+						resultadosNomeCliente = infoCliente.setConsultaNomeClienteEndereco(nomeCliente);
 		                tabelaInfoCliente.setRowCount(0);
 
 		                for (Object[] cliente : resultadosNomeCliente) {
-		                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
+		                
 		                    tabelaInfoCliente.addRow(cliente); 
 		                }
 		                btnSalvarPdf.setEnabled(true);
+		                
+		                
+		                if(resultadosNomeCliente.isEmpty()) {
+		               JOptionPane.showMessageDialog(null, "Não há nenhum cliente com esse nome", "Aviso", JOptionPane.WARNING_MESSAGE);
+		                }
+		                
+		                
 					} catch (infoClienteException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 					}
 	           
-
+	                    
 	                btnSalvarPdf.setEnabled(true);
-	                }else if(!inputCpfCLiente.getText().isBlank() && !inputCpfCLiente.getText().isEmpty()) {
+	                }else if(!cpfCliente.isBlank() && !cpfCliente.isEmpty()) {
 	                	
 		                List<Object[]> resultadosCpfCliente;
 				
 							try {
-								resultadosCpfCliente = infoCliente.setConsultaCpfClienteEndereco(inputCpfCLiente.getText());
+								resultadosCpfCliente = infoCliente.setConsultaCpfClienteEndereco(cpfCliente);
 								
 				                tabelaInfoCliente.setRowCount(0);
 
 				                for (Object[] cliente : resultadosCpfCliente) {
 				                    tabelaInfoCliente.addRow(cliente); 
-				                }              	
-		
+				                }             
+				                
+				                if(resultadosCpfCliente.isEmpty()) {
+						               JOptionPane.showMessageDialog(null, "Não há nenhum cliente com esse CPF", "Aviso", JOptionPane.WARNING_MESSAGE);
+						                }
+				                
+				                
 				                btnSalvarPdf.setEnabled(true);
 							} catch (infoClienteException erro) {
 								
 								JOptionPane.showMessageDialog(null, erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 								
 							}
-		 	           
 
 	                }else {
 	                	
 	                	  JOptionPane.showMessageDialog(null, "Digite pelo menos nome ou cpf", "Error",  JOptionPane.ERROR_MESSAGE);
               	
 	                }
-	                    
-	                    tabelaInfoPedidos.setRowCount(0);
-	                    
-	                    List<Object[]> resultadosProduto = ClienteConsultaPedidosDatabase.consultaProdutos(inputNomeCliente.getText(), inputCpfCLiente.getText());
-	                    
-	                    for (Object[] produtos : resultadosProduto) {
-		                	//vai ser adicionada uma nova linha com o conteúdo do cliente e vai crescer de acordo com o resultados
-		                    tabelaInfoPedidos.addRow(produtos); 
-		                    btnSalvarPdf.setEnabled(true);
-              
-	                }
+	                 
+	               
 	            }
 	        });
+		
+		
+        tabelaResultadoCliente.getSelectionModel().addListSelectionListener((ListSelectionListener) new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+           
+            	
+            	
+            	if (!event.getValueIsAdjusting()) {
+                    int selectedRow = tabelaResultadoCliente.getSelectedRow();
+                    
+                    if (selectedRow != -1) {
+                    	
+                    	
+                        String cpfSelecionado = tabelaResultadoCliente.getValueAt(selectedRow, 1).toString();
+                        
+                        if (!cpfSelecionado.isEmpty() && !cpfSelecionado.isBlank()) {
+                        
+                        	List<Object[]> resultadosProduto;
+							try {
+								resultadosProduto = ClienteConsultaPedidosDatabase.consultaProdutos("", cpfSelecionado);
+								  tabelaInfoPedidos.setRowCount(0);
+		                            for (Object[] produtos : resultadosProduto) {
+		                                tabelaInfoPedidos.addRow(produtos);
+		                               
+		                                
+		                            } 
+		                            btnSalvarPdf.setEnabled(true);
+		                            
+							} catch (infoClienteException e) {
+								 JOptionPane.showMessageDialog(null, e, "Error",  JOptionPane.ERROR_MESSAGE);
+							}
+                          
+                        }
+                    }
+                }
+            	
+            }
+          
+        });
+	
 		JButton btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				//Limpa as informações
+				
 				inputNomeCliente.setText("");
 				inputCpfCLiente.setText("");
-				tabelaInfoCliente.setRowCount(0); //vai zerar a tabela quando apertar o botao consultar
+				tabelaInfoCliente.setRowCount(0); 
 				tabelaInfoPedidos.setRowCount(0);
 				btnSalvarPdf.setEnabled(false);
 			}

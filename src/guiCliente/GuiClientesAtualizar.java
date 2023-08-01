@@ -3,6 +3,7 @@ package guiCliente;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,9 +26,10 @@ import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
 import controladores.Cliente.ClienteAtualizarDatabase;
-import controladores.infoClienteException;
 import data.tratamento.clients.ClienteAtualizarTratamento;
+import data.tratamento.clients.ClienteValidadoraInput;
 import data.tratamento.clients.Clientes;
+import data.tratamento.clients.infoClienteException;
 import interfaces.Main;
 public class GuiClientesAtualizar extends GuiClientesPrincipal {
 
@@ -57,6 +59,9 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 	}
 	
 	public GuiClientesAtualizar() {
+		setAutoRequestFocus(false);
+		setAlwaysOnTop(true);
+		
 
 		
 		contentPane = new JPanel();
@@ -70,6 +75,11 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 		contentPane.add(lblCpf);
 
 		inputCpfCliente = new JTextField();
+
+		inputCpfCliente.setDocument(new ClienteValidadoraInput(11, ClienteValidadoraInput.dadoInserido.cpfCliente));
+
+		
+		
 		inputCpfCliente.setColumns(10);
 		inputCpfCliente.setBounds(136, 10, 110, 19);
 		contentPane.add(inputCpfCliente);
@@ -105,7 +115,7 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckDataNascimento.isSelected()) {
 					inputDataNascimentoCliente.setVisible(true);
-							
+					inputDataNascimentoCliente.setDocument(new ClienteValidadoraInput(8, ClienteValidadoraInput.dadoInserido.nascimentoCliente));
 					flag.nascimentoFlag(true);
 				} else {
 					inputDataNascimentoCliente.setVisible(false);
@@ -118,6 +128,8 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 		inputDataNascimentoCliente.setBounds(222, 50, 200, 19);
 		contentPane.add(inputDataNascimentoCliente);
 		inputDataNascimentoCliente.setVisible(false);
+		
+		
 		JRadioButton rbnCheckNome = new JRadioButton("Nome do cliente:");
 		rbnCheckNome.setBounds(27, 92, 154, 23);
 		contentPane.add(rbnCheckNome);
@@ -125,7 +137,8 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckNome.isSelected()) {
 					inputNomeCliente.setVisible(true);
-					
+					inputNomeCliente.setDocument(new ClienteValidadoraInput(50, ClienteValidadoraInput.dadoInserido.nomeCliente));
+
 					flag.nomeFlag(true);
 					
 				} else {
@@ -147,7 +160,8 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckTelefone.isSelected()) {
 					inputTelefoneCliente.setVisible(true);
-					
+					inputTelefoneCliente.setDocument(new ClienteValidadoraInput(11, ClienteValidadoraInput.dadoInserido.telefoneCliente));
+
 					flag.telefonFlag(true);
 				} else {
 					flag.telefonFlag(false);
@@ -169,7 +183,8 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckEstado.isSelected()) {
 					inputEstadoCliente.setVisible(true);
-					
+					inputEstadoCliente.setDocument(new ClienteValidadoraInput(25, ClienteValidadoraInput.dadoInserido.estadoCliente));
+
 					flag.estadoFlag(true);
 				} else {
 					flag.estadoFlag(false);
@@ -191,7 +206,8 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckCidade.isSelected()) {
 					inputCidadeCliente.setVisible(true);
-					
+					inputCidadeCliente.setDocument(new ClienteValidadoraInput(25, ClienteValidadoraInput.dadoInserido.cidadeCliente));
+
 					flag.cidadFlag(true);
 				} else {
 					flag.cidadFlag(false);
@@ -213,7 +229,8 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckBairro.isSelected()) {
 					inputBairroCliente.setVisible(true);
-			
+					inputBairroCliente.setDocument(new ClienteValidadoraInput(25, ClienteValidadoraInput.dadoInserido.bairroCliente));
+
 					flag.bairrFlag(true);
 				} else {
 					inputBairroCliente.setVisible(false);
@@ -234,7 +251,8 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckRua.isSelected()) {
 					inputRuaCliente.setVisible(true);
-						
+					inputRuaCliente.setDocument(new ClienteValidadoraInput(25, ClienteValidadoraInput.dadoInserido.ruaCliente));
+
 					flag.ruaFlag(true);
 				} else {
 					flag.ruaFlag(false);
@@ -255,7 +273,8 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckCep.isSelected()) {
 					inputCepCliente.setVisible(true);
-					
+					inputCepCliente.setDocument(new ClienteValidadoraInput(8, ClienteValidadoraInput.dadoInserido.cepCliente));
+
 					flag.cepFlag(true);
 				} else {
 					flag.cepFlag(false);
@@ -276,7 +295,8 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 			public void actionPerformed(ActionEvent e) {
 				if (rdbtnCheckDescricaoEndereco.isSelected()) {
 					inputDescricaoEnderecoCliente.setVisible(true);
-					
+					inputDescricaoEnderecoCliente.setDocument(new ClienteValidadoraInput(25, ClienteValidadoraInput.dadoInserido.descricaoCliente));
+
 					flag.descricaFlag(true);
 				} else {
 					
@@ -292,9 +312,7 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 		contentPane.add(btnAtualizarCliente);
 		btnAtualizarCliente.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e)  {
-		        
-		    	ClienteAtualizarTratamento atualizar =new ClienteAtualizarTratamento();
-		        
+		      
 		    	
 		    	String nomeCliente = inputNomeCliente.getText();
 		    	String cpfCliente = inputCpfCliente.getText();
@@ -309,15 +327,26 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 		    	String ruaCliente =  inputRuaCliente.getText();
 		    	String descricaoEndereco = inputDescricaoEnderecoCliente.getText();
   
+		    	boolean sucesso = true;
+		    	
 		            try {
-						flag.clienteAtualizarCadastroCliente(nascimento, cpfCliente, nomeCliente, telefoneCliente);
+		            	
+		            flag.clienteAtualizarCadastroCliente(nascimento, cpfCliente, nomeCliente, telefoneCliente);
+					
+						
 					} catch (infoClienteException e1) {
 						
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+						sucesso = false;
 						
 					} catch (DataFormatException erroFormato) {
 						
 						JOptionPane.showMessageDialog(null, erroFormato.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+						sucesso = false;
+					}catch(StringIndexOutOfBoundsException e3) {
+						
+						JOptionPane.showMessageDialog(null, "o cpf precisa ter 11 digitos", "Erro", JOptionPane.ERROR_MESSAGE);
+						sucesso = false;
 					}
 		            
             
@@ -326,7 +355,27 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 					} catch (infoClienteException erro) {
 						
 						JOptionPane.showMessageDialog(null, erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+						sucesso = false;
 					}
+		            	
+		            
+		            
+		            
+		            try {
+		            	if(sucesso  && !flag.verificarCpf(cpfCliente)) {
+		            		JOptionPane.showMessageDialog(null, "o cpf não existe", "Erro", JOptionPane.ERROR_MESSAGE);
+		            		
+		            	}
+		            	
+		            	
+						if(sucesso && flag.verificarCpf(cpfCliente)) {
+						JOptionPane.showMessageDialog(null, "Sucesso na atualização", null, JOptionPane.INFORMATION_MESSAGE);
+						}
+					} catch (HeadlessException | infoClienteException e1) {
+					
+						JOptionPane.showMessageDialog(null, "houve um erro ao atualizar, por favor informe ao administrador", "Erro", JOptionPane.ERROR_MESSAGE);
+					}
+		            
 		            
 		            if(!inputCpfCliente.getText().isBlank()) {
 		            	
@@ -343,6 +392,8 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 		            
 		    }
 		});
+		
+		
 		inputDescricaoEnderecoCliente = new JTextField();
 		inputDescricaoEnderecoCliente.setBounds(240, 388, 425, 19);
 		contentPane.add(inputDescricaoEnderecoCliente);

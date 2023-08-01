@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controladores.Cliente.ClienteConsultaPedidosDatabase;
-import controladores.infoClienteException;
+
+import data.tratamento.clients.infoClienteException;
+
 
 public class Clientes {
 
@@ -20,8 +22,7 @@ public class Clientes {
     private String cepCliente;
     private String ruaCliente;
     private String descricaoRuaCliente;
-
-    
+ 
 	public void setCpf(String cpfCliente) {
     	
 		this.cpfCliente = cpfCliente;   

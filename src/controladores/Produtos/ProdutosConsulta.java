@@ -4,6 +4,7 @@ import conexaoDb.Db;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -23,14 +24,21 @@ public class ProdutosConsulta{
 	int cols;
 	JTable tblData;
 	String query = "";
+	String escolha = "";
+	String dado;
 	
 	public String consultarProdutos() {
 	String resultado="";
 	try {
 		
-		Statement stmt = Db.Connect().createStatement();
+		Connection connection = Db.Connect();
 		
-		ResultSet rs = stmt.executeQuery(query);
+		PreparedStatement pstmt  = connection.prepareStatement(query);
+		
+		pstmt.setString(1,dado);		
+		ResultSet rs = pstmt.executeQuery();
+		
+		
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int cols = rsmd.getColumnCount();
 		
@@ -80,17 +88,18 @@ public class ProdutosConsulta{
 	
 	}
 	
-	// LÓGICA PARA MUDAR QUERY DE ACORDO COM SELEÇÃO POR ID OU POR NOME
-	public void setQuery(String escolha, String id, String nome) {
+	public void getEscolha(String escolha, String dado1,String dado2) {
+		
 		if(escolha.equals("id")){
-			this.query = "SELECT * FROM produto WHERE id_produto =" + id + ";";
-			System.out.println(query);
+			this.query = "SELECT * FROM produto WHERE id_produto = ?";
+			this.dado = dado1;
 		} else {
-			this.query = "SELECT * FROM produto WHERE nome_produto like '%" + nome + "%';";
-			System.out.println(query);
+			this.query = "SELECT * FROM produto WHERE nome_produto like ?";
+			this.dado = "%" + dado2 + "%";
 		}
-	
+			this.escolha = escolha;		
 	}
+	
 	public ResultSet get_Rs() {
 		return rs;
 	}

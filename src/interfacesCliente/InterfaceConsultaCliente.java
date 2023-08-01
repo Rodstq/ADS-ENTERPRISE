@@ -1,4 +1,4 @@
-package controladores;
+package interfacesCliente;
 
 import java.util.List;
 

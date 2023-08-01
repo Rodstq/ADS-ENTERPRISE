@@ -4,9 +4,14 @@ import java.util.List;
 import controladores.Cliente.ClienteCadastroDatabase;
 import controladores.Cliente.ClienteConsultaDatabase;
 import controladores.Cliente.ClienteConsultaPedidosDatabase;
-import controladores.InterfaceClienteEstatic;
-import controladores.InterfaceConsultaCliente;
-import controladores.infoClienteException;
+
+import interfacesCliente.InterfaceClienteEstatic;
+import interfacesCliente.InterfaceConsultaCliente;
+
+import interfacesCliente.InterfaceConsultaCliente;
+import interfacesCliente.InterfaceClienteEstatic;
+import data.tratamento.clients.infoClienteException;
+
 
 public class ClienteConsultaTratamento{
 	
@@ -25,7 +30,8 @@ public class ClienteConsultaTratamento{
 	
 		
 	public  List<Object[]> setConsultaNomeClienteEndereco(String nome) throws infoClienteException{
-		 
+	
+		
 		Clientes info = new Clientes();
 		info.setNomeCliente(nome);
 		
@@ -46,7 +52,7 @@ public class ClienteConsultaTratamento{
 		Clientes info = new Clientes();
 		info.setCpf(cpf);
 		
-		List<Object[]> resultadosCliente = datas.infoClienteCpf(info);;
+		List<Object[]> resultadosCliente = datas.infoClienteCpf(info);
 			
 		return  resultadosCliente;
 

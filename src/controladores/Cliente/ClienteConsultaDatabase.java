@@ -1,7 +1,12 @@
 package controladores.Cliente;
 import conexaoDb.Db;
-import controladores.InterfaceConsultaCliente;
+
 import data.tratamento.clients.Clientes;
+import interfacesCliente.InterfaceConsultaCliente;
+
+import interfacesCliente.InterfaceClienteEstatic;
+import data.tratamento.clients.Clientes;
+import interfacesCliente.InterfaceConsultaCliente;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -21,11 +26,14 @@ public class ClienteConsultaDatabase  implements InterfaceConsultaCliente {
 		try {
 			Connection connection = Db.Connect();
 			
-			PreparedStatement pstmt = connection.prepareStatement ("SELECT * FROM cliente JOIN cliente_endereco ON cliente.cpf_cliente = cliente_endereco.cpf_cliente WHERE cliente.nome_cliente = ?");
+			PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM cliente JOIN cliente_endereco ON cliente.cpf_cliente = cliente_endereco.cpf_cliente WHERE cliente.nome_cliente LIKE ?");
+
 			
-			pstmt.setString(1, cliente.getNomeCliente());
+			pstmt.setString(1, "%" + cliente.getNomeCliente() + "%");
+
 			ResultSet rs = pstmt.executeQuery();
 
+			
 			while(rs.next()){
 				String nome = rs.getString("nome_cliente");
 				String cpf = rs.getString("cpf_cliente");
@@ -42,13 +50,15 @@ public class ClienteConsultaDatabase  implements InterfaceConsultaCliente {
                 resultados.add(clienteDados);
 				}
 			}catch(Exception e) {
-
+				
+			
 
 			}finally {
 				
 				Db.CloseDb();
 			}
 		return resultados;
+		
 }
 
 

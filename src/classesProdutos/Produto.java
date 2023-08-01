@@ -7,6 +7,7 @@ public class Produto {
    private double valorVenda;
    private int id_estoque;
    private String cnpj_fornecedor;
+   private int quantidade;
    
    
 public int getId_produto() {
@@ -38,6 +39,13 @@ public void setCnpj(String cnpj) {
 }
 public String getCnpj() {
 	return this.cnpj_fornecedor;
+}
+
+public void setQuantidade(int quantidad) {
+	this.quantidade = quantidad;
+}
+public int getQuantidade() {
+	return this.quantidade;
 }
 
 }
