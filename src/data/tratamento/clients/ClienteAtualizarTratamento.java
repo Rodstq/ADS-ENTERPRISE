@@ -9,7 +9,7 @@ import controladores.Cliente.ClienteAtualizarDatabase;
 import controladores.Cliente.ClienteCadastroDatabase;
 import controladores.Cliente.ClienteConsultaDatabase;
 import interfacesCliente.InterfaceClienteEstatic;
-
+import interfacesCliente.InterfaceClienteUpdates;
 import data.tratamento.clients.infoClienteException;
 
 public class ClienteAtualizarTratamento {
@@ -30,8 +30,7 @@ public class ClienteAtualizarTratamento {
     private boolean flagBairroCliente = false;
     private boolean flagRuaCliente =false;
     private boolean flagDescricao = false;
-    
-    
+
     public void nomeFlag(Boolean decisao) {   	
     	this.flagNome = decisao;
     }  
@@ -70,9 +69,9 @@ public class ClienteAtualizarTratamento {
     
  
     
-    private InterfaceClienteEstatic datas;
+    private InterfaceClienteUpdates datas;
     
-    public ClienteAtualizarTratamento (InterfaceClienteEstatic cliente) {
+    public ClienteAtualizarTratamento (InterfaceClienteUpdates cliente) {
     	
     	this.datas = cliente;
     	
@@ -82,11 +81,30 @@ public class ClienteAtualizarTratamento {
     	datas = new ClienteAtualizarDatabase();
     }
     
+    
+	public boolean verificarCpf(String cpfCliente)throws infoClienteException {
+		
+		if(cpfCliente.length() != 11) {
+    		
+    		throw new infoClienteException("o cpf precisa ter 11 digitos");
+    		
+    		
+    	}	
+    		Clientes info = new Clientes(); 
+			info.setCpf(cpfCliente);
+			datas.verificarCpfDb(info);
+			
+		boolean	resultado = datas.verificarCpfDb(info);
+		
+		return resultado;
+    	
+	}
+    
+    
+    
 	public void clienteAtualizarCadastroCliente(String dataNascimento, String cpf, String nomeCliente, String telefoneCliente) throws infoClienteException, DataFormatException {
 		
-
-		
-		
+	
     		if(cpf.isBlank()) {
     		
     		throw new infoClienteException("o cpf está em branco");    
@@ -140,6 +158,8 @@ public class ClienteAtualizarTratamento {
     	  info.setClienteInfo(cpf, nomeCliente, nascimento, telefoneCliente);
 	       datas.infoCliente(info);
 		
+	       
+	       
 	}
     
 	public void clienteAtualizarEnderecoCliente (String cpf, String cepCliente, String estadoCliente, String cidadeCliente, String bairroCliente,

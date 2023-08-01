@@ -11,5 +11,8 @@ public interface interfaceClientePedido {
 	
 	public void deletarUnicoPedido(Clientes clienteDeletePedido, int idPedido)throws infoClienteException;
 	
+	public boolean verificarCpfDb(Clientes verificarCpf)throws infoClienteException;
+
+	public boolean verificarPedido(int verificarPedido)throws infoClienteException;
 	
 }

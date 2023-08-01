@@ -1,6 +1,7 @@
 package controladores.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -11,7 +12,61 @@ import interfacesCliente.interfaceClientePedido;
 
 public class ClienteDeleteDatabase implements interfaceClientePedido{
 
-	
+	 public boolean verificarCpfDb(Clientes verificarCpf) throws infoClienteException {
+		 
+	        try {
+	            Connection connection = Db.Connect();
+          
+	            String verificarCPFQuery = "SELECT COUNT(*) FROM cliente WHERE cpf_cliente = ?";
+	            PreparedStatement pstmt = connection.prepareStatement(verificarCPFQuery);
+	            pstmt.setString(1, verificarCpf.getCpf());
+	            ResultSet rs = pstmt.executeQuery();
+
+	            
+	            if (rs.next()) {
+	                int count = rs.getInt(1);
+	                return count > 0;
+	            }
+
+	        } catch (SQLException e) {
+	        	
+	        	throw new infoClienteException("houve um erro na consulta, por favor avise ao administrador");
+	        	
+	        } finally {
+	            Db.CloseDb();
+	        }
+
+	        
+	        return false;
+	    }
+
+	 public boolean verificarPedido(int verificarPedido) throws infoClienteException {
+		 
+	        try {
+	            Connection connection = Db.Connect();
+       
+	            String verificarCPFQuery = "SELECT COUNT(*) FROM cliente WHERE cpf_cliente = ?";
+	            PreparedStatement pstmt = connection.prepareStatement(verificarCPFQuery);
+	            pstmt.setInt(1, verificarPedido);
+	            ResultSet rs = pstmt.executeQuery();
+
+	            
+	            if (rs.next()) {
+	                int count = rs.getInt(1);
+	                return count > 0;
+	            }
+
+	        } catch (SQLException e) {
+	        	
+	        	throw new infoClienteException("houve um erro na consulta, por favor avise ao administrador");
+	        	
+	        } finally {
+	            Db.CloseDb();
+	            
+	        }
+			return false;
+	 }
+	    
 	public void deletarClienteCadastro(Clientes clienteDeleteCadastro) throws infoClienteException  {
 	    try {
 	    	
@@ -94,37 +149,6 @@ public class ClienteDeleteDatabase implements interfaceClientePedido{
 	
 	
 	}
-	
-	
-	private String getFormatCpf(String cpf) {
-
-		String text = cpf;
-		
-	    if (text.length() > 3) {
-	        StringBuilder formattedCpf = new StringBuilder();
-
-	        for (int i = 0; i < text.length(); i++) {
-	            char c = text.charAt(i);
-
-	            if (i == 3 || i == 6) {
-	                formattedCpf.append('.');
-	            } else if (i == 9) {
-	                formattedCpf.append('-');
-	            }
-
-	            formattedCpf.append(c);
-	        }
-
-	      
-	    }
-		
-		
-	    return text;
-		
-	}
-	
-	
-	
 	
 }
 	

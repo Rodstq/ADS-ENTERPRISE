@@ -215,6 +215,11 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 		                btnSalvarPdf.setEnabled(true);
 		                
 		                
+		                if(resultadosNomeCliente.isEmpty()) {
+		               JOptionPane.showMessageDialog(null, "Não há nenhum cliente com esse nome", "Aviso", JOptionPane.WARNING_MESSAGE);
+		                }
+		                
+		                
 					} catch (infoClienteException e1) {
 						
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -233,8 +238,13 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 
 				                for (Object[] cliente : resultadosCpfCliente) {
 				                    tabelaInfoCliente.addRow(cliente); 
-				                }              	
-		
+				                }             
+				                
+				                if(resultadosCpfCliente.isEmpty()) {
+						               JOptionPane.showMessageDialog(null, "Não há nenhum cliente com esse CPF", "Aviso", JOptionPane.WARNING_MESSAGE);
+						                }
+				                
+				                
 				                btnSalvarPdf.setEnabled(true);
 							} catch (infoClienteException erro) {
 								
@@ -247,7 +257,7 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
 	                	  JOptionPane.showMessageDialog(null, "Digite pelo menos nome ou cpf", "Error",  JOptionPane.ERROR_MESSAGE);
               	
 	                }
-	                    
+	                 
 	               
 	            }
 	        });
@@ -256,7 +266,7 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
         tabelaResultadoCliente.getSelectionModel().addListSelectionListener((ListSelectionListener) new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
            
-            	inputNomeCliente.setText("");
+            	
             	
             	if (!event.getValueIsAdjusting()) {
                     int selectedRow = tabelaResultadoCliente.getSelectedRow();
@@ -265,17 +275,20 @@ public class GuiClientesConsulta extends GuiClientesPrincipal {
                     	
                     	
                         String cpfSelecionado = tabelaResultadoCliente.getValueAt(selectedRow, 1).toString();
+                        
                         if (!cpfSelecionado.isEmpty() && !cpfSelecionado.isBlank()) {
                         
                         	List<Object[]> resultadosProduto;
 							try {
-								resultadosProduto = ClienteConsultaPedidosDatabase.consultaProdutos(inputNomeCliente.getText(), cpfSelecionado);
+								resultadosProduto = ClienteConsultaPedidosDatabase.consultaProdutos("", cpfSelecionado);
 								  tabelaInfoPedidos.setRowCount(0);
 		                            for (Object[] produtos : resultadosProduto) {
 		                                tabelaInfoPedidos.addRow(produtos);
-		                                btnSalvarPdf.setEnabled(true);
+		                               
 		                                
-		                            }
+		                            } 
+		                            btnSalvarPdf.setEnabled(true);
+		                            
 							} catch (infoClienteException e) {
 								 JOptionPane.showMessageDialog(null, e, "Error",  JOptionPane.ERROR_MESSAGE);
 							}

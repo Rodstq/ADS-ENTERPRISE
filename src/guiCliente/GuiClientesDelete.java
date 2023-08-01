@@ -1,6 +1,7 @@
 package guiCliente;
 
 import java.awt.EventQueue;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -30,7 +31,7 @@ public class GuiClientesDelete extends GuiClientesPrincipal {
 	
 	
 	
-	
+	private JTextField inputDeleteCpfAllPedido;
 	private JTextField inputCpfDeleteCadastro;
 	private JTextField inputIddeletePedido;
 	private JTextField inputCpfDeleteUnicoPedido;
@@ -57,8 +58,7 @@ public class GuiClientesDelete extends GuiClientesPrincipal {
 	 */
 	public GuiClientesDelete() throws ParseException {
 
-		JTextField inputDeleteCpfAllPedido = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
-
+		inputDeleteCpfAllPedido = new JTextField();
 		inputDeleteCpfAllPedido.setVisible(false);		
 		inputDeleteCpfAllPedido.setBounds(343, 116, 167, 19);
 		getContentPane().add(inputDeleteCpfAllPedido);
@@ -83,8 +83,7 @@ public class GuiClientesDelete extends GuiClientesPrincipal {
 		    public void actionPerformed  (ActionEvent e) {
 		    	
 		    	inputCpfDeleteCadastro.setText("");
-		    	inputDeleteCpfAllPedido.setText(null);
-				
+		    	inputDeleteCpfAllPedido.setText("");			
 		    	inputCpfDeleteUnicoPedido.setText("");
 		    	inputIddeletePedido.setText("");
 
@@ -242,9 +241,10 @@ public class GuiClientesDelete extends GuiClientesPrincipal {
 				lblId.setVisible(false);
 				inputIddeletePedido.setVisible(false);
 				
+				
 				flag.flagDeleteAllPedidos(true);
 				
-				inputDeleteCpfAllPedido.setDocument(new ClienteValidadoraInput(14, ClienteValidadoraInput.dadoInserido.cpfCliente));
+				inputDeleteCpfAllPedido.setDocument(new ClienteValidadoraInput(11, ClienteValidadoraInput.dadoInserido.cpfCliente));
 			
 	
 			}else {
@@ -252,62 +252,103 @@ public class GuiClientesDelete extends GuiClientesPrincipal {
 				lblCpfPedido.setVisible(false);
 				inputDeleteCpfAllPedido.setVisible(false);
 				flag.flagDeleteAllPedidos(false);
-
-				
 			
-				
 			}
 			
 		}
 	});
 
+	btnDeletarCliente.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+	        ClienteDeleteTratamento delete = new ClienteDeleteTratamento();
 
+	        int idPedidoDel = 0;
+	        String allPedidoDel = inputDeleteCpfAllPedido.getText();
+	        String cadastroClienteDel = inputCpfDeleteCadastro.getText();
+	        String unicoPedidoDel = inputCpfDeleteUnicoPedido.getText();
+
+	        if (!inputIddeletePedido.getText().isEmpty()) {
+	            idPedidoDel = Integer.parseInt(inputIddeletePedido.getText());
+	        }
+	        
+	        
+	        boolean sucesso = true;
+	        try {
+	            if (boxDeleteAllPedido.isSelected() == true) {
+	            	
+	                delete.deleteAllPedidos(allPedidoDel);
+	                
+	            }else if (boxDeleteCadastroCliente.isSelected() == true) {
+	                delete.deleteClienteCadastro(cadastroClienteDel);
+	            }
+
+	            else if (boxDeleteUnicoPedido.isSelected() == true) {
+	                delete.deleteUnicoPedido(unicoPedidoDel, idPedidoDel);
+	            }
+
+	        } catch (infoClienteException ex) {
+	            JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+	            sucesso = false;
+	        }
 	
-		btnDeletarCliente.addActionListener(new ActionListener() {
-			
-		    public void actionPerformed  (ActionEvent e) {
-		    	
-		    	   	
-		    	ClienteDeleteTratamento delete = new ClienteDeleteTratamento();
-		    	    		
-		    	int idPedidoDel = 0;
-		    	String allPedidoDel = inputDeleteCpfAllPedido.getText();
-		    	String cadastroClienteDel = inputCpfDeleteCadastro.getText();
-		    	String unicoPedidoDel = inputCpfDeleteUnicoPedido.getText();
-		    	
-		    	 if (!inputIddeletePedido.getText().isEmpty()) {
-		    	 idPedidoDel =  Integer.parseInt(inputIddeletePedido.getText());
-	                }
-		    
-		    	
-		    	
-					try {
-						if(boxDeleteAllPedido.isVisible()) {
-							
-							delete.deleteAllPedidos(allPedidoDel);
-							
-						}
-						if(boxDeleteCadastroCliente.isVisible()) {
-							
-							delete.deleteClienteCadastro(cadastroClienteDel);
-							
-						}
-						if(boxDeleteUnicoPedido.isVisible()) {
+	        
+	     //cpf ou id não existe	        
+			try {
+				if(!delete.verificarCpf(allPedidoDel) && sucesso && boxDeleteAllPedido.isSelected() == true) {
+						JOptionPane.showMessageDialog(null, "O cpf não existe", "Erro", JOptionPane.ERROR_MESSAGE);		
+					
+				}
 				
-							delete.deleteUnicoPedido(unicoPedidoDel, idPedidoDel);
-						}
-						
-						
-						
-						
-					} catch (infoClienteException e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-					}
+				
+				if(!delete.verificarCpf(unicoPedidoDel) && sucesso && boxDeleteUnicoPedido.isSelected() == true) {
+				
+					JOptionPane.showMessageDialog(null, "O cpf não existe", "Erro", JOptionPane.ERROR_MESSAGE);
+					
+				}else if(!delete.verificarPedido(idPedidoDel) && sucesso && boxDeleteUnicoPedido.isSelected() == true) {
+					
+					JOptionPane.showMessageDialog(null, "O id do pedido não existe", "Erro", JOptionPane.ERROR_MESSAGE);
+					
+				}
+				
+				if(!delete.verificarCpf(cadastroClienteDel)  && sucesso && boxDeleteCadastroCliente.isSelected() == true) {
+					
+					JOptionPane.showMessageDialog(null, "O cpf não existe", "Erro", JOptionPane.ERROR_MESSAGE);	
+				}
+				
+			} catch (HeadlessException | infoClienteException e2) {
+				
+				JOptionPane.showMessageDialog(null, "erro ao realizar um delete, por favor informe ao administrador", "Erro", JOptionPane.ERROR_MESSAGE);
 
-		    } 
-		    });
+			}
 		
-		
+			
+			
+			
+			//sucesso ao deletar
+		try {
+			if(!allPedidoDel.isBlank() && sucesso && delete.verificarCpf(allPedidoDel) ) {
+				
+				JOptionPane.showMessageDialog(null, "sucesso ao deletar todo os pedido",null, JOptionPane.INFORMATION_MESSAGE);
+			}
+				else if(!cadastroClienteDel.isBlank() && sucesso && delete.verificarCpf(cadastroClienteDel)) {
+			JOptionPane.showMessageDialog(null, "sucesso ao deletar cadastro",null, JOptionPane.INFORMATION_MESSAGE);
+					
+			}else if(!unicoPedidoDel.isBlank() && idPedidoDel !=0 && sucesso && delete.verificarCpf(unicoPedidoDel)
+					&& delete.verificarPedido(idPedidoDel)) {
+				
+				JOptionPane.showMessageDialog(null, "sucesso ao deletar o pedido",null, JOptionPane.INFORMATION_MESSAGE);
+				
+				}
+			
+		} catch (HeadlessException | infoClienteException e1) {
+			
+			JOptionPane.showMessageDialog(null, "erro ao realizar um delete, por favor informe ao administrador", "Erro", JOptionPane.ERROR_MESSAGE);
+			}
+
+    
+	    }
+	});
+
 		
 }
 }

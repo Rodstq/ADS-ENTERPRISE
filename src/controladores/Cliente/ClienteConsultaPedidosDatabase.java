@@ -28,7 +28,7 @@ public class ClienteConsultaPedidosDatabase {
 	                "JOIN pedido_produto ON pedido.id_pedido = pedido_produto.id_pedido ";
 	                
 
-	        if (!nomeCliente.isEmpty()) {
+	        if (!nomeCliente.isBlank()) {
 	            query += "WHERE cliente.nome_cliente = ?"+"GROUP BY pedido.id_pedido";
 	            PreparedStatement pstmt = connection.prepareStatement(query);
 	            pstmt.setString(1, nomeCliente);
@@ -44,7 +44,7 @@ public class ClienteConsultaPedidosDatabase {
 	                Object[] produtosInfo = {id_pedido, cpf_cliente, data_pedido, nome_vendedor, valor_total};
 	                resultadosProdutos.add(produtosInfo);
 	            }
-	        } else if (!cpfCliente.isEmpty()) {
+	        } else if (!cpfCliente.isBlank()) {
 	            query += "WHERE cliente.cpf_cliente = ? "+ "GROUP BY pedido.id_pedido";
 	            PreparedStatement pstmt = connection.prepareStatement(query);
 	            pstmt.setString(1, cpfCliente);

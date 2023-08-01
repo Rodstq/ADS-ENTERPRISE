@@ -33,6 +33,7 @@ public class ClienteConsultaDatabase  implements InterfaceConsultaCliente {
 
 			ResultSet rs = pstmt.executeQuery();
 
+			
 			while(rs.next()){
 				String nome = rs.getString("nome_cliente");
 				String cpf = rs.getString("cpf_cliente");
@@ -49,13 +50,15 @@ public class ClienteConsultaDatabase  implements InterfaceConsultaCliente {
                 resultados.add(clienteDados);
 				}
 			}catch(Exception e) {
-
+				
+			
 
 			}finally {
 				
 				Db.CloseDb();
 			}
 		return resultados;
+		
 }
 
 

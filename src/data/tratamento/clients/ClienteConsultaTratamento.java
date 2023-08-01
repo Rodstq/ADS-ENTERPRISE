@@ -52,7 +52,7 @@ public class ClienteConsultaTratamento{
 		Clientes info = new Clientes();
 		info.setCpf(cpf);
 		
-		List<Object[]> resultadosCliente = datas.infoClienteCpf(info);;
+		List<Object[]> resultadosCliente = datas.infoClienteCpf(info);
 			
 		return  resultadosCliente;
 
