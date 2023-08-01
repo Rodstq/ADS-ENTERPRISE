@@ -1,6 +1,8 @@
 package controladores.Cliente;
 
 import conexaoDb.Db;
+import data.tratamento.clients.infoClienteException;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -14,7 +16,7 @@ public class ClienteConsultaPedidosDatabase {
 
 	
 	
-	public static List<Object[]> consultaProdutos(String nomeCliente, String cpfCliente) {
+	public static List<Object[]> consultaProdutos(String nomeCliente, String cpfCliente) throws infoClienteException {
 	    List<Object[]> resultadosProdutos = new ArrayList<>();
 
 	    try {
@@ -58,12 +60,12 @@ public class ClienteConsultaPedidosDatabase {
 	                Object[] produtosInfo = {id_pedido, cpf_cliente, data_pedido, nome_vendedor, valor_total};
 	                resultadosProdutos.add(produtosInfo);
 	            }
-	        } else {
-	            System.out.println("Campos vazios");
-	        }
+	        } 
 
 	    } catch (Exception e) {
-	        e.printStackTrace();
+	    	
+	    	throw new infoClienteException("Desculpe, houve um erro na consulta contate seu administrador para corrigir");
+	    	    	
 	    } finally {
 	        Db.CloseDb();
 	    }

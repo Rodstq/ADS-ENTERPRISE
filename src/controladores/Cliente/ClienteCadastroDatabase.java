@@ -59,8 +59,11 @@ public class ClienteCadastroDatabase implements InterfaceClienteEstatic {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
+        	
             e.printStackTrace();
+            
         } finally {
+        	
             Db.CloseDb();
         }
     }

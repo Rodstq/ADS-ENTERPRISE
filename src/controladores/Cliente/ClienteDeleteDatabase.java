@@ -96,19 +96,32 @@ public class ClienteDeleteDatabase implements interfaceClientePedido{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	private String getFormatCpf(String cpf) {
+
+		String text = cpf;
+		
+	    if (text.length() > 3) {
+	        StringBuilder formattedCpf = new StringBuilder();
+
+	        for (int i = 0; i < text.length(); i++) {
+	            char c = text.charAt(i);
+
+	            if (i == 3 || i == 6) {
+	                formattedCpf.append('.');
+	            } else if (i == 9) {
+	                formattedCpf.append('-');
+	            }
+
+	            formattedCpf.append(c);
+	        }
+
+	      
+	    }
+		
+		
+	    return text;
+		
+	}
 	
 	
 	

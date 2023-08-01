@@ -36,8 +36,8 @@ public class ClienteValidadoraInput extends PlainDocument{
 		
 		String regex = "";			
 		switch (dadoEntrada) {
-			case nomeCliente: regex = "[^\\p{IsLatin} ]"; break;
-			case cpfCliente: regex = "[^0-9]"; break;
+			case nomeCliente: regex = "[^\\p{IsLatin} ]"; break;			
+			case cpfCliente: regex = "[^0-9.\\-\\s]"; break;
 			case nascimentoCliente: regex = "[^0-9]"; break;
 			case telefoneCliente: regex = "[^0-9/]"; break;
 			case estadoCliente: regex = "[^\\p{IsLatin} ]"; break;
