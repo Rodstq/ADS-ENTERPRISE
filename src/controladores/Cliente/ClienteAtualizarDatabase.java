@@ -2,17 +2,48 @@ package controladores.Cliente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import conexaoDb.Db;
 
 import interfacesCliente.InterfaceClienteEstatic;
-
+import interfacesCliente.InterfaceClienteUpdates;
 import data.tratamento.clients.Clientes;
+import data.tratamento.clients.infoClienteException;
 import interfacesCliente.InterfaceClienteEstatic;
 
-public class ClienteAtualizarDatabase implements InterfaceClienteEstatic{
+public class ClienteAtualizarDatabase implements InterfaceClienteUpdates{
+	
+	 public boolean verificarCpfDb(Clientes verificarCpf) throws infoClienteException {
+		 
+	        try {
+	            Connection connection = Db.Connect();
+       
+	            String verificarCPFQuery = "SELECT COUNT(*) FROM cliente WHERE cpf_cliente = ?";
+	            PreparedStatement pstmt = connection.prepareStatement(verificarCPFQuery);
+	            pstmt.setString(1, verificarCpf.getCpf());
+	            ResultSet rs = pstmt.executeQuery();
+
+	            
+	            if (rs.next()) {
+	                int count = rs.getInt(1);
+	                return count > 0;
+	            }
+
+	        } catch (SQLException e) {
+	        	
+	        	throw new infoClienteException("houve um erro na consulta, por favor avise ao administrador");
+	        	
+	        } finally {
+	            Db.CloseDb();
+	        }
+
+	        
+	        return false;
+	    }
 	
 	public void infoCliente (Clientes cliente) {
 	    ArrayList<Object> infoCliente = new ArrayList<Object>();
@@ -36,6 +67,9 @@ public class ClienteAtualizarDatabase implements InterfaceClienteEstatic{
 	                pstmt.setString(2, cliente.getCpf());
 	                pstmt.executeUpdate();
 	                pstmt.close();
+	                	                
+	           
+	                
 	            }
 	        }
 	    } catch (Exception e) {
@@ -43,7 +77,9 @@ public class ClienteAtualizarDatabase implements InterfaceClienteEstatic{
 	    } finally {
 	        Db.CloseDb();
 	    }
+	   
 	}
+	
 
 	public void enderecoCliente(Clientes cliente) {
 	    ArrayList<Object> enderecoCliente = new ArrayList<Object>();

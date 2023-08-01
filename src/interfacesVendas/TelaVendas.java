@@ -36,6 +36,8 @@ import conexaoDb.Db;
 import controladores.Pedido.PedidoController;
 import controladores.Cliente.ClienteConsultaDatabase;
 import data.tratamento.clients.Clientes;
+import interfaces.Login;
+import interfaces.Main;
 
 import javax.swing.table.TableModel;
 import java.beans.PropertyChangeListener;
@@ -90,7 +92,7 @@ public class TelaVendas extends JFrame {
                 Db.CloseDb();
             }
         });
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 796, 858);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -317,16 +319,16 @@ public class TelaVendas extends JFrame {
         tableModel = (DefaultTableModel) ProdTable.getModel();
 
 
-        JPanel panel_1 = new JPanel();
-        GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-        gbc_panel_1.insets = new Insets(0, 0, 5, 0);
-        gbc_panel_1.anchor = GridBagConstraints.SOUTHEAST;
-        gbc_panel_1.gridx = 0;
-        gbc_panel_1.gridy = 5;
-        MainPanel.add(panel_1, gbc_panel_1);
+        JPanel ProdutosButtons = new JPanel();
+        GridBagConstraints gbc_ProdutosButtons = new GridBagConstraints();
+        gbc_ProdutosButtons.insets = new Insets(0, 0, 5, 0);
+        gbc_ProdutosButtons.anchor = GridBagConstraints.SOUTHEAST;
+        gbc_ProdutosButtons.gridx = 0;
+        gbc_ProdutosButtons.gridy = 5;
+        MainPanel.add(ProdutosButtons, gbc_ProdutosButtons);
 
         JButton FecharCompraButton = new JButton("Fechar Compra");
-        panel_1.add(FecharCompraButton);
+        ProdutosButtons.add(FecharCompraButton);
 
         JButton RemoveButton = new JButton("Remover");
         RemoveButton.setEnabled(false);
@@ -339,7 +341,7 @@ public class TelaVendas extends JFrame {
                 }
             }
         });
-        panel_1.add(RemoveButton);
+        ProdutosButtons.add(RemoveButton);
 
         JPanel LinkCpfPanel = new JPanel();
         LinkCpfPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -540,6 +542,15 @@ public class TelaVendas extends JFrame {
         });
 
         SubmitPannel.add(SubmitButton);
+        
+        JButton BackButton = new JButton("Voltar");
+        BackButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Main frame = new Main();
+                frame.setVisible(true);
+        	}
+        });
+        SubmitPannel.add(BackButton);
 
         ClientesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {

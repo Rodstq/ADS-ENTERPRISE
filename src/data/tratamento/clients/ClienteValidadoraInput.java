@@ -28,7 +28,7 @@ public class ClienteValidadoraInput extends PlainDocument{
 
 	@Override
 	public void insertString(int i, String str, AttributeSet a) throws BadLocationException {
-		
+		try {
 		if (str == null || getLength() == qtdCaracteres) {
 			return;
 		}
@@ -37,7 +37,7 @@ public class ClienteValidadoraInput extends PlainDocument{
 		String regex = "";			
 		switch (dadoEntrada) {
 			case nomeCliente: regex = "[^\\p{IsLatin} ]"; break;			
-			case cpfCliente: regex = "[^0-9.\\-\\s]"; break;
+			case cpfCliente: regex = "[^0-9]"; break;
 			case nascimentoCliente: regex = "[^0-9]"; break;
 			case telefoneCliente: regex = "[^0-9/]"; break;
 			case estadoCliente: regex = "[^\\p{IsLatin} ]"; break;
@@ -52,11 +52,20 @@ public class ClienteValidadoraInput extends PlainDocument{
 		if (totalCarac<=qtdCaracteres) {
 			super.insertString(i, str, a);
 		} else {
+			try{
 			String nova = str.substring(0, qtdCaracteres);
 			super.insertString(i, str, a);
+			
+			}catch(StringIndexOutOfBoundsException e3) {
+
+			}
 		}
 		
-		
+		}catch (BadLocationException e) {
+			
+			
+			
+		}
 		
 	}
 	

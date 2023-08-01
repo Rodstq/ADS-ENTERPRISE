@@ -222,6 +222,9 @@ public class GuiClientesCadastro extends GuiClientesPrincipal {
 		        		   
 		        		   cliente.cadastrarEnderecoCliente(cepCliente, estadoCliente, cidadeCliente, bairroCliente,
 		        				    ruaCliente, descricaoEndereco, cpfCliente);
+		        		   
+		        		   
+							JOptionPane.showMessageDialog(null, "Sucesso ao cadastrar o cliente", "Erro", JOptionPane.INFORMATION_MESSAGE);
 
 		                } catch (infoClienteException erro) {
 		                	 JOptionPane.showMessageDialog(null, erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

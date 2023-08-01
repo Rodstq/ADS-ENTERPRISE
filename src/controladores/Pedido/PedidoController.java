@@ -42,7 +42,7 @@ public class PedidoController {
                 stmtPedidoProduto.setDouble(3, valorTotalProdutoComprado);
                 stmtPedidoProduto.setInt(4, quantidadeComprada);
                 stmtPedidoProduto.executeUpdate();
-                
+
                 EstoqueController.venderProduto(idProduto);
 
             }
