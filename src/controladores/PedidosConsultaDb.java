@@ -18,7 +18,7 @@ public class PedidosConsultaDb {
 	    double soma = 0;
 	    try {
 	        Statement stmt = Db.Connect().createStatement();
-	        String query = "SELECT SUM(valor_total_produto_comprado * quantidade_comprada) AS total FROM pedido_produto WHERE id_pedido = " + idPedido;
+	        String query = "SELECT SUM(valor_total_produto_comprado) AS total FROM pedido_produto WHERE id_pedido = " + idPedido;
 	        ResultSet rs = stmt.executeQuery(query);
 	        if (rs.next()) {
 	            soma = rs.getDouble("total");

@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableModel;
 
 import classesPedidos.PedidosConsulta;
 import controladores.PedidosConsultaDb;
+import controladores.PedidoProdutoDetalheDb;
+import classesPedidos.ProdutoDetalhado;
 import java.util.List;
 
 public class InterfacePedidosConsulta extends JFrame {
@@ -127,7 +129,8 @@ public class InterfacePedidosConsulta extends JFrame {
                 model.addColumn("CPF do Cliente");
                 model.addColumn("Valor total dos Produtos");
                 model.addColumn("Quantidade de produtos");
-
+                model.addColumn("Detalhes");
+                
                 for (PedidosConsulta pedido : resultados) {
                     model.addRow(new Object[]{
                             pedido.getIdPedido(),
@@ -135,7 +138,8 @@ public class InterfacePedidosConsulta extends JFrame {
                             pedido.getCpfVendedor(),
                             pedido.getCpfCliente(),
                             pedido.getValorProdutos(),
-                            pedido.getQuantitadeTotalProdutos()
+                            pedido.getQuantitadeTotalProdutos(),
+                            "Abrir"
                     });
                 }
 
@@ -161,12 +165,29 @@ public class InterfacePedidosConsulta extends JFrame {
                 dispose();
             }
         });
+ 
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = table.rowAtPoint(evt.getPoint());
+                int col = table.columnAtPoint(evt.getPoint());
+                if (col == 6) { 
+                    String idPedido = table.getValueAt(row, 0).toString();
+                    abrirInterfaceDetalhesProdutos(idPedido);
+                }
+            }
+        });
 
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
-
+    private void abrirInterfaceDetalhesProdutos(String idPedido) {
+        int idPedidoInt = Integer.parseInt(idPedido);
+        PedidoProdutoDetalheDb pedidoProdutoDetalheDb = new PedidoProdutoDetalheDb();
+        List<ProdutoDetalhado> detalhes = pedidoProdutoDetalheDb.obterDetalhesPedido(idPedidoInt);
+        InterfaceDetalhesProdutos.AbrirInterfaceDetalhes(detalhes);
+    }
+   
     private void limparFiltro() {
         textFieldFiltro.setText("");
         comboBoxFiltro.setSelectedIndex(0);
