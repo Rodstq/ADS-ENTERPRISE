@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 public class CadastrarTratamento {
 	
 	private String erro;
-	private String messageCnpjInexistente;
 	
 	
 	public String verificaErro(String erro) {
