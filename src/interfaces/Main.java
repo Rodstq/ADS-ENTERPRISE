@@ -6,10 +6,10 @@ import java.awt.Font;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import guiCliente.GuiClientesPrincipal;
-import interfacesProdutos.InterfaceProdutosPrincipal;
-import interfacesPedidos.InterfacePedidosPrincipal;
-import interfacesVendas.TelaVendas;
+import interfaces.guiCliente.GuiClientesPrincipal;
+import interfaces.interfacesProdutos.InterfaceProdutosPrincipal;
+import interfaces.interfacesPedidos.InterfacePedidosPrincipal;
+import interfaces.interfacesVendas.TelaVendas;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -50,6 +50,7 @@ public class Main extends JFrame {
 		btnModuloVendas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaVendas.TelaCaixa(Login.getVendedor(), Login.getCPFVendedor());
+				dispose();
 			}
 		});
 

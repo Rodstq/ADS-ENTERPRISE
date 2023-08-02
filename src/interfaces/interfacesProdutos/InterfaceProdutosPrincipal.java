@@ -1,10 +1,9 @@
-package interfacesProdutos;
+package interfaces.interfacesProdutos;
 
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,23 +15,18 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
 
-import classesFornecedores.Fornecedor;
+import models.classesFornecedores.Fornecedor;
 import controladores.Produtos.ProdutosConsulta;
 import controladores.Produtos.ProdutosAtualizar;
-import interfaces.Main;
 import controladores.Fornecedores.FornecedoresCadastrar;
 import utils.Validadora;
 import controladores.Produtos.ProdutosCadastrar;
-import classesProdutos.Produto;
+import models.classesProdutos.Produto;
 import javax.swing.JTabbedPane;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
-import javax.swing.JRadioButtonMenuItem;
 
-import java.awt.CardLayout;
-import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
 
 import javax.swing.ButtonGroup;

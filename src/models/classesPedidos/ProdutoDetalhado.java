@@ -1,4 +1,4 @@
-package classesPedidos;
+package models.classesPedidos;
 
 public class ProdutoDetalhado {
     private int idProduto;

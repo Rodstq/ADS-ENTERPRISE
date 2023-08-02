@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import classesFornecedores.Fornecedor;
+import models.classesFornecedores.Fornecedor;
 import conexaoDb.Db;
 import data.tratamento.produtos.CadastrarTratamento;
 

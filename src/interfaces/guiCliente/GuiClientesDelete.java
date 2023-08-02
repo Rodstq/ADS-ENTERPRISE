@@ -1,4 +1,4 @@
-package guiCliente;
+package interfaces.guiCliente;
 
 import java.awt.EventQueue;
 import java.awt.HeadlessException;
@@ -6,13 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.MaskFormatter;
 
 import data.tratamento.clients.ClienteDeleteTratamento;
 import data.tratamento.clients.ClienteValidadoraInput;
@@ -23,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFormattedTextField;
 
 public class GuiClientesDelete extends GuiClientesPrincipal {
 

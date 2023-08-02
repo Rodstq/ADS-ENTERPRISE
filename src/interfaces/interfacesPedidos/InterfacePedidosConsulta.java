@@ -1,4 +1,4 @@
-package interfacesPedidos;
+package interfaces.interfacesPedidos;
 
 import java.awt.*;
 
@@ -7,10 +7,10 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import classesPedidos.PedidosConsulta;
+import models.classesPedidos.PedidosConsulta;
 import controladores.PedidosConsultaDb;
 import controladores.PedidoProdutoDetalheDb;
-import classesPedidos.ProdutoDetalhado;
+import models.classesPedidos.ProdutoDetalhado;
 import java.util.List;
 
 public class InterfacePedidosConsulta extends JFrame {

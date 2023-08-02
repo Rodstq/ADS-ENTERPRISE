@@ -1,4 +1,4 @@
-package guiCliente;
+package interfaces.guiCliente;
 
 import java.awt.EventQueue;
 
@@ -13,12 +13,9 @@ import data.tratamento.clients.ClienteConsultaTratamento;
 import data.tratamento.clients.ClienteValidadoraInput;
 
 
-import data.tratamento.clients.ClienteConsultaTratamento;
-
 import data.tratamento.clients.infoClienteException;
 import interfaces.Main;
 import utils.PDF;
-import utils.Validadora;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;

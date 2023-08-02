@@ -1,4 +1,4 @@
-package classesProdutos;
+package models.classesProdutos;
 
 public class Produto {
 

@@ -1,16 +1,9 @@
 package data.tratamento.clients;
 import java.util.List;
 
-import controladores.Cliente.ClienteCadastroDatabase;
 import controladores.Cliente.ClienteConsultaDatabase;
-import controladores.Cliente.ClienteConsultaPedidosDatabase;
 
-import interfacesCliente.InterfaceClienteEstatic;
-import interfacesCliente.InterfaceConsultaCliente;
-
-import interfacesCliente.InterfaceConsultaCliente;
-import interfacesCliente.InterfaceClienteEstatic;
-import data.tratamento.clients.infoClienteException;
+import interfaces.interfacesCliente.InterfaceConsultaCliente;
 
 
 public class ClienteConsultaTratamento{

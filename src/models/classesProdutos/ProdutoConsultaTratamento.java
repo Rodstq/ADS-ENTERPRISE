@@ -1,4 +1,4 @@
-package classesProdutos;
+package models.classesProdutos;
 
 import controladores.Produtos.ProdutosConsulta;
 

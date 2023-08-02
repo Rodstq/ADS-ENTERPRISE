@@ -1,34 +1,24 @@
-package guiCliente;
+package interfaces.guiCliente;
 
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.HeadlessException;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.zip.DataFormatException;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
-import controladores.Cliente.ClienteAtualizarDatabase;
 import data.tratamento.clients.ClienteAtualizarTratamento;
 import data.tratamento.clients.ClienteValidadoraInput;
-import data.tratamento.clients.Clientes;
 import data.tratamento.clients.infoClienteException;
 import interfaces.Main;
 public class GuiClientesAtualizar extends GuiClientesPrincipal {

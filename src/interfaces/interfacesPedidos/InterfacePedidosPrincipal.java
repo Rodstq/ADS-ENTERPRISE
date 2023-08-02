@@ -1,4 +1,4 @@
-package interfacesPedidos;
+package interfaces.interfacesPedidos;
 
 import javax.swing.*;
 import java.awt.*;

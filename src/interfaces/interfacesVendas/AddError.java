@@ -1,7 +1,4 @@
-package interfacesVendas;
-
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+package interfaces.interfacesVendas;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;

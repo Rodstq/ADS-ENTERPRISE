@@ -1,4 +1,4 @@
-package interfacesVendas;
+package interfaces.interfacesVendas;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -36,15 +36,10 @@ import conexaoDb.Db;
 import controladores.Pedido.PedidoController;
 import controladores.Cliente.ClienteConsultaDatabase;
 import data.tratamento.clients.Clientes;
-import interfaces.Login;
 import interfaces.Main;
 
-import javax.swing.table.TableModel;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.SimpleTimeZone;
 
 public class TelaVendas extends JFrame {
 
@@ -175,7 +170,6 @@ public class TelaVendas extends JFrame {
         gbc_NomeProdField.gridy = 1;
         FormPanel.add(NomeProdField, gbc_NomeProdField);
         NomeProdField.setColumns(10);
-
 
         JButton AddButton = new JButton("Adicionar");
         AddButton.addMouseListener(new MouseAdapter() {
@@ -548,6 +542,7 @@ public class TelaVendas extends JFrame {
         	public void actionPerformed(ActionEvent e) {
         		Main frame = new Main();
                 frame.setVisible(true);
+                dispose();
         	}
         });
         SubmitPannel.add(BackButton);

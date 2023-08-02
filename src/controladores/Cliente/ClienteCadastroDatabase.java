@@ -3,16 +3,13 @@ package controladores.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
-import data.tratamento.clients.ClienteCadastroTratamento;
 import conexaoDb.Db;
 
-import interfacesCliente.InterfaceClienteEstatic;
+import interfaces.interfacesCliente.InterfaceClienteEstatic;
 
 import data.tratamento.clients.Clientes;
 import data.tratamento.clients.infoClienteException;
-import interfacesCliente.InterfaceClienteEstatic;
 
 public class ClienteCadastroDatabase implements InterfaceClienteEstatic {
 	

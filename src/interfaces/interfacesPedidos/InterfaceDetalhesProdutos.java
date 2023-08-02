@@ -1,9 +1,9 @@
-package interfacesPedidos;
+package interfaces.interfacesPedidos;
 
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import classesPedidos.ProdutoDetalhado;
+import models.classesPedidos.ProdutoDetalhado;
 import java.text.DecimalFormat;
 import java.util.List;
 

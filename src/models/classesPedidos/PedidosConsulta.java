@@ -1,4 +1,4 @@
-package classesPedidos;
+package models.classesPedidos;
 
 import java.util.Date;
 

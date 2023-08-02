@@ -2,19 +2,12 @@ package controladores.Cliente;
 import conexaoDb.Db;
 
 import data.tratamento.clients.Clientes;
-import interfacesCliente.InterfaceConsultaCliente;
-
-import interfacesCliente.InterfaceClienteEstatic;
-import data.tratamento.clients.Clientes;
-import interfacesCliente.InterfaceConsultaCliente;
+import interfaces.interfacesCliente.InterfaceConsultaCliente;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

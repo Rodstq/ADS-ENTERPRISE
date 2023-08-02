@@ -1,4 +1,4 @@
-package interfacesCliente;
+package interfaces.interfacesCliente;
 
 import data.tratamento.clients.Clientes;
 import data.tratamento.clients.infoClienteException;

@@ -6,11 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.zip.DataFormatException;
 
 import controladores.Cliente.ClienteAtualizarDatabase;
-import controladores.Cliente.ClienteCadastroDatabase;
 import controladores.Cliente.ClienteConsultaDatabase;
-import interfacesCliente.InterfaceClienteEstatic;
-import interfacesCliente.InterfaceClienteUpdates;
-import data.tratamento.clients.infoClienteException;
+import interfaces.interfacesCliente.InterfaceClienteUpdates;
 
 public class ClienteAtualizarTratamento {
 

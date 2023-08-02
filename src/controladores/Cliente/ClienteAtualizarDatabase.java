@@ -4,16 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import conexaoDb.Db;
 
-import interfacesCliente.InterfaceClienteEstatic;
-import interfacesCliente.InterfaceClienteUpdates;
+import interfaces.interfacesCliente.InterfaceClienteUpdates;
 import data.tratamento.clients.Clientes;
 import data.tratamento.clients.infoClienteException;
-import interfacesCliente.InterfaceClienteEstatic;
 
 public class ClienteAtualizarDatabase implements InterfaceClienteUpdates{
 	

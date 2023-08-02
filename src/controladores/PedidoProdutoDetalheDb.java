@@ -1,7 +1,7 @@
 package controladores;
 
 import conexaoDb.Db;
-import classesPedidos.ProdutoDetalhado;
+import models.classesPedidos.ProdutoDetalhado;
 
 import java.sql.ResultSet;
 import java.sql.Statement;

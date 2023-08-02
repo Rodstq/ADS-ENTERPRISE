@@ -1,4 +1,4 @@
-package interfacesCliente;
+package interfaces.interfacesCliente;
 
 import java.util.List;
 

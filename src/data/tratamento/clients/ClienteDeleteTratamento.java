@@ -1,17 +1,8 @@
 package data.tratamento.clients;
 
-import java.time.LocalDate;
-
-import controladores.Cliente.ClienteCadastroDatabase;
-import controladores.Cliente.ClienteConsultaDatabase;
 import controladores.Cliente.ClienteDeleteDatabase;
 
-import interfacesCliente.InterfaceClienteEstatic;
-import interfacesCliente.interfaceClientePedido;
-
-
-
-import data.tratamento.clients.infoClienteException;
+import interfaces.interfacesCliente.interfaceClientePedido;
 
 public class ClienteDeleteTratamento extends Clientes{
 

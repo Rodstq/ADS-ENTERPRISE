@@ -6,10 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.zip.DataFormatException;
 
 import controladores.Cliente.ClienteCadastroDatabase;
-import interfacesCliente.InterfaceClienteEstatic;
-
-import data.tratamento.clients.infoClienteException;
-
+import interfaces.interfacesCliente.InterfaceClienteEstatic;
 
 
 public class ClienteCadastroTratamento{
@@ -139,7 +136,8 @@ public class ClienteCadastroTratamento{
 		
 
 		
-		Clientes info = new Clientes();				info.setEnderecoCliente(cepCliente, estadoCliente, cidadeCliente, bairroCliente, ruaCliente, descricaoRuaCliente, cpfCliente);
+		Clientes info = new Clientes();		
+		info.setEnderecoCliente(cepCliente, estadoCliente, cidadeCliente, bairroCliente, ruaCliente, descricaoRuaCliente, cpfCliente);
 		datas.enderecoCliente(info);
 	}
     

@@ -3,12 +3,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import conexaoDb.Db;
 import data.tratamento.clients.Clientes;
 import data.tratamento.clients.infoClienteException;
-import interfacesCliente.interfaceClientePedido;
+import interfaces.interfacesCliente.interfaceClientePedido;
 
 public class ClienteDeleteDatabase implements interfaceClientePedido{
 

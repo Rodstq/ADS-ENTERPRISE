@@ -1,15 +1,13 @@
 package controladores;
 
 import conexaoDb.Db;
-import classesPedidos.PedidosConsulta;
+import models.classesPedidos.PedidosConsulta;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
-
-import javax.swing.JOptionPane;
 
 
 public class PedidosConsultaDb {

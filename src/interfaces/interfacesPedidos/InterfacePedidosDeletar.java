@@ -1,4 +1,4 @@
-package interfacesPedidos;
+package interfaces.interfacesPedidos;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

@@ -66,8 +66,7 @@ public class Login extends JDialog {
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
-        }
-        finally {
+        } finally {
             Db.CloseDb();
         }
     }
@@ -196,7 +195,7 @@ public class Login extends JDialog {
                     JButton cancelButton = new JButton("Sair");
                     cancelButton.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                        	dispose();
+                            dispose();
                         }
                     });
                     cancelButton.setActionCommand("Cancel");
