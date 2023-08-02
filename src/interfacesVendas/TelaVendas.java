@@ -201,8 +201,8 @@ public class TelaVendas extends JFrame {
                         // Item encontrado
                         if (rs.next()) {
                             String nomeProduto = rs.getString("nome_produto");
-                            nomeProd = nomeProduto;
-                            tableModel.addRow(new Object[]{codProd, nomeProd});
+                            int codprod = Integer.parseInt(rs.getString("id_produto"));
+                            tableModel.addRow(new Object[]{codprod, nomeProd});
                             System.out.println("Nome do produto encontrado: " + nomeProduto);
                         } else {
                             // Item não encontrado
