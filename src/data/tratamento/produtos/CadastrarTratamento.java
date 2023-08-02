@@ -2,8 +2,6 @@ package data.tratamento.produtos;
 
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
 public class CadastrarTratamento {
 	
 	private String erro;
@@ -17,7 +15,9 @@ public class CadastrarTratamento {
 			erro = " O CNPJ informado já existe, digite novamente";
 		}else if (erro.contains("Duplicate entry")){
 			erro = " O id informado já pertence a um produto, digite novamente";
-		} 
+		} else if (erro.contains("Cnpj menor que 14")) {
+			erro = "O Cnpj não pode ser menor que 14";
+		}
 		return erro;
 	}
 
@@ -30,7 +30,7 @@ public class CadastrarTratamento {
 			throw new Exception();
 		}
 	}
-	
+		
 	public void verificarVaziosFornecedor(String cnpj, String nome) throws Exception {
 		if(cnpj.isBlank() || nome.isBlank()) {
 			throw new Exception();
@@ -44,4 +44,5 @@ public class CadastrarTratamento {
 		throw new SQLException();
 		
 	}
+	
 }

@@ -70,7 +70,6 @@ public class Main extends JFrame {
 		btnModuloEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				InterfaceProdutosPrincipal.ProdutosPrincipal();
-				dispose();
 			}
 		});
 		contentPane.add(btnModuloEstoque);

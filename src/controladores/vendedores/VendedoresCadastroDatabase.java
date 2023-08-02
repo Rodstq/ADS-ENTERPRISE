@@ -1,3 +1,5 @@
+package controladores.vendedores;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,14 +8,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CadastroVendedorFrame extends JFrame {
+public class VendedoresCadastroDatabase extends JFrame {
     private JTextField nomeTextField;
     private JTextField cpfTextField;
     private JTextField dataNascimentoTextField;
     private JTextArea enderecoTextArea;
     private JButton cadastrarButton;
 
-    public CadastroVendedorFrame() {
+    public VendedoresCadastroDatabase() {
         setTitle("Cadastro de Vendedor");
         setSize(500, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,7 +88,7 @@ public class CadastroVendedorFrame extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new CadastroVendedorFrame().setVisible(true);
+                new VendedoresCadastroDatabase().setVisible(true);
             }
         });
     }
