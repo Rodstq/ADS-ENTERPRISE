@@ -2,11 +2,14 @@ package controladores.vendedores;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import conexaoDb.Db;
+import conexaoDb.DbErrorException;
 
 public class VendedoresCadastroDatabase extends JFrame {
     private JTextField nomeTextField;
@@ -36,12 +39,7 @@ public class VendedoresCadastroDatabase extends JFrame {
         enderecoTextArea = new JTextArea(4, 20);
         cadastrarButton = new JButton("Cadastrar");
 
-        cadastrarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cadastrarVendedor();
-            }
-        });
+        cadastrarButton.addActionListener(e -> cadastrarVendedor());
 
         mainPanel.add(nomeLabel);
         mainPanel.add(nomeTextField);
@@ -62,13 +60,11 @@ public class VendedoresCadastroDatabase extends JFrame {
         String dataNascimentoStr = dataNascimentoTextField.getText();
         String endereco = enderecoTextArea.getText();
 
-        // Verifica se todos os campos estão preenchidos
         if (nome.isEmpty() || cpf.isEmpty() || dataNascimentoStr.isEmpty() || endereco.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.");
             return;
         }
 
-        // Converte a data de nascimento para o formato correto
         Date dataNascimento;
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -78,18 +74,28 @@ public class VendedoresCadastroDatabase extends JFrame {
             return;
         }
 
-        // Aqui você pode implementar a lógica para cadastrar o vendedor no sistema
-        // Por exemplo, pode ser chamada uma função que salva os dados do vendedor em um banco de dados
+        try {
+            Connection connection = Db.Connect();
 
-        JOptionPane.showMessageDialog(this, "Vendedor cadastrado com sucesso!");
+            String sql = "INSERT INTO vendedor (cpf_vendedor, nome_vendedor, data_nascimento) VALUES (?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, cpf);
+            preparedStatement.setString(2, nome);
+            preparedStatement.setDate(3, new java.sql.Date(dataNascimento.getTime()));
+
+            preparedStatement.executeUpdate();
+
+            Db.CloseDb();
+
+            JOptionPane.showMessageDialog(this, "Vendedor cadastrado com sucesso!");
+        } catch (DbErrorException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao finalizar conexão: " + e.getMessage());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar vendedor no banco de dados: " + e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new VendedoresCadastroDatabase().setVisible(true);
-            }
-        });
+        SwingUtilities.invokeLater(() -> new VendedoresCadastroDatabase().setVisible(true));
     }
 }
