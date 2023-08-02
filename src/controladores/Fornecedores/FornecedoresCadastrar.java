@@ -20,18 +20,18 @@ public class FornecedoresCadastrar extends Fornecedor{
 			stmt.setString(1, fornecedor.getCnpj());
 			stmt.setString(2, fornecedor.getNome());
 			
+			if(fornecedor.getCnpj().length() < 14) {
+				throw new SQLException("Cnpj menor que 14");
+			}
+			
 			stmt.executeUpdate();
 			
 		}catch(SQLException e){
 			CadastrarTratamento verificar = new CadastrarTratamento();
-			e.printStackTrace();
-			e.printStackTrace();
 			String erro = e.getMessage();
-			System.out.println(" ============" + erro);
 			verificar.verificaErro(erro);
 			this.erro = verificar.verificaErro(erro);
 			throw new SQLException();	
-//			verificar.lancarException(verificar, e.getMessage());
 		}
 	}
 	
