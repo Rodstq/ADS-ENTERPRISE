@@ -11,12 +11,13 @@ public class ProdutosAtualizar {
 	private String query;
 	
 	
-	public void atualizarProdutos() throws Exception{
+	public void atualizarProdutos(String query) throws Exception{
+		
 		try {
 			Connection connection = Db.Connect();
-			PreparedStatement stmt = connection.prepareStatement(query);
 			
-			stmt.executeUpdate();
+			PreparedStatement stmt1 = connection.prepareStatement(query);
+			stmt1.executeUpdate();
 		
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -24,12 +25,23 @@ public class ProdutosAtualizar {
 		
 	}
 	
-	public String validarQuery(String nome, String valor,String quantidade,String cnpj) {
+	public String execQuery(boolean nomeBoolean,boolean cnpjBoolean,boolean valorBoolean,boolean quantidadeBoolean,
 		
-		if (!nome.isBlank()){
-			
-		}
+		String id,String nome,String cnpj,String valor,String quantidade) {
+//		
+//		String query = "";
+//		StringBuffer queryFinal = new StringBuffer(query);
+//		
+//		if (nomeBoolean && !nome.isBlank()) {
+//			
+//			query = "update produto set nome_produto = 'x' where id_produto = y;";
+//			
+//			int i = query.indexOf('x');
+//			
+//			queryFinal.setCharAt(i, nome);
+//		}
+//		
 		return query;
-	}
-	
+		
+	}	
 }

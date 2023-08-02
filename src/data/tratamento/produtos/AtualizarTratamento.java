@@ -7,7 +7,9 @@ public class AtualizarTratamento {
 	
 	public void verificarVazios(String id, String nome, String cnpj, String valor, String quantidade, boolean ativos) throws Exception {
 		if (id.isBlank() || (ativos && (nome.isBlank() || cnpj.isBlank() || valor.isBlank() || quantidade.isBlank()))) {
-			throw new Exception();
+			throw new Exception("Existem campos em branco, preencha-os");
+		} else if (!id.isBlank() && !ativos) {
+			throw new Exception("Nenhum dado a atualizar selecionado");
 		}
 	}
 
