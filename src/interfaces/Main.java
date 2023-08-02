@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import guiCliente.GuiClientesPrincipal;
 import interfacesProdutos.InterfaceProdutosPrincipal;
+import interfacesPedidos.InterfacePedidosPrincipal;
 import interfacesVendas.TelaVendas;
 
 import java.awt.event.ActionListener;
@@ -18,12 +19,10 @@ public class Main extends JFrame {
 
 	private JPanel contentPane;
 
-
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -53,7 +52,7 @@ public class Main extends JFrame {
 				TelaVendas.TelaCaixa(Login.getVendedor(), Login.getCPFVendedor());
 			}
 		});
-	
+
 		btnModuloVendas.setBounds(272, 256, 194, 43);
 		contentPane.add(btnModuloVendas);
 		
@@ -65,11 +64,25 @@ public class Main extends JFrame {
 		JButton btnModuloEstoque = new JButton("Módulo de Estoque");
 		btnModuloEstoque.setBounds(272, 171, 194, 43);
 		
+		JButton btnModuloPedidos = new JButton("Módulo de Pedidos");
+		btnModuloPedidos.setBounds(272, 410, 194, 43);
+		contentPane.add(btnModuloPedidos);
+
+		// Abre janela com o histórico de pedidos
+		btnModuloPedidos.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	InterfacePedidosPrincipal.AbrirInterfacePedidos();
+		        dispose();
+		    }
+		});
+
+
 		//Ao clicar no botao de estoque, abre a GUI dos produtos
 		
 		btnModuloEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				InterfaceProdutosPrincipal.ProdutosPrincipal();
+				dispose();
 			}
 		});
 		contentPane.add(btnModuloEstoque);
@@ -84,8 +97,7 @@ public class Main extends JFrame {
         contentPane.add(opaqueLabel);
 	    
 	    
-
-        
+		//abre a janela do modulo clientes
 		btnMduloClientes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
@@ -95,5 +107,6 @@ public class Main extends JFrame {
          });
 		
 	}
-					
+		
+			
 	}
