@@ -1,3 +1,5 @@
+package controladores.vendedores;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
