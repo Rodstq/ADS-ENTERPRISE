@@ -40,6 +40,8 @@ import interfaces.Main;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class TelaVendas extends JFrame {
 
@@ -144,6 +146,7 @@ public class TelaVendas extends JFrame {
         FormPanel.add(CodProdLabel, gbc_CodProdLabel);
 
         CodProdField = new JTextField();
+
         GridBagConstraints gbc_CodProdField = new GridBagConstraints();
         gbc_CodProdField.gridwidth = 2;
         gbc_CodProdField.insets = new Insets(0, 0, 5, 0);
@@ -162,6 +165,11 @@ public class TelaVendas extends JFrame {
         FormPanel.add(NomeProdLabel, gbc_NomeProdLabel);
 
         NomeProdField = new JTextField();
+
+        NomeProdField.addPropertyChangeListener(new PropertyChangeListener() {
+        	public void propertyChange(PropertyChangeEvent evt) {
+        	}
+        });
         GridBagConstraints gbc_NomeProdField = new GridBagConstraints();
         gbc_NomeProdField.gridwidth = 2;
         gbc_NomeProdField.insets = new Insets(0, 0, 5, 0);
@@ -586,6 +594,19 @@ public class TelaVendas extends JFrame {
             }
         });
 
+        CPFField.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE)) {
+                    e.consume();
+                }
+                String cpf = CPFField.getText();
+                if (cpf.length() >= 11) {
+                    e.consume();
+                }
+            }
+        });
+
         NomeField.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 if (CPFField.getText().isEmpty()) {
@@ -613,5 +634,42 @@ public class TelaVendas extends JFrame {
                 FecharCompraButton.setEnabled(false);
             }
         });
+        CodProdField.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+                if (NomeProdField.getText().isEmpty()){
+                    NomeProdField.setEnabled(false);
+                }
+        	}
+        });
+        CodProdField.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE)) {
+                    e.consume();
+                }
+            }
+        });
+        NomeProdField.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+                if (CodProdField.getText().isEmpty()){
+                    CodProdField.setEnabled(false);
+                }
+        	}
+        });
+        CodProdField.addMouseListener(new MouseAdapter() {
+        	public void mouseClicked(MouseEvent e) {
+                if (NomeField.getText().isEmpty()){
+                    CodProdField.setEnabled(true);
+                }
+        	}
+        });
+        NomeProdField.addMouseListener(new MouseAdapter() {
+        	public void mouseClicked(MouseEvent e) {
+                if(CodProdField.getText().isEmpty()){
+                    NomeProdField.setEnabled(true);
+                }
+        	}
+        });
+       
     }
 }
