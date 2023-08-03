@@ -175,10 +175,7 @@ public class Login extends JDialog {
                                 frame.setVisible(true);
                                 dispose();
                             } else {
-                                Main frame = new Main();
-                                frame.setVisible(true);
-                                dispose();
-                                //JOptionPane.showMessageDialog(Login.this, "CPF ou senha incorretos!", "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(Login.this, "CPF ou senha incorretos!", "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
                             }
                         }
                     });

@@ -20,13 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -36,6 +30,7 @@ import conexaoDb.Db;
 import controladores.Pedido.PedidoController;
 import controladores.Cliente.ClienteConsultaDatabase;
 import data.tratamento.clients.Clientes;
+import interfaces.Login;
 import interfaces.Main;
 
 import java.awt.event.KeyAdapter;
@@ -167,8 +162,8 @@ public class TelaVendas extends JFrame {
         NomeProdField = new JTextField();
 
         NomeProdField.addPropertyChangeListener(new PropertyChangeListener() {
-        	public void propertyChange(PropertyChangeEvent evt) {
-        	}
+            public void propertyChange(PropertyChangeEvent evt) {
+            }
         });
         GridBagConstraints gbc_NomeProdField = new GridBagConstraints();
         gbc_NomeProdField.gridwidth = 2;
@@ -208,11 +203,13 @@ public class TelaVendas extends JFrame {
                             int codprod = Integer.parseInt(rs.getString("id_produto"));
                             tableModel.addRow(new Object[]{codprod, nomeProd});
                             System.out.println("Nome do produto encontrado: " + nomeProduto);
+
                         } else {
                             // Item não encontrado
                             System.out.println(
                                     "Item não encontrado na tabela Produtos com o id_produto: " + codProd);
-                            AddError.main(null);
+                            JOptionPane.showMessageDialog(TelaVendas.this, "Item de código: " + codProd + " não foi encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
+
                         }
 
                         rs.close();
@@ -246,7 +243,8 @@ public class TelaVendas extends JFrame {
                             // Item não encontrado
                             System.out.println(
                                     "Item não encontrado na tabela Produtos com o nome_produto: " + NomeProdField.getText());
-                            AddError.main(null);
+                            JOptionPane.showMessageDialog(TelaVendas.this, "Item com nome: " + NomeProdField.getText() + "não foi encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
+
                         }
 
                         rs.close();
@@ -425,26 +423,32 @@ public class TelaVendas extends JFrame {
                     cliente.setCpf(cpf);
 
                     List<Object[]> resultados = ClienteConsultaDatabase.infoClienteCpf(cliente);
-                    // Limpa os dados atuais da tabela
                     DefaultTableModel clientesTableModel = (DefaultTableModel) ClientesTable.getModel();
                     clientesTableModel.setRowCount(0);
-                    // Preenche a tabela com os dados retornados do banco de dados
-                    for (Object[] clienteDados : resultados) {
-                        // Adiciona somente o CPF e o nome na tabela
-                        clientesTableModel.addRow(new Object[]{clienteDados[1], clienteDados[0]});
+
+                    if (resultados.isEmpty()) {
+                        System.out.println("Nenhum cliente encontrado com o CPF: " + cpf);
+                        JOptionPane.showMessageDialog(TelaVendas.this, "Nenhum cliente encontrado com o CPF:" + cpf, "Erro", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        for (Object[] clienteDados : resultados) {
+                            clientesTableModel.addRow(new Object[]{clienteDados[1], clienteDados[0]});
+                        }
                     }
                 } else if (!nome.isEmpty()) {
                     Clientes cliente = new Clientes();
                     cliente.setNomeCliente(nome);
 
                     List<Object[]> resultados = ClienteConsultaDatabase.infoCliente(cliente);
-                    // Limpa os dados atuais da tabela
                     DefaultTableModel clientesTableModel = (DefaultTableModel) ClientesTable.getModel();
                     clientesTableModel.setRowCount(0);
-                    // Preenche a tabela com os dados retornados do banco de dados
-                    for (Object[] clienteDados : resultados) {
-                        // Adiciona somente o CPF e o nome na tabela
-                        clientesTableModel.addRow(new Object[]{clienteDados[1], clienteDados[0]});
+
+                    if (resultados.isEmpty()) {
+                        System.out.println("Nenhum cliente encontrado com o nome: " + nome);
+                        JOptionPane.showMessageDialog(TelaVendas.this, "Nenhum cliente encontrado com o nome: " + nome, "Erro", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        for (Object[] clienteDados : resultados) {
+                            clientesTableModel.addRow(new Object[]{clienteDados[1], clienteDados[0]});
+                        }
                     }
                 }
             }
@@ -548,14 +552,14 @@ public class TelaVendas extends JFrame {
         });
 
         SubmitPannel.add(SubmitButton);
-        
+
         JButton BackButton = new JButton("Voltar");
         BackButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		Main frame = new Main();
+            public void actionPerformed(ActionEvent e) {
+                Main frame = new Main();
                 frame.setVisible(true);
                 dispose();
-        	}
+            }
         });
         SubmitPannel.add(BackButton);
 
@@ -635,11 +639,11 @@ public class TelaVendas extends JFrame {
             }
         });
         CodProdField.addKeyListener(new KeyAdapter() {
-        	public void keyTyped(KeyEvent e) {
-                if (NomeProdField.getText().isEmpty()){
+            public void keyTyped(KeyEvent e) {
+                if (NomeProdField.getText().isEmpty()) {
                     NomeProdField.setEnabled(false);
                 }
-        	}
+            }
         });
         CodProdField.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
@@ -650,26 +654,26 @@ public class TelaVendas extends JFrame {
             }
         });
         NomeProdField.addKeyListener(new KeyAdapter() {
-        	public void keyTyped(KeyEvent e) {
-                if (CodProdField.getText().isEmpty()){
+            public void keyTyped(KeyEvent e) {
+                if (CodProdField.getText().isEmpty()) {
                     CodProdField.setEnabled(false);
                 }
-        	}
+            }
         });
         CodProdField.addMouseListener(new MouseAdapter() {
-        	public void mouseClicked(MouseEvent e) {
-                if (NomeField.getText().isEmpty()){
+            public void mouseClicked(MouseEvent e) {
+                if (NomeField.getText().isEmpty()) {
                     CodProdField.setEnabled(true);
                 }
-        	}
+            }
         });
         NomeProdField.addMouseListener(new MouseAdapter() {
-        	public void mouseClicked(MouseEvent e) {
-                if(CodProdField.getText().isEmpty()){
+            public void mouseClicked(MouseEvent e) {
+                if (CodProdField.getText().isEmpty()) {
                     NomeProdField.setEnabled(true);
                 }
-        	}
+            }
         });
-       
+
     }
 }

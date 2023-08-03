@@ -44,7 +44,6 @@ public class PedidoController {
                 stmtPedidoProduto.executeUpdate();
 
                 EstoqueController.venderProduto(idProduto);
-
             }
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao adicionar produtos ao pedido: " + ex.getMessage(), ex);
