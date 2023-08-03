@@ -542,12 +542,21 @@ public class TelaVendas extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Db.Connect();
                 try {
-                    System.out.println(ProdutosComprados + cpfSelecionado + VendedorCPF);
-                    PedidoController.criarPedido(ProdutosComprados, cpfSelecionado, VendedorCPF);
+                    if (cpfSelecionado == null && ProdutosComprados.isEmpty()){
+                        JOptionPane.showMessageDialog(TelaVendas.this, "Selecione o cliente e feche a compra", "Erro", JOptionPane.ERROR_MESSAGE);
+                    } else if (cpfSelecionado == null) {
+                        JOptionPane.showMessageDialog(TelaVendas.this, "Selecione o cliente", "Erro", JOptionPane.ERROR_MESSAGE);
+                    } else if (ProdutosComprados.isEmpty()){
+                        JOptionPane.showMessageDialog(TelaVendas.this, "É preciso adicionar itens e fechar a compra", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else {
+                        PedidoController.criarPedido(ProdutosComprados, cpfSelecionado, VendedorCPF);
+                    }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
                 Db.CloseDb();
+
             }
         });
 
