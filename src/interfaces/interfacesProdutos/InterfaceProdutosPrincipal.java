@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import models.classesFornecedores.Fornecedor;
 import controladores.Produtos.ProdutosConsulta;
 import controladores.Produtos.ProdutosAtualizar;
+import controladores.Fornecedores.FornecedoresAtualizar;
 import controladores.Fornecedores.FornecedoresCadastrar;
 import utils.Validadora;
 import controladores.Produtos.ProdutosCadastrar;
@@ -38,7 +39,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 	private JPanel cadastrarProduto;
 	private JPanel consultarProduto;
 	private JPanel atualizarProduto;
-	private JPanel cadastrarFornecedor;
+	private JTabbedPane fornecedor;
 	private JPanel deletarProduto;
 	JTable tblData;
 	private JTextField id_estoqueTF;
@@ -55,8 +56,10 @@ public class InterfaceProdutosPrincipal extends JFrame {
 	private JTextField nomeAtualizarTF;
 	private JTextField valorAtualizarTF;
 	private JTextField quantidadeAtualizarTF;
-	private JTextField textField_5;
-	private CheckboxGroup cg;
+	private JTextField idProdDeletar;
+	private JTextField nomeFornecedorAtualizar;
+	private JTextField cnpjAtualizarID;
+	private JTextField IdEstoqueTF;
 
 	/**
 	 * Launch the application.
@@ -190,10 +193,10 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		cadastrarProduto.setLayout(null);	
 		
 		
-		JLabel lblNewLabel = new JLabel("id :");
-		cadastrarProduto.add(lblNewLabel);
-		lblNewLabel.setBounds(33, 17, 16, 14);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		JLabel idLabel = new JLabel("Id :");
+		cadastrarProduto.add(idLabel);
+		idLabel.setBounds(33, 17, 26, 14);
+		idLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		JTextField txtId = new JTextField();
 		txtId.setDocument(new Validadora(9, Validadora.dadoInserido.numeroInt));
@@ -224,16 +227,26 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		txtQtd.setBounds(138, 71, 138, 20);
 		txtQtd.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("Valor :");
-		lblNewLabel_3.setBounds(327, 17, 35, 14);
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
-		cadastrarProduto.add(lblNewLabel_3);
+		JLabel valorLabel = new JLabel("Valor :");
+		valorLabel.setBounds(327, 17, 35, 14);
+		valorLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		cadastrarProduto.add(valorLabel);
 		
 		JTextField txtVlr = new JTextField();
 		txtVlr.setDocument(new Validadora(8, Validadora.dadoInserido.numeroDouble));
 		txtVlr.setBounds(372, 14, 101, 20);
 		cadastrarProduto.add(txtVlr);
 		txtVlr.setColumns(10);
+		
+		JLabel IdEstoque = new JLabel("Id Estoque : ");
+		IdEstoque.setFont(new Font("Tahoma", Font.BOLD, 11));
+		IdEstoque.setBounds(33, 102, 93, 14);
+		cadastrarProduto.add(IdEstoque);
+		
+		IdEstoqueTF = new JTextField();
+		IdEstoqueTF.setBounds(106, 100, 132, 20);
+		cadastrarProduto.add(IdEstoqueTF);
+		IdEstoqueTF.setColumns(10);
 		
 		JTextField txtProd = new JTextField();
 		cadastrarProduto.add(txtProd);
@@ -308,6 +321,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 				verificarVazio.checkBoxValidacao(valorCheckBox.isSelected(),valorAtualizarTF);
 				}
+				
 			});
 		
 		valorCheckBox.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -335,6 +349,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 				verificarVazio.checkBoxValidacao(cnpjCheckBox.isSelected(),cnpjAtualizarTF);
 			}
 		});
+		
 		cnpjCheckBox.setFont(new Font("Tahoma", Font.BOLD, 11));
 		cnpjCheckBox.setBounds(24, 182, 134, 23);
 		atualizarProduto.add(cnpjCheckBox);
@@ -364,15 +379,13 @@ public class InterfaceProdutosPrincipal extends JFrame {
 				try {
 					boolean verificados = verificarVazio.retornarAtivos(nomeAtualizarTF.isEnabled(),cnpjAtualizarTF.isEnabled(),valorAtualizarTF.isEnabled(),quantidadeAtualizarTF.isEnabled());
 					verificarVazio.verificarVazios(idAtualizarTF.getText(), nomeAtualizarTF.getText(), cnpjAtualizarTF.getText(), valorAtualizarTF.getText(), quantidadeAtualizarTF.getText(),verificados);
+										
+					produtosAtualizar.execQuery(nomeAtualizarTF.isEnabled(), cnpjAtualizarTF.isEnabled(), valorAtualizarTF.isEnabled(),quantidadeAtualizarTF.isEnabled(),
+					idAtualizarTF.getText(), nomeAtualizarTF.getText(), cnpjAtualizarTF.getText(), valorAtualizarTF.getText(), quantidadeAtualizarTF.getText());	
 					
-					
-//					String query = produtosAtualizar.execQuery(nomeAtualizarTF.isEnabled(), cnpjAtualizarTF.isEnabled(), valorAtualizarTF.isEnabled(),quantidadeAtualizarTF.isEnabled(),
-//					idAtualizarTF.getText(), nomeAtualizarTF.getText(), cnpjAtualizarTF.getText(), valorAtualizarTF.getText(), quantidadeAtualizarTF.getText());	
-//
-//					produtosAtualizar.atualizarProdutos(query);
-					
+					JOptionPane.showMessageDialog(rootPane, "Atualização realizada");
+
 				} catch (Exception e1) {
-					e1.printStackTrace();
 					JOptionPane.showMessageDialog(rootPane, e1.getMessage());
 				}
 				
@@ -390,78 +403,47 @@ public class InterfaceProdutosPrincipal extends JFrame {
 			}
 		});
 		
-		
-		
-		// Deletar
-		
-		deletarProduto = new JPanel();
-		produtos.add(deletarProduto, "Deletar");
-		deletarProduto.setLayout(null);	
-		
-		JLabel idDeletado = new JLabel("ID do produto a ser deletado :");
-		idDeletado.setFont(new Font("Tahoma", Font.BOLD, 12));
-		idDeletado.setBounds(24, 48, 207, 14);
-		deletarProduto.add(idDeletado);
-		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(242, 46, 138, 20);
-		deletarProduto.add(textField_5);
-		
-		JButton deletarProdutoBtn = new JButton("Deletar Produto");
-		deletarProdutoBtn.setFont(new Font("Tahoma", Font.BOLD, 13));
-		deletarProdutoBtn.setBounds(51, 139, 282, 45);
-		deletarProduto.add(deletarProdutoBtn);
-		
-		JButton btnMenuPrincialDeletar = new JButton("menu principal");
-		btnMenuPrincialDeletar.setBounds(10, 413, 154, 25);
-		deletarProduto.add(btnMenuPrincialDeletar);
-		btnMenuPrincialDeletar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				
-			}
-		});
-		
-		
 			// PANE FORNECEDOR
 		
-			cadastrarFornecedor = new JPanel();
-			consultarProduto.setBorder(new EmptyBorder(5, 5, 5, 5));
-			consultarProduto.setLayout(null);
-			tabbedPane.add(cadastrarFornecedor, "cadastrar Fornecedor");
-			cadastrarFornecedor.setLayout(null);
+			AtualizarTratamento verificarVazioFornecedor = new AtualizarTratamento();
+			
+			fornecedor = new JTabbedPane();
+			tabbedPane.add(fornecedor,"Fornecedor");
+			
+			JPanel cadatrar = new JPanel();
+			fornecedor.add(cadatrar,"cadastrar");
+			cadatrar.setLayout(null);
 			
 			JLabel cnpjLbl = new JLabel("CNPJ Fornecedor :");
-			cnpjLbl.setBounds(36, 52, 113, 14);
+			cnpjLbl.setBounds(22, 104, 100, 14);
 			cnpjLbl.setFont(new Font("Tahoma", Font.BOLD, 11));
-			cadastrarFornecedor.add(cnpjLbl);
+			cadatrar.add(cnpjLbl);
 			
 			cnpjFornecedor = new JTextField();
 			cnpjFornecedor.setDocument(new Validadora(14,Validadora.dadoInserido.numeroInt));
-			cnpjFornecedor.setBounds(145, 49, 215, 20);
+			cnpjFornecedor.setBounds(127, 101, 154, 20);
 			cnpjFornecedor.setColumns(10);
-			cadastrarFornecedor.add(cnpjFornecedor);	
+			cadatrar.add(cnpjFornecedor);	
 			
 			JLabel NomeFornecedorLbl = new JLabel("Nome Fornecedor :");
-			NomeFornecedorLbl.setBounds(36, 82, 113, 14);
+			NomeFornecedorLbl.setBounds(22, 156, 105, 14);
 			NomeFornecedorLbl.setFont(new Font("Tahoma", Font.BOLD, 11));
-			cadastrarFornecedor.add(NomeFornecedorLbl);
+			cadatrar.add(NomeFornecedorLbl);
 			
 			nomeFornecedor = new JTextField();
 			nomeFornecedor.setDocument(new Validadora(14,Validadora.dadoInserido.dadoLivre));										
-			nomeFornecedor.setBounds(145, 79, 215, 20);
+			nomeFornecedor.setBounds(132, 153, 274, 20);
 			nomeFornecedor.setColumns(10);
-			cadastrarFornecedor.add(nomeFornecedor);	
+			cadatrar.add(nomeFornecedor);	
 			
 			JLabel lblNewLabel_2 = new JLabel("Cadastrar Fornecedor ");
 			lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblNewLabel_2.setBounds(36, 11, 149, 14);
-			cadastrarFornecedor.add(lblNewLabel_2);
+			lblNewLabel_2.setBounds(27, 27, 135, 15);
+			cadatrar.add(lblNewLabel_2);
 			
 			JButton btnCadFornecedor = new JButton("Cadastrar Fornecedor");
 			btnCadFornecedor.setFont(new Font("Tahoma", Font.BOLD, 12));
-			btnCadFornecedor.setBounds(67, 138, 253, 45);
+			btnCadFornecedor.setBounds(210, 237, 282, 45);
 			btnCadFornecedor.addActionListener(new ActionListener() {
 		
 				public void actionPerformed(ActionEvent e) {
@@ -486,13 +468,13 @@ public class InterfaceProdutosPrincipal extends JFrame {
 					} catch (Exception g) {
 						JOptionPane.showMessageDialog(rootPane, "Existem campos em branco, preencha-os");
 					}
-					
+					JOptionPane.showMessageDialog(rootPane, "Fornecedor cadastrado");
 				}
 			});
 			
 			JButton btnMenuPrincialCNPJ = new JButton("menu principal");
-			btnMenuPrincialCNPJ.setBounds(10, 441, 154, 25);
-			cadastrarFornecedor.add(btnMenuPrincialCNPJ);
+			btnMenuPrincialCNPJ.setBounds(10, 413, 154, 25);
+			cadatrar.add(btnMenuPrincialCNPJ);
 			
 			btnMenuPrincialCNPJ.addActionListener(new ActionListener() {
 		
@@ -502,7 +484,84 @@ public class InterfaceProdutosPrincipal extends JFrame {
 				}
 			});
 			
-			cadastrarFornecedor.add(btnCadFornecedor);
+			cadatrar.add(btnCadFornecedor);
+			
+			JPanel atualizarFornecedorTab = new JPanel();
+			atualizarFornecedorTab.setLayout(null);
+			fornecedor.addTab("atualizar",atualizarFornecedorTab);
+			
+			JLabel dadosLabelFornecedor = new JLabel("Dados a serem atualizados :");
+			dadosLabelFornecedor.setFont(new Font("Tahoma", Font.BOLD, 12));
+			dadosLabelFornecedor.setBounds(10, 77, 192, 14);
+			atualizarFornecedorTab.add(dadosLabelFornecedor);
+			
+			
+			JCheckBox nomeFornecedorCheckBox = new JCheckBox("Nome :", false);
+			nomeFornecedorCheckBox.setFont(new Font("Tahoma", Font.BOLD, 11));
+			nomeFornecedorCheckBox.setBounds(24, 131, 97, 23);
+			atualizarFornecedorTab.add(nomeFornecedorCheckBox);
+			
+			nomeFornecedorCheckBox.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					verificarVazioFornecedor.checkBoxValidacao(nomeFornecedorCheckBox.isSelected(),nomeFornecedorAtualizar);
+				}
+				
+			});
+			
+			nomeFornecedorAtualizar = new JTextField();
+			nomeFornecedorAtualizar.setText("desabilitado");
+			nomeFornecedorAtualizar.setEnabled(false);
+			nomeFornecedorAtualizar.setColumns(10);
+			nomeFornecedorAtualizar.setBounds(95, 131, 373, 20);
+			atualizarFornecedorTab.add(nomeFornecedorAtualizar);
+			
+			JButton btnAtualizarFornecedor = new JButton("Atualizar Fornecedor");
+			btnAtualizarFornecedor.setFont(new Font("Tahoma", Font.BOLD, 13));
+			btnAtualizarFornecedor.setBounds(202, 233, 282, 45);
+			atualizarFornecedorTab.add(btnAtualizarFornecedor);
+			
+			btnAtualizarFornecedor.addActionListener(new ActionListener() {
+			
+				public void actionPerformed(ActionEvent e) {
+					
+					FornecedoresAtualizar fornecedorAtualizar = new FornecedoresAtualizar();
+				
+					
+					try {
+						boolean verificados = verificarVazioFornecedor.retornarAtivosFornecedor(nomeFornecedorAtualizar.isEnabled());
+						verificarVazioFornecedor.verificarVaziosFornecedor(cnpjAtualizarID.getText(),nomeFornecedorAtualizar.getText(),verificados);
+											
+						fornecedorAtualizar.execQuery(nomeFornecedorAtualizar.isEnabled(),nomeFornecedorAtualizar.getText(),cnpjAtualizarID.getText());	
+						
+						JOptionPane.showMessageDialog(rootPane, "Atualização realizada");
+
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(rootPane, e1.getMessage());
+					}
+					
+			}
+			});
+			
+			JButton btnMenuPrincialAtualizar_1 = new JButton("menu principal");
+			btnMenuPrincialAtualizar_1.setBounds(10, 413, 154, 25);
+			atualizarFornecedorTab.add(btnMenuPrincialAtualizar_1);
+	
+			btnMenuPrincialAtualizar_1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+					
+				}
+			});
+			
+			JLabel lblCnpjDoFornecedor = new JLabel("Cnpj do Fornecedor a ser atualizado :");
+			lblCnpjDoFornecedor.setFont(new Font("Tahoma", Font.BOLD, 12));
+			lblCnpjDoFornecedor.setBounds(10, 13, 238, 14);
+			atualizarFornecedorTab.add(lblCnpjDoFornecedor);
+			
+			cnpjAtualizarID = new JTextField();
+			cnpjAtualizarID.setColumns(10);
+			cnpjAtualizarID.setBounds(246, 11, 138, 20);
+			atualizarFornecedorTab.add(cnpjAtualizarID);
 			
 
 						
@@ -548,7 +607,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		consultarProduto.add(botaoConsultar);	
 		
 		JButton botaoCadastrar = new JButton("Cadastrar Produto");
-		botaoCadastrar.setBounds(215, 159, 282, 45);
+		botaoCadastrar.setBounds(206, 145, 282, 45);
 		botaoCadastrar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		botaoCadastrar.addActionListener(new ActionListener() {
 			
@@ -568,7 +627,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 					produto.setNome_produto(txtProd.getText());
 					produto.setCnpj(txtQtd.getText());
 					produto.setValorVenda(Double.parseDouble(txtVlr.getText()));
-					produto.setId_estoque(1);
+					produto.setId_estoque(Integer.parseInt(IdEstoqueTF.getText()));
 					produto.setQuantidade(Integer.parseInt(quantidadeTF.getText()));
 					
 					if (!Integer.toString(produto.getQuantidade()).isBlank() && produto.getQuantidade() < 1) {
@@ -602,6 +661,8 @@ public class InterfaceProdutosPrincipal extends JFrame {
 			}});
 		
 		cadastrarProduto.add(botaoCadastrar);
+		
+		
 		
 		getContentPane().add(tabbedPane);		
 	

@@ -17,6 +17,10 @@ public class CadastrarTratamento {
 			erro = " O id informado já pertence a um produto, digite novamente";
 		} else if (erro.contains("Cnpj menor que 14")) {
 			erro = "O Cnpj não pode ser menor que 14";
+		} else if (erro.contains("(`ads`.`produto`, CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`id_estoque`) REFERENCES `estoque` (`id_estoque`)")) {
+			erro = "O id no estoque já pertence a um produto";
+		} else if (erro.contains("for key 'estoque.PRIMARY'")) {
+			erro = "O id no estoque já pertence a um produto";
 		}
 		return erro;
 	}
