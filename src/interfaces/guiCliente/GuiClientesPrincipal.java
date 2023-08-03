@@ -107,9 +107,9 @@ public class GuiClientesPrincipal extends JFrame {
 		contentPane.add(btnMenuPrincial);
 		btnMenuPrincial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Main.main(null);
+				Main frame = new Main();
+                frame.setVisible(true);
 				dispose();
-				
 			}
 		});
 	    

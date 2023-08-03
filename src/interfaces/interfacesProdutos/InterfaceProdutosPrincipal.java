@@ -32,6 +32,7 @@ import java.awt.CheckboxGroup;
 
 import javax.swing.ButtonGroup;
 import data.tratamento.produtos.CadastrarTratamento;
+import interfaces.Main;
 import data.tratamento.produtos.AtualizarTratamento;
 
 public class InterfaceProdutosPrincipal extends JFrame {
@@ -180,6 +181,8 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		consultarProduto.add(btnMenuPrincial);
 		btnMenuPrincial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Main frame = new Main();
+                frame.setVisible(true);
 				dispose();
 				
 			}
@@ -263,8 +266,9 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		cadastrarProduto.add(btnMenuPrincialProd);
 		btnMenuPrincialProd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Main frame = new Main();
+                frame.setVisible(true);
 				dispose();
-				
 			}
 		});
 		
@@ -398,8 +402,9 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		atualizarProduto.add(btnMenuPrincialAtualizar);
 		btnMenuPrincialAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Main frame = new Main();
+                frame.setVisible(true);
 				dispose();
-				
 			}
 		});
 		
@@ -480,7 +485,9 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					 dispose();											
+					Main frame = new Main();
+	                frame.setVisible(true);
+					dispose();										
 				}
 			});
 			
@@ -548,8 +555,9 @@ public class InterfaceProdutosPrincipal extends JFrame {
 	
 			btnMenuPrincialAtualizar_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					Main frame = new Main();
+	                frame.setVisible(true);
 					dispose();
-					
 				}
 			});
 			
