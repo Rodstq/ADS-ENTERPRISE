@@ -162,8 +162,8 @@ public class TelaVendas extends JFrame {
         NomeProdField = new JTextField();
 
         NomeProdField.addPropertyChangeListener(new PropertyChangeListener() {
-        	public void propertyChange(PropertyChangeEvent evt) {
-        	}
+            public void propertyChange(PropertyChangeEvent evt) {
+            }
         });
         GridBagConstraints gbc_NomeProdField = new GridBagConstraints();
         gbc_NomeProdField.gridwidth = 2;
@@ -203,13 +203,12 @@ public class TelaVendas extends JFrame {
                             int codprod = Integer.parseInt(rs.getString("id_produto"));
                             tableModel.addRow(new Object[]{codprod, nomeProd});
                             System.out.println("Nome do produto encontrado: " + nomeProduto);
-                            JOptionPane.showMessageDialog(TelaVendas.this, "Nome do produto encontrado: " + nomeProduto, "Erro", JOptionPane.ERROR_MESSAGE);
 
                         } else {
                             // Item não encontrado
                             System.out.println(
                                     "Item não encontrado na tabela Produtos com o id_produto: " + codProd);
-                            JOptionPane.showMessageDialog(TelaVendas.this, "Item não encontrado na tabela Produtos com o id_produto: " + codProd, "Erro", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(TelaVendas.this, "Item de código: " + codProd + " não foi encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
 
                         }
 
@@ -244,7 +243,7 @@ public class TelaVendas extends JFrame {
                             // Item não encontrado
                             System.out.println(
                                     "Item não encontrado na tabela Produtos com o nome_produto: " + NomeProdField.getText());
-                            JOptionPane.showMessageDialog(TelaVendas.this, "Item não encontrado na tabela Produtos com o nome_produto: " + NomeProdField.getText(), "Erro", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(TelaVendas.this, "Item com nome: " + NomeProdField.getText() + "não foi encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
 
                         }
 
@@ -553,14 +552,14 @@ public class TelaVendas extends JFrame {
         });
 
         SubmitPannel.add(SubmitButton);
-        
+
         JButton BackButton = new JButton("Voltar");
         BackButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		Main frame = new Main();
+            public void actionPerformed(ActionEvent e) {
+                Main frame = new Main();
                 frame.setVisible(true);
                 dispose();
-        	}
+            }
         });
         SubmitPannel.add(BackButton);
 
@@ -640,11 +639,11 @@ public class TelaVendas extends JFrame {
             }
         });
         CodProdField.addKeyListener(new KeyAdapter() {
-        	public void keyTyped(KeyEvent e) {
-                if (NomeProdField.getText().isEmpty()){
+            public void keyTyped(KeyEvent e) {
+                if (NomeProdField.getText().isEmpty()) {
                     NomeProdField.setEnabled(false);
                 }
-        	}
+            }
         });
         CodProdField.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
@@ -655,26 +654,26 @@ public class TelaVendas extends JFrame {
             }
         });
         NomeProdField.addKeyListener(new KeyAdapter() {
-        	public void keyTyped(KeyEvent e) {
-                if (CodProdField.getText().isEmpty()){
+            public void keyTyped(KeyEvent e) {
+                if (CodProdField.getText().isEmpty()) {
                     CodProdField.setEnabled(false);
                 }
-        	}
+            }
         });
         CodProdField.addMouseListener(new MouseAdapter() {
-        	public void mouseClicked(MouseEvent e) {
-                if (NomeField.getText().isEmpty()){
+            public void mouseClicked(MouseEvent e) {
+                if (NomeField.getText().isEmpty()) {
                     CodProdField.setEnabled(true);
                 }
-        	}
+            }
         });
         NomeProdField.addMouseListener(new MouseAdapter() {
-        	public void mouseClicked(MouseEvent e) {
-                if(CodProdField.getText().isEmpty()){
+            public void mouseClicked(MouseEvent e) {
+                if (CodProdField.getText().isEmpty()) {
                     NomeProdField.setEnabled(true);
                 }
-        	}
+            }
         });
-       
+
     }
 }

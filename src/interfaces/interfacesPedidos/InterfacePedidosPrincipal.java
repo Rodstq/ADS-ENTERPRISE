@@ -1,5 +1,7 @@
 package interfaces.interfacesPedidos;
 
+import interfaces.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
