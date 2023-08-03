@@ -206,8 +206,7 @@ public class TelaVendas extends JFrame {
 
                         } else {
                             // Item não encontrado
-                            System.out.println(
-                                    "Item não encontrado na tabela Produtos com o id_produto: " + codProd);
+                            System.out.println("Item não encontrado na tabela Produtos com o id_produto: " + codProd);
                             JOptionPane.showMessageDialog(TelaVendas.this, "Item de código: " + codProd + " não foi encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
 
                         }
@@ -671,7 +670,7 @@ public class TelaVendas extends JFrame {
         });
         CodProdField.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if (NomeField.getText().isEmpty()) {
+                if (NomeProdField.getText().isEmpty()) {
                     CodProdField.setEnabled(true);
                 }
             }
