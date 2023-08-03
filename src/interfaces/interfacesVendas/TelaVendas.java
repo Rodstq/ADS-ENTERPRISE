@@ -175,9 +175,10 @@ public class TelaVendas extends JFrame {
         AddButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 Db.Connect();
-                int codProd = 0;
-                String nomeProd = "";
+
                 if (!CodProdField.getText().isEmpty()) {
+                    int codProd = 0;
+                    String nomeProd = "";
 
                     codProd = Integer.parseInt(CodProdField.getText());
                     nomeProd = NomeProdField.getText();
@@ -195,6 +196,7 @@ public class TelaVendas extends JFrame {
                         // Item encontrado
                         if (rs.next()) {
                             String nomeProduto = rs.getString("nome_produto");
+                            nomeProd = nomeProduto;
                             int codprod = Integer.parseInt(rs.getString("id_produto"));
                             tableModel.addRow(new Object[]{codprod, nomeProd});
                             System.out.println("Nome do produto encontrado: " + nomeProduto);
@@ -214,26 +216,28 @@ public class TelaVendas extends JFrame {
                 } else if (!NomeProdField.getText().isEmpty()) {
                     String query = "SELECT * FROM produto WHERE nome_produto = ?";
                     PreparedStatement stmt = null;
+                    int codProd = 0;
+                    String nomeProd = "";
 
                     try {
                         Connection con = Db.getCon();
                         stmt = con.prepareStatement(query);
-                        stmt.setInt(1, codProd);
+                        stmt.setString(1, NomeProdField.getText());
 
                         ResultSet rs = stmt.executeQuery();
 
                         // Item encontrado
                         if (rs.next()) {
                             String nomeProduto = rs.getString("nome_produto");
+                            int codprod = Integer.parseInt(rs.getString("id_produto"));
                             nomeProd = nomeProduto;
+                            codProd = codprod;
                             tableModel.addRow(new Object[]{codProd, nomeProd});
                             System.out.println("Nome do produto encontrado: " + nomeProduto);
                         } else {
                             // Item não encontrado
-                            String nomeProduto = rs.getString("nome_produto");
-                            nomeProd = nomeProduto;
                             System.out.println(
-                                    "Item não encontrado na tabela Produtos com o nome_produto: " + nomeProduto);
+                                    "Item não encontrado na tabela Produtos com o nome_produto: " + NomeProdField.getText());
                             AddError.main(null);
                         }
 
