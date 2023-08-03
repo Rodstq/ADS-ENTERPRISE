@@ -67,14 +67,15 @@ public class ProdutosAtualizar {
 			
 			if(cnpjBoolean && !cnpj.isBlank()) {
 				try {
-				 query = "UPDATE produto set cnpj_fornecedor = ? where id_produto = ?";
-				stmt = connection.prepareStatement(query);
-				
-				stmt.setString(1, cnpj);
-				stmt.setString(2,id);
-				
-				stmt.executeUpdate();
+					query = "UPDATE produto set cnpj_fornecedor = ? where id_produto = ?";
+					stmt = connection.prepareStatement(query);
+					
+					stmt.setString(1, cnpj);
+					stmt.setString(2,id);
+					
+					stmt.executeUpdate();
 				} catch (SQLException cnpjE) {
+					cnpjE.printStackTrace();
 					throw new Exception ("Cnpj informado não é válido");
 				}
 				
@@ -103,7 +104,8 @@ public class ProdutosAtualizar {
 			}
 						
 		} catch (SQLException e) {
-			
+			e.printStackTrace();
+			throw new Exception();
 		}
 		
 		

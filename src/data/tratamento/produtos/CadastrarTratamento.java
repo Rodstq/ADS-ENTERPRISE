@@ -13,7 +13,7 @@ public class CadastrarTratamento {
 			erro = " O cnpj é inexistente, registre-o ou verifique novamente";
 		}else if (erro.contains("for key 'fornecedor.PRIMARY'")) {
 			erro = " O CNPJ informado já existe, digite novamente";
-		}else if (erro.contains("Duplicate entry")){
+		}else if (erro.contains("for key 'produto.PRIMARY'")){
 			erro = " O id informado já pertence a um produto, digite novamente";
 		} else if (erro.contains("Cnpj menor que 14")) {
 			erro = "O Cnpj não pode ser menor que 14";

@@ -29,7 +29,6 @@ public class AtualizarTratamento {
 			TF.setText("");
 			} else {
 				TF.setEnabled(false);
-				TF.setText("desabilitado");
 			}
 	}
 	
