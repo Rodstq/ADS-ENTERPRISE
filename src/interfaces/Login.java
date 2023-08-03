@@ -76,6 +76,7 @@ public class Login extends JDialog {
      * Create the dialog.
      */
     public Login() {
+    	setResizable(false);
         setBounds(100, 100, 450, 300);
         getContentPane().setLayout(new BorderLayout());
         {
