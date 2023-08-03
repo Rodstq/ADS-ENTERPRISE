@@ -20,13 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -36,6 +30,7 @@ import conexaoDb.Db;
 import controladores.Pedido.PedidoController;
 import controladores.Cliente.ClienteConsultaDatabase;
 import data.tratamento.clients.Clientes;
+import interfaces.Login;
 import interfaces.Main;
 
 import java.awt.event.KeyAdapter;
@@ -208,11 +203,14 @@ public class TelaVendas extends JFrame {
                             int codprod = Integer.parseInt(rs.getString("id_produto"));
                             tableModel.addRow(new Object[]{codprod, nomeProd});
                             System.out.println("Nome do produto encontrado: " + nomeProduto);
+                            JOptionPane.showMessageDialog(TelaVendas.this, "Nome do produto encontrado: " + nomeProduto, "Erro", JOptionPane.ERROR_MESSAGE);
+
                         } else {
                             // Item não encontrado
                             System.out.println(
                                     "Item não encontrado na tabela Produtos com o id_produto: " + codProd);
-                            AddError.main(null);
+                            JOptionPane.showMessageDialog(TelaVendas.this, "Item não encontrado na tabela Produtos com o id_produto: " + codProd, "Erro", JOptionPane.ERROR_MESSAGE);
+
                         }
 
                         rs.close();
@@ -246,7 +244,8 @@ public class TelaVendas extends JFrame {
                             // Item não encontrado
                             System.out.println(
                                     "Item não encontrado na tabela Produtos com o nome_produto: " + NomeProdField.getText());
-                            AddError.main(null);
+                            JOptionPane.showMessageDialog(TelaVendas.this, "Item não encontrado na tabela Produtos com o nome_produto: " + NomeProdField.getText(), "Erro", JOptionPane.ERROR_MESSAGE);
+
                         }
 
                         rs.close();
@@ -425,26 +424,32 @@ public class TelaVendas extends JFrame {
                     cliente.setCpf(cpf);
 
                     List<Object[]> resultados = ClienteConsultaDatabase.infoClienteCpf(cliente);
-                    // Limpa os dados atuais da tabela
                     DefaultTableModel clientesTableModel = (DefaultTableModel) ClientesTable.getModel();
                     clientesTableModel.setRowCount(0);
-                    // Preenche a tabela com os dados retornados do banco de dados
-                    for (Object[] clienteDados : resultados) {
-                        // Adiciona somente o CPF e o nome na tabela
-                        clientesTableModel.addRow(new Object[]{clienteDados[1], clienteDados[0]});
+
+                    if (resultados.isEmpty()) {
+                        System.out.println("Nenhum cliente encontrado com o CPF: " + cpf);
+                        JOptionPane.showMessageDialog(TelaVendas.this, "Nenhum cliente encontrado com o CPF:" + cpf, "Erro", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        for (Object[] clienteDados : resultados) {
+                            clientesTableModel.addRow(new Object[]{clienteDados[1], clienteDados[0]});
+                        }
                     }
                 } else if (!nome.isEmpty()) {
                     Clientes cliente = new Clientes();
                     cliente.setNomeCliente(nome);
 
                     List<Object[]> resultados = ClienteConsultaDatabase.infoCliente(cliente);
-                    // Limpa os dados atuais da tabela
                     DefaultTableModel clientesTableModel = (DefaultTableModel) ClientesTable.getModel();
                     clientesTableModel.setRowCount(0);
-                    // Preenche a tabela com os dados retornados do banco de dados
-                    for (Object[] clienteDados : resultados) {
-                        // Adiciona somente o CPF e o nome na tabela
-                        clientesTableModel.addRow(new Object[]{clienteDados[1], clienteDados[0]});
+
+                    if (resultados.isEmpty()) {
+                        System.out.println("Nenhum cliente encontrado com o nome: " + nome);
+                        JOptionPane.showMessageDialog(TelaVendas.this, "Nenhum cliente encontrado com o nome: " + nome, "Erro", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        for (Object[] clienteDados : resultados) {
+                            clientesTableModel.addRow(new Object[]{clienteDados[1], clienteDados[0]});
+                        }
                     }
                 }
             }
