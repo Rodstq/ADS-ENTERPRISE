@@ -9,8 +9,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -22,38 +20,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
-=======
 import javax.swing.*;
->>>>>>> a38dcf1a373f42fbe394e886dde4872134e5f8c9
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import conexaoDb.Db;
-import controladores.Cliente.ClienteConsultaDatabase;
 import controladores.Pedido.PedidoController;
+import controladores.Cliente.ClienteConsultaDatabase;
 import data.tratamento.clients.Clientes;
 import interfaces.Login;
 import interfaces.Main;
 
-<<<<<<< HEAD
-=======
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 
->>>>>>> a38dcf1a373f42fbe394e886dde4872134e5f8c9
 public class TelaVendas extends JFrame {
 
     private JPanel contentPane;
@@ -65,7 +49,7 @@ public class TelaVendas extends JFrame {
     private JTextField CPFField;
     private JTextField NomeField;
     private JTable ClientesTable;
-    ArrayList<Integer> ProdutosComprados = new ArrayList<>();
+    ArrayList<Integer> ProdutosComprados = new ArrayList<Integer>();
 
     public static void setCpfSelecionado(String cpf) {
         cpfSelecionado = cpf;
@@ -82,8 +66,7 @@ public class TelaVendas extends JFrame {
      */
     public static void TelaCaixa(String nomeVendedor, String VendedorCPF) {
         EventQueue.invokeLater(new Runnable() {
-            @Override
-			public void run() {
+            public void run() {
                 TelaVendas frame = new TelaVendas(nomeVendedor, VendedorCPF);
                 frame.setVisible(true);
             }
@@ -101,7 +84,7 @@ public class TelaVendas extends JFrame {
                 Db.CloseDb();
             }
         });
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 796, 858);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -193,8 +176,7 @@ public class TelaVendas extends JFrame {
 
         JButton AddButton = new JButton("Adicionar");
         AddButton.addMouseListener(new MouseAdapter() {
-            @Override
-			public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 Db.Connect();
 
                 if (!CodProdField.getText().isEmpty()) {
@@ -328,13 +310,12 @@ public class TelaVendas extends JFrame {
         panel_2.setLayout(new GridLayout(0, 1, 0, 0));
 
         ProdTable = new JTable();
-        ProdTable.setEnabled(true);
+        ProdTable.setEnabled(false);
         panel_2.add(ProdTable);
         ProdTable.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"Código", "Nome"}) {
             Class<?>[] columnTypes = new Class[]{String.class, String.class};
 
-            @Override
-			public Class<?> getColumnClass(int columnIndex) {
+            public Class<?> getColumnClass(int columnIndex) {
                 return columnTypes[columnIndex];
             }
         });
@@ -356,8 +337,7 @@ public class TelaVendas extends JFrame {
         JButton RemoveButton = new JButton("Remover");
         RemoveButton.setEnabled(false);
         RemoveButton.addActionListener(new ActionListener() {
-            @Override
-			public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 int selectedRow = ProdTable.getSelectedRow();
                 if (selectedRow != -1) {
                     tableModel.removeRow(selectedRow);
@@ -434,8 +414,7 @@ public class TelaVendas extends JFrame {
         JButton SearchButton = new JButton("Pesquisar");
 
         SearchButton.addActionListener(new ActionListener() {
-            @Override
-			public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 String nome = NomeField.getText();
                 String cpf = CPFField.getText();
 
@@ -560,8 +539,7 @@ public class TelaVendas extends JFrame {
 
         JButton SubmitButton = new JButton("Finalizar");
         SubmitButton.addActionListener(new ActionListener() {
-            @Override
-			public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 Db.Connect();
                 try {
                     if (cpfSelecionado == null && ProdutosComprados.isEmpty()){
@@ -586,14 +564,8 @@ public class TelaVendas extends JFrame {
 
         JButton BackButton = new JButton("Voltar");
         BackButton.addActionListener(new ActionListener() {
-<<<<<<< HEAD
-        	@Override
-			public void actionPerformed(ActionEvent e) {
-        		Main frame = new Main();
-=======
             public void actionPerformed(ActionEvent e) {
                 Main frame = new Main();
->>>>>>> a38dcf1a373f42fbe394e886dde4872134e5f8c9
                 frame.setVisible(true);
                 dispose();
             }
@@ -601,8 +573,7 @@ public class TelaVendas extends JFrame {
         SubmitPannel.add(BackButton);
 
         ClientesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-			public void valueChanged(ListSelectionEvent event) {
+            public void valueChanged(ListSelectionEvent event) {
                 int selectedRow = ClientesTable.getSelectedRow();
                 if (selectedRow != -1) {
                     cpfSelecionado = (String) ClientesTable.getValueAt(selectedRow, 0);
@@ -622,16 +593,14 @@ public class TelaVendas extends JFrame {
         });
 
         CPFField.addKeyListener(new KeyAdapter() {
-            @Override
-			public void keyTyped(KeyEvent e) {
+            public void keyTyped(KeyEvent e) {
                 if (NomeField.getText().isEmpty()) {
                     NomeField.setEnabled(false);
                 }
             }
         });
         CPFField.addMouseListener(new MouseAdapter() {
-            @Override
-			public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 if (NomeField.getText().isEmpty()) {
                     CPFField.setEnabled(true);
                 }
@@ -652,8 +621,7 @@ public class TelaVendas extends JFrame {
         });
 
         NomeField.addKeyListener(new KeyAdapter() {
-            @Override
-			public void keyTyped(KeyEvent e) {
+            public void keyTyped(KeyEvent e) {
                 if (CPFField.getText().isEmpty()) {
                     CPFField.setEnabled(false);
                 }
@@ -661,8 +629,7 @@ public class TelaVendas extends JFrame {
         });
 
         NomeField.addMouseListener(new MouseAdapter() {
-            @Override
-			public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 if (CPFField.getText().isEmpty()) {
                     NomeField.setEnabled(true);
                 }
@@ -670,8 +637,7 @@ public class TelaVendas extends JFrame {
         });
 
         FecharCompraButton.addActionListener(new ActionListener() {
-            @Override
-			public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 int rowCount = tableModel.getRowCount();
                 for (int i = 0; i < rowCount; i++) {
                     int idProduto = (int) tableModel.getValueAt(i, 0);

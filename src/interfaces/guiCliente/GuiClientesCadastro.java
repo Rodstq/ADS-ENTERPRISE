@@ -264,10 +264,7 @@ public class GuiClientesCadastro extends GuiClientesPrincipal {
 				Main frame = new Main();
                 frame.setVisible(true);
 				dispose();
-<<<<<<< HEAD
 
-=======
->>>>>>> a38dcf1a373f42fbe394e886dde4872134e5f8c9
 			}
 		});
 	}
