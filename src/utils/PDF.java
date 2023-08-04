@@ -218,11 +218,11 @@ public void gerarPdf() throws DocumentException {
               	footer.writeSelectedRows(0, -1, 34, 36,writer.getDirectContent());
               	document.close();
             } else {
-                System.out.println("Nome de arquivo inválido.");
+            	 JOptionPane.showMessageDialog(null, "O nome do arquivo está em branco", "Error",  JOptionPane.ERROR_MESSAGE);
             }
         }
     } catch (Exception e) {
-        e.printStackTrace();
+    	JOptionPane.showMessageDialog(null, "Houve um erro ao salvar o pdf, por favor informe ao administrador do sistema", "Error",  JOptionPane.ERROR_MESSAGE);
     }
 }
 }
