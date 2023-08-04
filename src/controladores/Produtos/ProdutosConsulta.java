@@ -2,16 +2,11 @@ package controladores.Produtos;
 import conexaoDb.Db;
 
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -27,7 +22,7 @@ public class ProdutosConsulta{
 	String escolha = "";
 	String dado;
 	
-	public String consultarProdutos() {
+	public String consultarProdutos() throws Exception {
 	String resultado="";
 	try {
 		
@@ -58,7 +53,6 @@ public class ProdutosConsulta{
 					colName[i]=rsmd.getColumnName(i+1);
 					model.setColumnIdentifiers(colName);
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -67,34 +61,38 @@ public class ProdutosConsulta{
 		while(rs.next()){
 			 int id_produto = rs.getInt("id_produto");
 			 String nome_produto = rs.getString("nome_produto");
-			 String cnpj = rs.getString("cnpj_fornecedor");
 			 double valor = rs.getDouble("valor_de_venda");
-			 int id_estoque = rs.getInt("id_estoque");
-			 resultado = id_produto + nome_produto + cnpj + valor + id_estoque;
-			 Object[] results = {id_produto,nome_produto,valor,id_estoque,cnpj};
+			 int quantidade = rs.getInt("quantidade_produto");
+			 String cnpj = rs.getString("cnpj_fornecedor");
+			 resultado = id_produto + nome_produto + cnpj + valor + quantidade;
+			 Object[] results = {id_produto,nome_produto,valor,quantidade,cnpj};
 			 model.addRow(results);
 		}
 		
-//		rs.close();
-//		
-//		stmt.close();
-//		Db.CloseDb();
 		
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	return resultado;
-	
+	if(!resultado.isBlank()) {
+		return resultado;
+	} else {
+		throw new Exception("Não foram encontrados resultados");
+	}
 	}
 	
 	public void getEscolha(String escolha, String dado1,String dado2) {
 		
 		if(escolha.equals("id")){
-			this.query = "SELECT * FROM produto WHERE id_produto = ?";
+			this.query = "SELECT produto.id_produto, produto.nome_produto, estoque.quantidade_produto,produto.valor_de_venda, produto.cnpj_fornecedor\r\n"
+					+ "FROM produto\r\n"
+					+ "JOIN estoque ON produto.id_estoque = estoque.id_estoque\r\n"
+					+ "WHERE produto.id_produto = ?;";
 			this.dado = dado1;
 		} else {
-			this.query = "SELECT * FROM produto WHERE nome_produto like ?";
+			this.query = "SELECT produto.id_produto, produto.nome_produto, estoque.quantidade_produto,produto.valor_de_venda, produto.cnpj_fornecedor\r\n"
+					+ "FROM produto\r\n"
+					+ "JOIN estoque ON produto.id_estoque = estoque.id_estoque\r\n"
+					+ "WHERE produto.nome_produto like ?;";
 			this.dado = "%" + dado2 + "%";
 		}
 			this.escolha = escolha;		

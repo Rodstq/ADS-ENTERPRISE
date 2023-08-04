@@ -40,9 +40,7 @@ public class ProdutosCadastrar extends Produto {
 			
 		} catch (Exception e) {
 			CadastrarTratamento verificar = new CadastrarTratamento();
-			e.printStackTrace();
 			String erro = e.getMessage();
-			System.out.println(" ============" + erro);
 			verificar.verificaErro(erro);
 			this.erro = verificar.verificaErro(erro);
 			throw new SQLException();			

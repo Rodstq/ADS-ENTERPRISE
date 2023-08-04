@@ -21,7 +21,7 @@ public class ProdutosAtualizar {
 			stmt1.executeUpdate();
 		
 			} catch (Exception e) {
-				e.printStackTrace();
+				
 			}
 		
 	}
@@ -75,7 +75,7 @@ public class ProdutosAtualizar {
 					
 					stmt.executeUpdate();
 				} catch (SQLException cnpjE) {
-					cnpjE.printStackTrace();
+					
 					throw new Exception ("Cnpj informado não é válido");
 				}
 				
@@ -104,7 +104,7 @@ public class ProdutosAtualizar {
 			}
 						
 		} catch (SQLException e) {
-			e.printStackTrace();
+		
 			throw new Exception();
 		}
 		
