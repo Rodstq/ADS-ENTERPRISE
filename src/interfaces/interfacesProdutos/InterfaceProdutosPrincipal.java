@@ -27,6 +27,8 @@ import models.classesProdutos.Produto;
 import javax.swing.JTabbedPane;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
+import controladores.Fornecedores.FornecedoresConsultar;
+import java.math.BigInteger;
 
 import java.awt.CheckboxGroup;
 
@@ -43,13 +45,14 @@ public class InterfaceProdutosPrincipal extends JFrame {
 	private JTabbedPane fornecedor;
 	private JPanel deletarProduto;
 	JTable tblData;
+	JTable tblDataFornecedor;
 	private JTextField id_estoqueTF;
 	private JTabbedPane tabbedPane;
 	private JTabbedPane produtos;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroupFornecedor = new ButtonGroup();
-	private String escolha;
-	private String escolhaFornecedor;
+	private String escolha ="";
+	private String escolhaFornecedor ="";
 	private JTextField cnpjFornecedor;
 	private JTextField nomeFornecedor;
 	private JTextField quantidadeTF;
@@ -86,6 +89,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public InterfaceProdutosPrincipal() {
+		setResizable(false);
 		
 		tabbedPane = new JTabbedPane();
 		
@@ -122,6 +126,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		consultarProduto.add(scrollPane_1);
 		
 		JTable tblData_1 = new JTable();
+		tblData_1.setEnabled(false);
 		scrollPane_1.setViewportView(tblData_1);
 		
 		JLabel lblNewLabelConsultar = new JLabel("id :");
@@ -131,11 +136,11 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		
 		JTextField txtIdConsultar = new JTextField();
 		
-		//				nome do campo  metodo usado   classe  qtd limite   tipo de dado a ser inserido
+		//			   nome do campo  metodo usado   classe  qtd limite   tipo de dado a ser inserido
 		txtIdConsultar.setDocument(new Validadora(50, Validadora.dadoInserido.numeroInt));
 		
 		consultarProduto.add(txtIdConsultar);
-		txtIdConsultar.setBounds(109, 41, 45, 20);
+		txtIdConsultar.setBounds(109, 41, 164, 20);
 		txtIdConsultar.setColumns(10);		
 		
 		JLabel lblNewLabel_1 = new JLabel("Consultar Por : ");
@@ -287,6 +292,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		atualizarProduto.setLayout(null);
 		
 		idAtualizarTF = new JTextField();
+		idAtualizarTF.setDocument(new Validadora(10,Validadora.dadoInserido.numeroInt));
 		idAtualizarTF.setColumns(10);
 		idAtualizarTF.setBounds(228, 32, 138, 20);
 		atualizarProduto.add(idAtualizarTF);
@@ -479,14 +485,19 @@ public class InterfaceProdutosPrincipal extends JFrame {
 			scrollPaneResultadorFornecedor.setBounds(10, 170, 685, 215);
 			consultarProduto_1.add(scrollPaneResultadorFornecedor);
 			
+			JTable tblDataFornecedor = new JTable();
+			tblDataFornecedor.setEnabled(false);
+			scrollPaneResultadorFornecedor.setViewportView(tblDataFornecedor);
+			
 			JLabel lblCnpjFornecedor = new JLabel("cnpj :");
 			lblCnpjFornecedor.setFont(new Font("Tahoma", Font.BOLD, 11));
 			lblCnpjFornecedor.setBounds(83, 44, 37, 14);
 			consultarProduto_1.add(lblCnpjFornecedor);
 			
 			textFieldCnpjFornecedor = new JTextField();
+			textFieldCnpjFornecedor.setDocument(new Validadora(14, Validadora.dadoInserido.numeroInt));
 			textFieldCnpjFornecedor.setColumns(10);
-			textFieldCnpjFornecedor.setBounds(122, 41, 45, 20);
+			textFieldCnpjFornecedor.setBounds(122, 41, 173, 20);
 			consultarProduto_1.add(textFieldCnpjFornecedor);
 			
 			JLabel consultarPorLbl = new JLabel("Consultar Por : ");
@@ -503,8 +514,9 @@ public class InterfaceProdutosPrincipal extends JFrame {
 					// desativando label e texto produto nome
 					lblNomeFornecedor.setEnabled(false);
 					textFieldNomeFornecedor.setEnabled(false);
+					textFieldNomeFornecedor.setText("");
 					escolhaFornecedor = "cnpj";
-					//ativando label e texto produto id
+					//ativando label e texto fornecedor
 					textFieldCnpjFornecedor.setEnabled(true);
 					lblCnpjFornecedor.setEnabled(true);
 				}
@@ -528,6 +540,7 @@ public class InterfaceProdutosPrincipal extends JFrame {
 					escolhaFornecedor = "nomeFornecedor";
 					//ativando label e texto produto id
 					textFieldCnpjFornecedor.setEnabled(false);
+					textFieldCnpjFornecedor.setText("");
 					lblCnpjFornecedor.setEnabled(false);
 				}
 				
@@ -537,12 +550,21 @@ public class InterfaceProdutosPrincipal extends JFrame {
 			
 			JButton btnMenuPrincialFornecedor = new JButton("menu principal");
 			btnMenuPrincialFornecedor.setBounds(10, 413, 154, 25);
-			consultarProduto_1.add(btnMenuPrincialFornecedor);
 			
-			JButton btnConsultarFornecedor = new JButton("Consultar Fornecedor");
-			btnConsultarFornecedor.setFont(new Font("Tahoma", Font.BOLD, 13));
-			btnConsultarFornecedor.setBounds(200, 114, 282, 45);
-			consultarProduto_1.add(btnConsultarFornecedor);
+			btnMenuPrincialFornecedor.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Main frame = new Main();
+	                frame.setVisible(true);
+					dispose();										
+				}
+			});
+			
+			consultarProduto_1.add(btnMenuPrincialFornecedor);
+
+			
+			
 			
 			JPanel cadatrar = new JPanel();
 			fornecedor.add(cadatrar,"cadastrar");
@@ -700,18 +722,75 @@ public class InterfaceProdutosPrincipal extends JFrame {
 			cnpjAtualizarID.setColumns(10);
 			cnpjAtualizarID.setBounds(246, 11, 138, 20);
 			atualizarFornecedorTab.add(cnpjAtualizarID);
+				
+			// BOTOES CONSULTAR E CADASTRAR produtos CONSULTAR FORNECEDOR
 			
-
+			
+			
+			JButton btnConsultarFornecedor = new JButton("Consultar Fornecedor");
+			btnConsultarFornecedor.setFont(new Font("Tahoma", Font.BOLD, 13));
+			btnConsultarFornecedor.setBounds(200, 114, 282, 45);
+			btnConsultarFornecedor.addActionListener( new ActionListener() {
+				
+				
+				boolean confirmacao = true;
+				
+				public void verificarCnpj() throws Exception {
+					
+					if(textFieldCnpjFornecedor.isEnabled() && textFieldCnpjFornecedor.getText().length() < 14) {
+						throw new Exception("Cnpj não pode ser menor que 14");
+					}
+					
+				}
+				
+				public void validacao() throws Exception {
+					
+					try {
+						if(escolhaFornecedor.equals("cnpj")) {		
+							BigInteger num = new BigInteger(textFieldCnpjFornecedor.getText());
+						} else {
+							textFieldNomeFornecedor.getText();
+						}
+							confirmacao = true;
+					} catch (Exception a) {
+						confirmacao = false;
+						throw new Exception("Campo escolhido preenchido de forma inválida, pesquise por um número válido");						
+					}		
+				}
+				
+				public void actionPerformed(ActionEvent e) {
+				
+					try {
 						
-		
-		
-			// BOTOES CONSULTAR E CADASTRAR
+						FornecedoresConsultar fornecedorConsulta = new FornecedoresConsultar();
+						if(!escolhaFornecedor.isBlank()) {
+							
+							verificarCnpj();
+							validacao();
+
+							fornecedorConsulta.setTblData(tblDataFornecedor);
+							fornecedorConsulta.getEscolha(escolhaFornecedor,textFieldCnpjFornecedor.getText(),textFieldNomeFornecedor.getText());					
+							fornecedorConsulta.consultarFornecedor();
+					
+						} else {
+							JOptionPane.showMessageDialog(rootPane, "Escolha um campo de consulta");
+						}
+				      	
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(rootPane, e1.getMessage());
+
+					}
+				
+			 }});
+			consultarProduto_1.add(btnConsultarFornecedor);
 		
 		JButton botaoConsultar = new JButton("Consultar produto");
 		botaoConsultar.setBounds(200, 114, 282, 45);
 		botaoConsultar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		botaoConsultar.addActionListener( new ActionListener() {
 			
+			boolean confirmacao = true;
+
 			public boolean validacao() {
 				try {
 					if(escolha.equals("id")) {		
@@ -726,22 +805,31 @@ public class InterfaceProdutosPrincipal extends JFrame {
 			}
 			
 			public void actionPerformed(ActionEvent e) {
+	
 				
 				ProdutosConsulta produtosConsulta = new ProdutosConsulta();
-				if(escolha!=null) {
+				try {
+				if(!escolha.isBlank()) {
 					if (validacao()) {
-					produtosConsulta.setTblData(tblData_1);
-					produtosConsulta.getEscolha(escolha,txtIdConsultar.getText(),txtProdConsultar.getText());					
-					produtosConsulta.consultarProdutos();
-					} else {
-						JOptionPane.showMessageDialog(rootPane, "Campo escolhido preenchido de forma inválida, pesquise por um número válido");
-					}
+						produtosConsulta.setTblData(tblData_1);
+						produtosConsulta.getEscolha(escolha,txtIdConsultar.getText(),txtProdConsultar.getText());					
+							try {
+								produtosConsulta.consultarProdutos();
+							} catch (Exception e1) {
+								throw new Exception(e1.getMessage());
+							}
+						} else {
+							throw new Exception("Campo escolhido preenchido de forma inválida, pesquise por um número válido");
+						}
 			} else {
-				JOptionPane.showMessageDialog(rootPane, "Escolha um campo de consulta");
+				throw new Exception("Escolha um campo de consulta");
 			}
 		      
+			}catch (Exception finalE) {
+				JOptionPane.showMessageDialog(rootPane, finalE.getMessage());
+
 			}
-		 });
+		 }});
 		consultarProduto.add(botaoConsultar);	
 		
 		JButton botaoCadastrar = new JButton("Cadastrar Produto");
@@ -779,17 +867,17 @@ public class InterfaceProdutosPrincipal extends JFrame {
 						
 						try {
 								produtosCadastrar.cadastrarProdutos(produto);
-						
-							} catch (Exception i) {	
+								JOptionPane.showMessageDialog(rootPane, "produto cadastrado");	
+
+						} catch (Exception i) {	
 							
-								i.printStackTrace();
+							
 								verificarVazio.verificaErro(produtosCadastrar.getErroMessage());
 								JOptionPane.showMessageDialog(rootPane, produtosCadastrar.getErroMessage());	
 								
 							}	
 						
 				} catch (Exception a) {
-						a.printStackTrace();
 					if (quantidadeErro){
 						JOptionPane.showMessageDialog(rootPane, "Quantidade não pode ser menor que 1");
 						quantidadeErro=false;
@@ -800,9 +888,6 @@ public class InterfaceProdutosPrincipal extends JFrame {
 			}});
 		
 		cadastrarProduto.add(botaoCadastrar);
-		
-		
-		
 		getContentPane().add(tabbedPane);		
 	
 	  }
