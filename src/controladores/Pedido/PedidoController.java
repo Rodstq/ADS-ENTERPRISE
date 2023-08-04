@@ -2,15 +2,18 @@ package controladores.Pedido;
 
 import conexaoDb.Db;
 import controladores.Estoque.EstoqueController;
+import interfaces.interfacesVendas.TelaVendas;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PedidoController {
+
     public static void criarPedido(ArrayList<Integer> ProdutosComprados, String cpf_cliente, String cpf_vendedor) throws SQLException {
         int novoIdPedido = UltimoPedidoId() + 1;
         String insertPedidoQuery = "INSERT INTO pedido (id_pedido, data_pedido, cpf_vendedor, cpf_cliente) " +
@@ -32,18 +35,38 @@ public class PedidoController {
         }
 
         try (stmtPedido; PreparedStatement stmtPedidoProduto = con.prepareStatement(insertPedidoProdutoQuery)) {
-            for (int idProduto : ProdutosComprados) {
+            HashMap<Integer, Integer> quantidadePorProduto = new HashMap<>();
 
+            // Contar a quantidade de produtos na lista ProdutosComprados
+            for (int idProduto : ProdutosComprados) {
+                quantidadePorProduto.put(idProduto, quantidadePorProduto.getOrDefault(idProduto, 0) + 1);
+            }
+
+            // Verificar se há estoque suficiente para todos os produtos na lista
+            for (int idProduto : quantidadePorProduto.keySet()) {
+                int quantidadeDesejada = quantidadePorProduto.get(idProduto);
+
+                if (!EstoqueController.EstoqueSuficiente(idProduto, quantidadeDesejada)) {
+                    JOptionPane.showMessageDialog(null, "Estoque insuficiente para o produto com ID: " + idProduto, "Erro de Estoque", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            // Vender os produtos e atualizar o estoque
+            for (int idProduto : quantidadePorProduto.keySet()) {
+                int quantidadeDesejada = quantidadePorProduto.get(idProduto);
                 double valorTotalProdutoComprado = EstoqueController.getValorDeVendaProduto(idProduto);
-                int quantidadeComprada = 1;
 
                 stmtPedidoProduto.setInt(1, idProduto);
                 stmtPedidoProduto.setInt(2, novoIdPedido);
                 stmtPedidoProduto.setDouble(3, valorTotalProdutoComprado);
-                stmtPedidoProduto.setInt(4, quantidadeComprada);
+                stmtPedidoProduto.setInt(4, quantidadeDesejada);
                 stmtPedidoProduto.executeUpdate();
 
-                EstoqueController.venderProduto(idProduto);
+                for (int i = 0; i < quantidadeDesejada; i++) {
+                    EstoqueController.venderProduto(idProduto);
+                    JOptionPane.showMessageDialog(null, "Compra finalizada com sucesso!", "Compra finalizada", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao adicionar produtos ao pedido: " + ex.getMessage(), ex);
@@ -64,7 +87,19 @@ public class PedidoController {
                 return 0;
             }
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao tentar acessa o último id de Pedido: " + ex.getMessage(), ex);
+            throw new RuntimeException("Erro ao tentar acessar o último id de Pedido: " + ex.getMessage(), ex);
         }
+    }
+
+    public static int contarElemento(ArrayList<Integer> lista, int elemento) {
+        int contador = 0;
+
+        for (int item : lista) {
+            if (item == elemento) {
+                contador++;
+            }
+        }
+
+        return contador;
     }
 }

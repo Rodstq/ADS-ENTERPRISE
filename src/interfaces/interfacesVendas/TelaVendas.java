@@ -206,8 +206,7 @@ public class TelaVendas extends JFrame {
 
                         } else {
                             // Item não encontrado
-                            System.out.println(
-                                    "Item não encontrado na tabela Produtos com o id_produto: " + codProd);
+                            System.out.println("Item não encontrado na tabela Produtos com o id_produto: " + codProd);
                             JOptionPane.showMessageDialog(TelaVendas.this, "Item de código: " + codProd + " não foi encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
 
                         }
@@ -311,6 +310,7 @@ public class TelaVendas extends JFrame {
         panel_2.setLayout(new GridLayout(0, 1, 0, 0));
 
         ProdTable = new JTable();
+        ProdTable.setEnabled(true);
         panel_2.add(ProdTable);
         ProdTable.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"Código", "Nome"}) {
             Class<?>[] columnTypes = new Class[]{String.class, String.class};
@@ -542,12 +542,21 @@ public class TelaVendas extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Db.Connect();
                 try {
-                    System.out.println(ProdutosComprados + cpfSelecionado + VendedorCPF);
-                    PedidoController.criarPedido(ProdutosComprados, cpfSelecionado, VendedorCPF);
+                    if (cpfSelecionado == null && ProdutosComprados.isEmpty()){
+                        JOptionPane.showMessageDialog(TelaVendas.this, "Selecione o cliente e feche a compra", "Erro", JOptionPane.ERROR_MESSAGE);
+                    } else if (cpfSelecionado == null) {
+                        JOptionPane.showMessageDialog(TelaVendas.this, "Selecione o cliente", "Erro", JOptionPane.ERROR_MESSAGE);
+                    } else if (ProdutosComprados.isEmpty()){
+                        JOptionPane.showMessageDialog(TelaVendas.this, "É preciso adicionar itens e fechar a compra", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else {
+                        PedidoController.criarPedido(ProdutosComprados, cpfSelecionado, VendedorCPF);
+                    }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
                 Db.CloseDb();
+
             }
         });
 
@@ -662,7 +671,7 @@ public class TelaVendas extends JFrame {
         });
         CodProdField.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if (NomeField.getText().isEmpty()) {
+                if (NomeProdField.getText().isEmpty()) {
                     CodProdField.setEnabled(true);
                 }
             }
