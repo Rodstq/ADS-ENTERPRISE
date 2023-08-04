@@ -1,23 +1,15 @@
 package controladores.Pedido;
 
-<<<<<<< HEAD
-=======
 import conexaoDb.Db;
 import controladores.Estoque.EstoqueController;
-import interfaces.interfacesVendas.TelaVendas;
 
 import javax.swing.*;
->>>>>>> a38dcf1a373f42fbe394e886dde4872134e5f8c9
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import conexaoDb.Db;
-import controladores.Estoque.EstoqueController;
-
 public class PedidoController {
 
     public static void criarPedido(ArrayList<Integer> ProdutosComprados, String cpf_cliente, String cpf_vendedor) throws SQLException {
