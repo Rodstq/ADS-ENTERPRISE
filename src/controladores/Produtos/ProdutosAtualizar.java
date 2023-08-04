@@ -8,25 +8,25 @@ import java.sql.SQLException;
 import conexaoDb.Db;
 
 public class ProdutosAtualizar {
-	
+
 	private String query;
-	
-	
+
+
 	public void atualizarProdutos(String query) throws Exception{
-		
+
 		try {
 			Connection connection = Db.Connect();
-			
+
 			PreparedStatement stmt1 = connection.prepareStatement(query);
 			stmt1.executeUpdate();
-		
+
 			} catch (Exception e) {
-				e.printStackTrace();
+				
 			}
-		
+
 	}
-	
-	public void execQuery(boolean nomeBoolean,boolean cnpjBoolean,boolean valorBoolean,boolean quantidadeBoolean,
+
+		public void execQuery(boolean nomeBoolean,boolean cnpjBoolean,boolean valorBoolean,boolean quantidadeBoolean,
 		
 		String id,String nome,String cnpj,String valor,String quantidade) throws Exception {
 		
@@ -75,7 +75,7 @@ public class ProdutosAtualizar {
 					
 					stmt.executeUpdate();
 				} catch (SQLException cnpjE) {
-					cnpjE.printStackTrace();
+					
 					throw new Exception ("Cnpj informado não é válido");
 				}
 				
@@ -104,7 +104,7 @@ public class ProdutosAtualizar {
 			}
 						
 		} catch (SQLException e) {
-			e.printStackTrace();
+		
 			throw new Exception();
 		}
 		
