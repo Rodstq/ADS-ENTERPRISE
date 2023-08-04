@@ -1,19 +1,9 @@
 package utils;
+import java.io.File;
+import java.io.FileOutputStream;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.DefaultTableModel;
-
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
 import javax.swing.table.DefaultTableModel;
 
 import com.lowagie.text.Chunk;
@@ -25,44 +15,42 @@ import com.lowagie.text.FontFactory;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Rectangle;
-import com.lowagie.text.pdf.PdfChunk;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfTable;
 import com.lowagie.text.pdf.PdfWriter;
 
 public class PDF{
-	
+
     private DefaultTableModel listaInfoCliente;
     private DefaultTableModel listInfoPedidosCliente;
-    
-    
-    
+
+
+
     public void setListInfoCliente(DefaultTableModel tabelaCliente) {
         this.listaInfoCliente = tabelaCliente;
     }
-    
+
     public void setListInfoPedidosCliente(DefaultTableModel tabelaPedidos) {
-    	
+
     	this.listInfoPedidosCliente = tabelaPedidos;
-    	
+
     }
-    
+
 
 public void gerarPdf() throws DocumentException {
     Document document = new Document(PageSize.A4, 36, 36, 36, 36);
     try {
-       
+
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int result = fileChooser.showSaveDialog(null);
-        
-        
+
+
         if (result == JFileChooser.APPROVE_OPTION) {
             File escolherDiretorio = fileChooser.getSelectedFile();
-            
+
             String fileName = JOptionPane.showInputDialog("nome");
-            
+
             if (fileName != null && !fileName.isEmpty()) {
                 String filePath = escolherDiretorio.getAbsolutePath() + File.separator + fileName;
                 if (!filePath.endsWith(".pdf")) {
@@ -79,20 +67,20 @@ public void gerarPdf() throws DocumentException {
                 header.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 header.getDefaultCell().setPaddingBottom(5);
                 header.getDefaultCell().setBorder(Rectangle.BOTTOM);
-                
-                
+
+
                 PdfPCell espacoVazio = new PdfPCell(new Paragraph(""));
                 espacoVazio.setBorder(Rectangle.NO_BORDER);
 
-                
+
                 header.addCell(espacoVazio);
-                
+
                 Paragraph tituloHeader =  new Paragraph("adsGestão", new Font(Font.COURIER, 20, Font.BOLD));
                 PdfPCell adsGesta = new PdfPCell(tituloHeader);
                 adsGesta.setPaddingBottom(10);
                 adsGesta.setHorizontalAlignment(Element.ALIGN_CENTER);
                 adsGesta.setBorder(Rectangle.NO_BORDER);
-                
+
                 header.addCell(adsGesta);
                 header.addCell(espacoVazio);
 
@@ -100,20 +88,20 @@ public void gerarPdf() throws DocumentException {
                 header.addCell(new Paragraph("Contato: (819) 2424-1212", cellFont));
                 header.addCell(new Paragraph("Endereço : Lugar Nenhum", cellFont));
                 header.addCell(new Paragraph("Website : http://onlyFans.com.br", cellFont));
-                
+
                 document.add(header);
-                
-                
-                
+
+
+
                 //tabelas
 
                 float[] widthsColunas = {150,150f, 150f, 150f};
-                
-                
+
+
                 Rectangle r = new Rectangle(PageSize.A4.getRight(70), PageSize.A4.getTop(150));
                 PdfPTable infoCliente = new PdfPTable(4);
-                
-                
+
+
                 infoCliente.setWidthPercentage(widthsColunas, r);
                 infoCliente.setTotalWidth(500);
                 infoCliente.setLockedWidth(true);
@@ -122,15 +110,15 @@ public void gerarPdf() throws DocumentException {
                         "Lista de clientes: ",
                 FontFactory.getFont(FontFactory.HELVETICA, 10)));
                 paragrafoResultadoCliente.setSpacingBefore(15);
-                
-                
+
+
                 for (int i = 0; i < 4; i++) {
                 	 infoCliente.addCell(listaInfoCliente.getColumnName(i));
-         
+
                 }
 
                 for (int i = 0; i < listaInfoCliente.getRowCount(); i++) {
-                	
+
                     String cpfAtual = listaInfoCliente.getValueAt(i, 1).toString();
                     boolean cpfDuplicado = false;
 
@@ -154,44 +142,44 @@ public void gerarPdf() throws DocumentException {
                 paragrafoResultadoCliente.add(infoCliente);
 
 
-                     
+
                 Paragraph paragrafoResultadoPedidos = new Paragraph(new Chunk(
                         "Lista de pedidos dos clientes: ",
                         FontFactory.getFont(FontFactory.HELVETICA, 10)));
                 paragrafoResultadoPedidos.setSpacingBefore(15);
                 PdfPTable pedidosInfo = new PdfPTable(5);
                 float[] colunasPedido= {150,150f, 150f, 150f, 150f};
-                
+
                 pedidosInfo.setWidthPercentage(colunasPedido, r);
                 pedidosInfo.setTotalWidth(500);
                 pedidosInfo.setLockedWidth(true);
-                
+
                 for (int i = 0; i < 5; i++) {
-                	
-                                	
+
+
                   pedidosInfo.addCell(listInfoPedidosCliente.getColumnName(i));
-              
-                    	
+
+
                }
-                	
-                
-               
+
+
+
                 for (int i = 0; i < listInfoPedidosCliente.getRowCount(); i++) {
-                	
-               
+
+
                     for (int k = 0; k < 5; k++) {
 
                         	Object cellValue = listInfoPedidosCliente.getValueAt(i,k);
                         	 pedidosInfo.addCell(cellValue.toString());
 
-                       
+
                     }
                 }
                 paragrafoResultadoPedidos.add(pedidosInfo);
                 document.add(paragrafoResultadoCliente);
                 document.add(paragrafoResultadoPedidos);
-                
-                
+
+
 
                 /* Footer */
                 PdfPTable footer= new PdfPTable(2);
@@ -214,15 +202,16 @@ public void gerarPdf() throws DocumentException {
                 pageNumberCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 pageNumberCell.setBorder(Rectangle.TOP);
                 footer.addCell(pageNumberCell);
-          
+
               	footer.writeSelectedRows(0, -1, 34, 36,writer.getDirectContent());
               	document.close();
             } else {
-                System.out.println("Nome de arquivo inválido.");
+             	
+            	JOptionPane.showMessageDialog(null, "o nome do arquivo está em branco", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
     } catch (Exception e) {
-        e.printStackTrace();
+    	JOptionPane.showMessageDialog(null, "Houve um erro ao criar o pdf, por favor informa ao administrador do sistema", "Erro", JOptionPane.ERROR_MESSAGE);
     }
 }
 }

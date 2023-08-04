@@ -3,7 +3,6 @@ package conexaoDb;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Db {
     private static String url = "jdbc:mysql://localhost:3306/ads";
@@ -15,9 +14,9 @@ public class Db {
         try {
             con = DriverManager.getConnection(url, user, password);
             System.out.println("Sucesso ao conectar");
-            
+
             return con;
-            
+
         } catch (SQLException e) {
             System.out.println("Erro ao conectar ao banco de dados: " + e.getMessage());
             return null;
@@ -29,20 +28,20 @@ public class Db {
     }
 
     public static void CloseDb() {
-    	
+
     	if(con != null) {
     		try {
-    		
+
     		con.close();
-    		
+
     		System.out.println("Sucesso ao finalizar conexão");
     		} catch(Exception msg){
-    			
+
     			throw new DbErrorException("Erro ao finalizar conexão");
-    			
+
     		}
     	}
-    	
+
     }
-  
+
 }

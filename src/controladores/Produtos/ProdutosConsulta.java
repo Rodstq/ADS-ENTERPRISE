@@ -1,15 +1,18 @@
 package controladores.Produtos;
-import conexaoDb.Db;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4ddb029a23ac4553828eb37006c12602628d1f2e
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import conexaoDb.Db;
 
 
 public class ProdutosConsulta{
@@ -21,33 +24,38 @@ public class ProdutosConsulta{
 	String query = "";
 	String escolha = "";
 	String dado;
+<<<<<<< HEAD
 	
 	public String consultarProdutos() throws Exception {
+=======
+
+	public String consultarProdutos() {
+>>>>>>> 4ddb029a23ac4553828eb37006c12602628d1f2e
 	String resultado="";
 	try {
-		
+
 		Connection connection = Db.Connect();
-		
+
 		PreparedStatement pstmt  = connection.prepareStatement(query);
-		
-		pstmt.setString(1,dado);		
+
+		pstmt.setString(1,dado);
 		ResultSet rs = pstmt.executeQuery();
-		
-		
+
+
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int cols = rsmd.getColumnCount();
-		
+
 		DefaultTableModel model = (DefaultTableModel) tblData.getModel();
-		
+
 		while(model.getRowCount() > 0)
 		{
 			model.removeRow(0);
 		}
-		
+
 		String[] colName = new String[cols];
-		 
-		 
-		 
+
+
+
 		 for(int i = 0 ; i<cols ; i++) {
 				try {
 					colName[i]=rsmd.getColumnName(i+1);
@@ -56,8 +64,8 @@ public class ProdutosConsulta{
 					e1.printStackTrace();
 				}
 			}
-		
-		
+
+
 		while(rs.next()){
 			 int id_produto = rs.getInt("id_produto");
 			 String nome_produto = rs.getString("nome_produto");
@@ -68,20 +76,34 @@ public class ProdutosConsulta{
 			 Object[] results = {id_produto,nome_produto,valor,quantidade,cnpj};
 			 model.addRow(results);
 		}
+<<<<<<< HEAD
 		
 		
+=======
+
+//		rs.close();
+//
+//		stmt.close();
+//		Db.CloseDb();
+
+>>>>>>> 4ddb029a23ac4553828eb37006c12602628d1f2e
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
+<<<<<<< HEAD
 	if(!resultado.isBlank()) {
 		return resultado;
 	} else {
 		throw new Exception("Não foram encontrados resultados");
 	}
+=======
+	return resultado;
+
+>>>>>>> 4ddb029a23ac4553828eb37006c12602628d1f2e
 	}
-	
+
 	public void getEscolha(String escolha, String dado1,String dado2) {
-		
+
 		if(escolha.equals("id")){
 			this.query = "SELECT produto.id_produto, produto.nome_produto, estoque.quantidade_produto,produto.valor_de_venda, produto.cnpj_fornecedor\r\n"
 					+ "FROM produto\r\n"
@@ -95,21 +117,21 @@ public class ProdutosConsulta{
 					+ "WHERE produto.nome_produto like ?;";
 			this.dado = "%" + dado2 + "%";
 		}
-			this.escolha = escolha;		
+			this.escolha = escolha;
 	}
-	
+
 	public ResultSet get_Rs() {
 		return rs;
 	}
-	
+
 	public ResultSetMetaData get_Rsmd() {
 		return rsmd;
-		
+
 	}
 	public int get_Cols() {
 		return cols;
 	}
-	
+
 	public void setTblData(JTable tblData) {
 		this.tblData = tblData;
 	}

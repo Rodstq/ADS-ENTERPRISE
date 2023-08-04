@@ -8,23 +8,50 @@ import java.sql.SQLException;
 import conexaoDb.Db;
 
 public class ProdutosAtualizar {
+<<<<<<< HEAD
+
+	private String erro;
+=======
 	
+>>>>>>> a38dcf1a373f42fbe394e886dde4872134e5f8c9
 	private String query;
-	
-	
+
+
 	public void atualizarProdutos(String query) throws Exception{
-		
+
 		try {
 			Connection connection = Db.Connect();
-			
+
 			PreparedStatement stmt1 = connection.prepareStatement(query);
 			stmt1.executeUpdate();
-		
+
 			} catch (Exception e) {
 				
 			}
-		
+
 	}
+<<<<<<< HEAD
+
+	public String execQuery(boolean nomeBoolean,boolean cnpjBoolean,boolean valorBoolean,boolean quantidadeBoolean,
+
+		String id,String nome,String cnpj,String valor,String quantidade) {
+//
+//		String query = "";
+//		StringBuffer queryFinal = new StringBuffer(query);
+//
+//		if (nomeBoolean && !nome.isBlank()) {
+//
+//			query = "update produto set nome_produto = 'x' where id_produto = y;";
+//
+//			int i = query.indexOf('x');
+//
+//			queryFinal.setCharAt(i, nome);
+//		}
+//
+		return query;
+
+	}
+=======
 	
 	public void execQuery(boolean nomeBoolean,boolean cnpjBoolean,boolean valorBoolean,boolean quantidadeBoolean,
 		
@@ -110,4 +137,5 @@ public class ProdutosAtualizar {
 		
 		
 	}	
+>>>>>>> a38dcf1a373f42fbe394e886dde4872134e5f8c9
 }

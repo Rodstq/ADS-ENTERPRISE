@@ -9,9 +9,9 @@ public class ExemploDeQuery {
     private static String url = "jdbc:mysql://172.16.238.2:3306/adsDb";
     private static String user = "root";
     private static String password = "root";
-    
+
    public static Connection con = null;
-   
+
     public static void ConnectDb () {
     	try{
     		Connection con = DriverManager.getConnection(url, user, password);
@@ -24,7 +24,7 @@ public class ExemploDeQuery {
     		while(rs.next()){
     			String nome = rs.getString("nome");
     			double valor = rs.getDouble("valor");
-    			
+
     			System.out.println("nome: " + nome);
     			System.out.println("valor: "+ valor);
 
@@ -39,5 +39,5 @@ public class ExemploDeQuery {
     		}
 
     }
-  
+
 }

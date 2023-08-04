@@ -8,8 +8,8 @@ public class Produto {
    private int id_estoque;
    private String cnpj_fornecedor;
    private int quantidade;
-   
-   
+
+
 public int getId_produto() {
 	return id_produto;
 }
@@ -33,7 +33,7 @@ public int getId_estoque() {
 }
 public void setId_estoque(int id_estoque) {
 	this.id_estoque = id_estoque;
-} 
+}
 public void setCnpj(String cnpj) {
 	this.cnpj_fornecedor = cnpj;
 }
