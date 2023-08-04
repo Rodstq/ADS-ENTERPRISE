@@ -29,7 +29,25 @@ public class AtualizarTratamento {
 			TF.setText("");
 			} else {
 				TF.setEnabled(false);
-				TF.setText("desabilitado");
 			}
+	}
+	
+	
+	public void verificarVaziosFornecedor(String cnpjID,String nome,  boolean ativos) throws Exception {
+		if (cnpjID.isBlank() || (ativos && nome.isBlank())) {
+			throw new Exception("Existem campos em branco, preencha-os");
+		} else if (!cnpjID.isBlank() && !ativos) {
+			throw new Exception("Nenhum dado a atualizar selecionado");
+		}
+	}
+	
+	public boolean retornarAtivosFornecedor(boolean nome) {
+		
+		if(nome) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 }

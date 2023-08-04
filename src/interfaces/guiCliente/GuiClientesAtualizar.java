@@ -418,9 +418,13 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 		btnMenuPrincial.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Main.main(null);
+				Main frame = new Main();
+                frame.setVisible(true);
 				dispose();
+<<<<<<< HEAD
 
+=======
+>>>>>>> a38dcf1a373f42fbe394e886dde4872134e5f8c9
 			}
 		});
 

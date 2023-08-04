@@ -80,6 +80,7 @@ public class Login extends JDialog {
      * Create the dialog.
      */
     public Login() {
+    	setResizable(false);
         setBounds(100, 100, 450, 300);
         getContentPane().setLayout(new BorderLayout());
         {
@@ -180,10 +181,7 @@ public class Login extends JDialog {
                                 frame.setVisible(true);
                                 dispose();
                             } else {
-                                Main frame = new Main();
-                                frame.setVisible(true);
-                                dispose();
-                                //JOptionPane.showMessageDialog(Login.this, "CPF ou senha incorretos!", "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(Login.this, "CPF ou senha incorretos!", "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
                             }
                         }
                     });
