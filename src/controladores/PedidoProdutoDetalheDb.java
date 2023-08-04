@@ -1,12 +1,12 @@
 package controladores;
 
-import conexaoDb.Db;
-import models.classesPedidos.ProdutoDetalhado;
-
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import conexaoDb.Db;
+import models.classesPedidos.ProdutoDetalhado;
 
 public class PedidoProdutoDetalheDb {
 

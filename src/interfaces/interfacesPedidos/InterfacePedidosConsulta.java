@@ -1,17 +1,29 @@
 package interfaces.interfacesPedidos;
 
-import java.awt.*;
-
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
-import models.classesPedidos.PedidosConsulta;
-import controladores.PedidosConsultaDb;
 import controladores.PedidoProdutoDetalheDb;
+import controladores.PedidosConsultaDb;
+import models.classesPedidos.PedidosConsulta;
 import models.classesPedidos.ProdutoDetalhado;
-import java.util.List;
 
 public class InterfacePedidosConsulta extends JFrame {
     private JPanel contentPane;
@@ -21,13 +33,14 @@ public class InterfacePedidosConsulta extends JFrame {
     private JButton btnConsultar;
     private JButton btnLimparFiltro;
     private JButton btnVoltar;
-    
+
 	/**
 	 * Launch the application.
 	 */
     public static void AbrirInterfacePedidosConsulta() {
     	EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
 				try {
 					InterfacePedidosConsulta frame = new InterfacePedidosConsulta();
 					frame.setVisible(true);
@@ -38,12 +51,12 @@ public class InterfacePedidosConsulta extends JFrame {
     	});
     }
 
-    
+
 	/**
 	 * Create the frame.
 	 */
     public InterfacePedidosConsulta() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBounds(100, 100, 827, 431);
         contentPane = new JPanel();
         contentPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -52,12 +65,12 @@ public class InterfacePedidosConsulta extends JFrame {
 
         JPanel panelNorth = new JPanel();
         contentPane.add(panelNorth, BorderLayout.NORTH);
-        
+
 
         JLabel lblFiltro = new JLabel("Filtro:");
         panelNorth.add(lblFiltro);
 
-        comboBoxFiltro = new JComboBox<String>();
+        comboBoxFiltro = new JComboBox<>();
         comboBoxFiltro.addItem("Nenhum");
         comboBoxFiltro.addItem("CPF do Cliente");
         comboBoxFiltro.addItem("CPF do Vendedor");
@@ -74,7 +87,7 @@ public class InterfacePedidosConsulta extends JFrame {
 
         btnLimparFiltro = new JButton("Limpar Filtro");
         panelNorth.add(btnLimparFiltro);
-        
+
         btnVoltar = new JButton("Voltar");
         panelNorth.add(btnVoltar);
 
@@ -86,11 +99,12 @@ public class InterfacePedidosConsulta extends JFrame {
 
         table = new JTable();
         scrollPane.setViewportView(table);
-        
-        
-        
+
+
+
         comboBoxFiltro.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            @Override
+			public void actionPerformed(ActionEvent e) {
                 String filtroSelecionado = (String) comboBoxFiltro.getSelectedItem();
                 if (filtroSelecionado.equals("Nenhum")) {
                     textFieldFiltro.setEnabled(false);
@@ -99,20 +113,21 @@ public class InterfacePedidosConsulta extends JFrame {
                 }
             }
         });
-        
+
         if (comboBoxFiltro.getSelectedItem().equals("Nenhum")) {
             textFieldFiltro.setEnabled(false);
         }
 
 
         btnConsultar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            @Override
+			public void actionPerformed(ActionEvent e) {
                 String filtro = textFieldFiltro.getText();
                 String tipoFiltro = (String) comboBoxFiltro.getSelectedItem();
 
                 PedidosConsultaDb pedidoConsultaDb = new PedidosConsultaDb();
-                
-                
+
+
                 List<PedidosConsulta> resultados = pedidoConsultaDb.consultarPedidos(filtro, tipoFiltro);
 
                 if (resultados.isEmpty()) {
@@ -121,7 +136,7 @@ public class InterfacePedidosConsulta extends JFrame {
                     return; // sem o return volta vazio
                 }
 
-                
+
                 DefaultTableModel model = new DefaultTableModel();
                 model.addColumn("ID do Pedido");
                 model.addColumn("Data do Pedido");
@@ -130,7 +145,7 @@ public class InterfacePedidosConsulta extends JFrame {
                 model.addColumn("Valor total dos Produtos");
                 model.addColumn("Quantidade de produtos");
                 model.addColumn("Detalhes");
-                
+
                 for (PedidosConsulta pedido : resultados) {
                     model.addRow(new Object[]{
                             pedido.getIdPedido(),
@@ -144,33 +159,36 @@ public class InterfacePedidosConsulta extends JFrame {
                 }
 
                 table.setModel(model);
-                
+
             }
-            
-            
+
+
         });
 
 
         btnLimparFiltro.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            @Override
+			public void actionPerformed(ActionEvent e) {
                 limparFiltro();
             }
         });
-        
+
 
 
         btnVoltar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            @Override
+			public void actionPerformed(ActionEvent e) {
                 InterfacePedidosPrincipal.AbrirInterfacePedidos();
                 dispose();
             }
         });
- 
+
         table.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            @Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
                 int row = table.rowAtPoint(evt.getPoint());
                 int col = table.columnAtPoint(evt.getPoint());
-                if (col == 6) { 
+                if (col == 6) {
                     String idPedido = table.getValueAt(row, 0).toString();
                     abrirInterfaceDetalhesProdutos(idPedido);
                 }
@@ -187,7 +205,7 @@ public class InterfacePedidosConsulta extends JFrame {
         List<ProdutoDetalhado> detalhes = pedidoProdutoDetalheDb.obterDetalhesPedido(idPedidoInt);
         InterfaceDetalhesProdutos.AbrirInterfaceDetalhes(detalhes);
     }
-   
+
     private void limparFiltro() {
         textFieldFiltro.setText("");
         comboBoxFiltro.setSelectedIndex(0);
@@ -195,7 +213,8 @@ public class InterfacePedidosConsulta extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 new InterfacePedidosConsulta();
             }
         });

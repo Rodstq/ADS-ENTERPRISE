@@ -1,17 +1,17 @@
 package controladores;
 
-import conexaoDb.Db;
-import models.classesPedidos.PedidosConsulta;
-
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
+
+import conexaoDb.Db;
+import models.classesPedidos.PedidosConsulta;
 
 
 public class PedidosConsultaDb {
-	
+
 	public double calcularSomaValoresProdutos(int idPedido) {
 	    double soma = 0;
 	    try {
@@ -26,7 +26,7 @@ public class PedidosConsultaDb {
 	    }
 	    return soma;
 	}
-	
+
 	public int calcularQuantidadeProdutos(int idPedido) {
 	    int soma = 0;
 	    try {
@@ -47,7 +47,7 @@ public class PedidosConsultaDb {
         List<PedidosConsulta> resultados = new ArrayList<>();
         try {
         	Statement stmt = Db.Connect().createStatement();
-        	
+
             String query = "SELECT * FROM pedido WHERE ";
 
             if (tipoFiltro.equals("CPF do Cliente")) {
@@ -81,15 +81,15 @@ public class PedidosConsultaDb {
                 pedido.setQuantitadeTotalProdutos(quantidadeTotalComprada);
 
                 resultados.add(pedido);
-                
+
             }
         } catch (Exception e) {
             e.printStackTrace();
-            
+
         } finally {
             Db.CloseDb();
         }
         return resultados;
     }
-    
+
 }

@@ -1,13 +1,24 @@
 package controladores.vendedores;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridLayout;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
+
 import conexaoDb.Db;
 import conexaoDb.DbErrorException;
 
@@ -21,7 +32,7 @@ public class VendedoresCadastroDatabase extends JFrame {
     public VendedoresCadastroDatabase() {
         setTitle("Cadastro de Vendedor");
         setSize(500, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         initComponents();

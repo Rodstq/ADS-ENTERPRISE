@@ -8,14 +8,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.zip.DataFormatException;
 
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import data.tratamento.clients.ClienteAtualizarTratamento;
 import data.tratamento.clients.ClienteValidadoraInput;
@@ -37,6 +37,7 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 
 	public static void clientesAtualizar() {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					GuiClientesAtualizar frame = new GuiClientesAtualizar();
@@ -47,13 +48,13 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 			}
 		});
 	}
-	
+
 	public GuiClientesAtualizar() {
 		setAutoRequestFocus(false);
 		setAlwaysOnTop(true);
-		
 
-		
+
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -68,22 +69,23 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 
 		inputCpfCliente.setDocument(new ClienteValidadoraInput(11, ClienteValidadoraInput.dadoInserido.cpfCliente));
 
-		
-		
+
+
 		inputCpfCliente.setColumns(10);
 		inputCpfCliente.setBounds(136, 10, 110, 19);
 		contentPane.add(inputCpfCliente);
 
 		JButton btnLimparInfo = new JButton("Limpar");
 		btnLimparInfo.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				inputNomeCliente.setText("");
 				inputCpfCliente.setText("");
-				inputDataNascimentoCliente.setText("");				
+				inputDataNascimentoCliente.setText("");
 				inputTelefoneCliente.setText("");
 				inputEstadoCliente.setText("");
 				inputCidadeCliente.setText("");
-				inputBairroCliente.setText("");				
+				inputBairroCliente.setText("");
 				inputCepCliente.setText("");
 				inputRuaCliente.setText("");
 				inputDescricaoEnderecoCliente.setText("");
@@ -95,13 +97,14 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 
 
 
-		ClienteAtualizarTratamento flag =new ClienteAtualizarTratamento();	
-		
+		ClienteAtualizarTratamento flag =new ClienteAtualizarTratamento();
+
 		JRadioButton rbnCheckDataNascimento = new JRadioButton("Data de Nascimento");
 		rbnCheckDataNascimento.setBounds(27, 48, 168, 23);
 		contentPane.add(rbnCheckDataNascimento);
 
 		rbnCheckDataNascimento.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckDataNascimento.isSelected()) {
 					inputDataNascimentoCliente.setVisible(true);
@@ -113,24 +116,25 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 				}
 			}
 		});
-		
+
 		inputDataNascimentoCliente = new JTextField();
 		inputDataNascimentoCliente.setBounds(222, 50, 200, 19);
 		contentPane.add(inputDataNascimentoCliente);
 		inputDataNascimentoCliente.setVisible(false);
-		
-		
+
+
 		JRadioButton rbnCheckNome = new JRadioButton("Nome do cliente:");
 		rbnCheckNome.setBounds(27, 92, 154, 23);
 		contentPane.add(rbnCheckNome);
 		rbnCheckNome.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckNome.isSelected()) {
 					inputNomeCliente.setVisible(true);
 					inputNomeCliente.setDocument(new ClienteValidadoraInput(50, ClienteValidadoraInput.dadoInserido.nomeCliente));
 
 					flag.nomeFlag(true);
-					
+
 				} else {
 					inputNomeCliente.setVisible(false);
 					flag.nomeFlag(false);
@@ -147,6 +151,7 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 		contentPane.add(rbnCheckTelefone);
 
 		rbnCheckTelefone.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckTelefone.isSelected()) {
 					inputTelefoneCliente.setVisible(true);
@@ -156,7 +161,7 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 				} else {
 					flag.telefonFlag(false);
 					inputTelefoneCliente.setVisible(false);
-					
+
 				}
 			}
 		});
@@ -170,6 +175,7 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 		contentPane.add(rbnCheckEstado);
 
 		rbnCheckEstado.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckEstado.isSelected()) {
 					inputEstadoCliente.setVisible(true);
@@ -179,7 +185,7 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 				} else {
 					flag.estadoFlag(false);
 					inputEstadoCliente.setVisible(false);
-					
+
 				}
 			}
 		});
@@ -193,6 +199,7 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 		contentPane.add(rbnCheckCidade);
 
 		rbnCheckCidade.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckCidade.isSelected()) {
 					inputCidadeCliente.setVisible(true);
@@ -201,7 +208,7 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 					flag.cidadFlag(true);
 				} else {
 					flag.cidadFlag(false);
-					
+
 					inputCidadeCliente.setVisible(false);
 				}
 			}
@@ -209,13 +216,14 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 		inputCidadeCliente = new JTextField();
 		inputCidadeCliente.setBounds(118, 218, 114, 19);
 		contentPane.add(inputCidadeCliente);
-		inputCidadeCliente.setVisible(false); 
+		inputCidadeCliente.setVisible(false);
 
 		JRadioButton rbnCheckBairro = new JRadioButton("Bairro:");
 		rbnCheckBairro.setBounds(27, 251, 83, 23);
 		contentPane.add(rbnCheckBairro);
 
 		rbnCheckBairro.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckBairro.isSelected()) {
 					inputBairroCliente.setVisible(true);
@@ -231,13 +239,14 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 		inputBairroCliente = new JTextField();
 		inputBairroCliente.setBounds(118, 253, 114, 19);
 		contentPane.add(inputBairroCliente);
-		inputBairroCliente.setVisible(false); 
+		inputBairroCliente.setVisible(false);
 
 		JRadioButton rbnCheckRua = new JRadioButton("Rua:");
 		rbnCheckRua.setBounds(27, 293, 68, 23);
 		contentPane.add(rbnCheckRua);
 
 		rbnCheckRua.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckRua.isSelected()) {
 					inputRuaCliente.setVisible(true);
@@ -253,13 +262,14 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 		inputRuaCliente = new JTextField();
 		inputRuaCliente.setBounds(96, 295, 114, 19);
 		contentPane.add(inputRuaCliente);
-		inputRuaCliente.setVisible(false); 
+		inputRuaCliente.setVisible(false);
 
 		JRadioButton rbnCheckCep = new JRadioButton("Cep:");
 		rbnCheckCep.setBounds(27, 344, 68, 23);
 		contentPane.add(rbnCheckCep);
 
 		rbnCheckCep.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (rbnCheckCep.isSelected()) {
 					inputCepCliente.setVisible(true);
@@ -282,6 +292,7 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 		contentPane.add(rdbtnCheckDescricaoEndereco);
 
 		rdbtnCheckDescricaoEndereco.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (rdbtnCheckDescricaoEndereco.isSelected()) {
 					inputDescricaoEnderecoCliente.setVisible(true);
@@ -289,125 +300,131 @@ public class GuiClientesAtualizar extends GuiClientesPrincipal {
 
 					flag.descricaFlag(true);
 				} else {
-					
+
 					flag.descricaFlag(false);
 					inputDescricaoEnderecoCliente.setVisible(false);
 				}
 			}
 		});
-		
+
 
 		JButton btnAtualizarCliente = new JButton("Atualizar");
 		btnAtualizarCliente.setBounds(807, 425, 117, 25);
 		contentPane.add(btnAtualizarCliente);
 		btnAtualizarCliente.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e)  {
-		      
-		    	
+		    @Override
+			public void actionPerformed(ActionEvent e)  {
+
+
 		    	String nomeCliente = inputNomeCliente.getText();
 		    	String cpfCliente = inputCpfCliente.getText();
 		    	String nascimento = inputDataNascimentoCliente.getText();
 		    	String  telefoneCliente = inputTelefoneCliente.getText();
-		    	
-		    
+
+
 		    	String cepCliente = inputCepCliente.getText();
 		    	String estadoCliente = inputEstadoCliente.getText();
 		    	String cidadeCliente = inputCidadeCliente.getText();
 		    	String bairroCliente =  inputBairroCliente.getText();
 		    	String ruaCliente =  inputRuaCliente.getText();
 		    	String descricaoEndereco = inputDescricaoEnderecoCliente.getText();
-  
+
 		    	boolean sucesso = true;
-		    	
+
 		            try {
-		            	
+
 		            flag.clienteAtualizarCadastroCliente(nascimento, cpfCliente, nomeCliente, telefoneCliente);
-					
-						
+
+
 					} catch (infoClienteException e1) {
-						
+
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 						sucesso = false;
-						
+
 					} catch (DataFormatException erroFormato) {
-						
+
 						JOptionPane.showMessageDialog(null, erroFormato.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 						sucesso = false;
 					}catch(StringIndexOutOfBoundsException e3) {
-						
+
 						JOptionPane.showMessageDialog(null, "o cpf precisa ter 11 digitos", "Erro", JOptionPane.ERROR_MESSAGE);
 						sucesso = false;
 					}
-		            
-            
+
+
 		            try {
 						flag.clienteAtualizarEnderecoCliente(cpfCliente, cepCliente, estadoCliente, cidadeCliente, bairroCliente, ruaCliente, descricaoEndereco);
 					} catch (infoClienteException erro) {
-						
+
 						JOptionPane.showMessageDialog(null, erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 						sucesso = false;
 					}
-		            	
-		            
-		            
-		            
+
+
+
+
 		            try {
 		            	if(sucesso  && !flag.verificarCpf(cpfCliente)) {
 		            		JOptionPane.showMessageDialog(null, "o cpf não existe", "Erro", JOptionPane.ERROR_MESSAGE);
-		            		
+
 		            	}
-		            	
-		            	
+
+
 						if(sucesso && flag.verificarCpf(cpfCliente)) {
 						JOptionPane.showMessageDialog(null, "Sucesso na atualização", null, JOptionPane.INFORMATION_MESSAGE);
 						}
 					} catch (HeadlessException | infoClienteException e1) {
-					
+
 						JOptionPane.showMessageDialog(null, "houve um erro ao atualizar, por favor informe ao administrador", "Erro", JOptionPane.ERROR_MESSAGE);
 					}
-		            
-		            
+
+
 		            if(!inputCpfCliente.getText().isBlank()) {
-		            	
-		            	inputNomeCliente.setText("");					
-						inputDataNascimentoCliente.setText("");				
+
+		            	inputNomeCliente.setText("");
+						inputDataNascimentoCliente.setText("");
 						inputTelefoneCliente.setText("");
 						inputEstadoCliente.setText("");
 						inputCidadeCliente.setText("");
-						inputBairroCliente.setText("");				
+						inputBairroCliente.setText("");
 						inputCepCliente.setText("");
 						inputRuaCliente.setText("");
 						inputDescricaoEnderecoCliente.setText("");
 		            }
-		            
+
 		    }
 		});
-		
-		
+
+
 		inputDescricaoEnderecoCliente = new JTextField();
 		inputDescricaoEnderecoCliente.setBounds(240, 388, 425, 19);
 		contentPane.add(inputDescricaoEnderecoCliente);
-		
+
 		inputDescricaoEnderecoCliente.setVisible(false);
-		
+
         JLabel opaqueLabel = new JLabel("AdsGestão");
         opaqueLabel.setHorizontalAlignment(SwingConstants.CENTER);
         opaqueLabel.setFont(new Font("Dialog", Font.BOLD, 80));
         opaqueLabel.setBounds(215, 40, 490, 341);
         opaqueLabel.setOpaque(true);
-        opaqueLabel.setBackground(new Color(0, 0, 0, 0)); 
+        opaqueLabel.setBackground(new Color(0, 0, 0, 0));
         opaqueLabel.setForeground(new Color(0, 0, 0, 50));
         contentPane.add(opaqueLabel);
-	    
-	    
+
+
 		JButton btnMenuPrincial = new JButton("menu principal");
 		btnMenuPrincial.setBounds(27, 425, 154, 25);
 		contentPane.add(btnMenuPrincial);
 		btnMenuPrincial.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Main frame = new Main();
                 frame.setVisible(true);
 				dispose();
+<<<<<<< HEAD
+
+=======
+>>>>>>> a38dcf1a373f42fbe394e886dde4872134e5f8c9
 			}
 		});
 

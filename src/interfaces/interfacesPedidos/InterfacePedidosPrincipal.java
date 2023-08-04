@@ -1,11 +1,23 @@
 package interfaces.interfacesPedidos;
 
+<<<<<<< HEAD
+import java.awt.EventQueue;
+import java.awt.GridLayout;
+=======
 import interfaces.Main;
 
 import javax.swing.*;
 import java.awt.*;
+>>>>>>> a38dcf1a373f42fbe394e886dde4872134e5f8c9
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 
 public class InterfacePedidosPrincipal extends JFrame {
     private JButton btnConsulta;
@@ -14,7 +26,8 @@ public class InterfacePedidosPrincipal extends JFrame {
 
     public static void AbrirInterfacePedidos() {
         EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 try {
                     InterfacePedidosPrincipal frame = new InterfacePedidosPrincipal();
                     frame.setVisible(true);
@@ -26,7 +39,7 @@ public class InterfacePedidosPrincipal extends JFrame {
     }
 
     public InterfacePedidosPrincipal() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pedidos Principal");
         setBounds(100, 100, 422, 230);
         setResizable(false);
@@ -34,6 +47,30 @@ public class InterfacePedidosPrincipal extends JFrame {
         JPanel contentPane = new JPanel();
         contentPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         setContentPane(contentPane);
+<<<<<<< HEAD
+        contentPane.setLayout(new GridLayout(2, 1, 10, 10));
+
+        btnConsulta = new JButton("Consulta de Pedidos");
+        contentPane.add(btnConsulta);
+
+        btnDeletar = new JButton("Deletar Pedido");
+        contentPane.add(btnDeletar);
+
+        btnConsulta.addActionListener(new ActionListener() {
+            @Override
+			public void actionPerformed(ActionEvent e) {
+                InterfacePedidosConsulta.AbrirInterfacePedidosConsulta();
+                dispose();
+            }
+        });
+
+        btnDeletar.addActionListener(new ActionListener() {
+            @Override
+			public void actionPerformed(ActionEvent e) {
+                InterfacePedidosDeletar.AbrirInterfacePedidosDeletar();
+                dispose();
+            }
+=======
         GridBagLayout gbl_contentPane = new GridBagLayout();
         gbl_contentPane.columnWidths = new int[]{365, 0};
         gbl_contentPane.rowHeights = new int[]{59, 59, 59, 0};
@@ -78,6 +115,7 @@ public class InterfacePedidosPrincipal extends JFrame {
                 frame.setVisible(true);
                 dispose();
         	}
+>>>>>>> a38dcf1a373f42fbe394e886dde4872134e5f8c9
         });
         GridBagConstraints gbc_BackButton = new GridBagConstraints();
         gbc_BackButton.gridheight = 2;
@@ -90,7 +128,8 @@ public class InterfacePedidosPrincipal extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 new InterfacePedidosPrincipal();
             }
         });

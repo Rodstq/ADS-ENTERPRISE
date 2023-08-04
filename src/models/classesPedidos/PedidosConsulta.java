@@ -25,7 +25,7 @@ public class PedidosConsulta {
     public void setQuantitadeTotalProdutos(int quantitadeTotalProdutos) {
         this.quantitadeTotalProdutos = quantitadeTotalProdutos;
     }
-    
+
     public Date getDataPedido() {
         return dataPedido;
     }

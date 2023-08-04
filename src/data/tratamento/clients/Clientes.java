@@ -2,12 +2,6 @@ package data.tratamento.clients;
 
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import controladores.Cliente.ClienteConsultaPedidosDatabase;
-
-import data.tratamento.clients.infoClienteException;
 
 
 public class Clientes {
@@ -22,16 +16,16 @@ public class Clientes {
     private String cepCliente;
     private String ruaCliente;
     private String descricaoRuaCliente;
- 
+
 	public void setCpf(String cpfCliente) {
-    	
-		this.cpfCliente = cpfCliente;   
+
+		this.cpfCliente = cpfCliente;
     }
 
     public String getCpf() {
         return cpfCliente;
     }
-    
+
     public void setNomeCliente(String nomeCliente) {
         this.nomeCliente = nomeCliente;
     }
@@ -103,26 +97,26 @@ public class Clientes {
     public String getDescricaoRuaCliente() {
         return this.descricaoRuaCliente;
     }
-    public void setClienteInfo(String cpfCliente, String nomeCliente, LocalDate dataNascimento, 
+    public void setClienteInfo(String cpfCliente, String nomeCliente, LocalDate dataNascimento,
             String telefoneCliente){
-     
+
         setCpf(cpfCliente);
         setNomeCliente(nomeCliente);
         setDataNascimentoCliente(dataNascimento);
         setTelefoneCliente(telefoneCliente);
-   
+
     }
-    
-	public void setEnderecoCliente( String cepCliente, String estadoCliente, String cidadeCliente, String bairroCliente, 
+
+	public void setEnderecoCliente( String cepCliente, String estadoCliente, String cidadeCliente, String bairroCliente,
 			String ruaCliente, String descricaoRuaCliente, String cpfCliente){
-		
+
 		setCepCliente(cepCliente);
 		setEstadoCliente(estadoCliente);
 		setCidadeCliente(cidadeCliente);
-		setBairroCliente(bairroCliente);	
+		setBairroCliente(bairroCliente);
 		setRuaCliente(descricaoRuaCliente);
 		setDescricaoRuaCliente(descricaoRuaCliente);
 		setCpf(cpfCliente);
-       
+
 	}
 }
