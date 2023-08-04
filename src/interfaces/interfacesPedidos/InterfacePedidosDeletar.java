@@ -1,9 +1,22 @@
 package interfaces.interfacesPedidos;
 
-import java.awt.*;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 
 import controladores.PedidosDeleteDb;
 
@@ -18,7 +31,8 @@ public class InterfacePedidosDeletar extends JFrame {
      */
     public static void AbrirInterfacePedidosDeletar() {
         EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 try {
                     InterfacePedidosDeletar frame = new InterfacePedidosDeletar();
                     frame.setVisible(true);
@@ -33,7 +47,7 @@ public class InterfacePedidosDeletar extends JFrame {
      * Create the frame.
      */
     public InterfacePedidosDeletar() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Deletar Pedido");
         setBounds(100, 100, 350, 200);
         contentPane = new JPanel();
@@ -72,7 +86,7 @@ public class InterfacePedidosDeletar extends JFrame {
         gbcBtnDeletar.gridx = 1;
         gbcBtnDeletar.gridy = 2;
         contentPane.add(btnDeletar, gbcBtnDeletar);
-        
+
         btnVoltar = new JButton("Voltar");
         GridBagConstraints gbcBtnVoltar = new GridBagConstraints();
         gbcBtnVoltar.gridx = 2;
@@ -80,14 +94,16 @@ public class InterfacePedidosDeletar extends JFrame {
         contentPane.add(btnVoltar, gbcBtnVoltar);
 
         btnVoltar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            @Override
+			public void actionPerformed(ActionEvent e) {
                 InterfacePedidosPrincipal.AbrirInterfacePedidos();
                 dispose();
             }
         });
 
         btnDeletar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            @Override
+			public void actionPerformed(ActionEvent e) {
                 String idPedido = textFieldIdPedido.getText();
                 PedidosDeleteDb pedidosDeleteDb = new PedidosDeleteDb();
                 boolean deletou = pedidosDeleteDb.deletarPedido(idPedido);
@@ -109,7 +125,8 @@ public class InterfacePedidosDeletar extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 new InterfacePedidosDeletar();
             }
         });

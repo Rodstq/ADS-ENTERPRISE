@@ -7,48 +7,49 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import conexaoDb.Db;
-
-import interfaces.interfacesCliente.InterfaceClienteUpdates;
 import data.tratamento.clients.Clientes;
 import data.tratamento.clients.infoClienteException;
+import interfaces.interfacesCliente.InterfaceClienteUpdates;
 
 public class ClienteAtualizarDatabase implements InterfaceClienteUpdates{
-	
-	 public boolean verificarCpfDb(Clientes verificarCpf) throws infoClienteException {
-		 
+
+	 @Override
+	public boolean verificarCpfDb(Clientes verificarCpf) throws infoClienteException {
+
 	        try {
 	            Connection connection = Db.Connect();
-       
+
 	            String verificarCPFQuery = "SELECT COUNT(*) FROM cliente WHERE cpf_cliente = ?";
 	            PreparedStatement pstmt = connection.prepareStatement(verificarCPFQuery);
 	            pstmt.setString(1, verificarCpf.getCpf());
 	            ResultSet rs = pstmt.executeQuery();
 
-	            
+
 	            if (rs.next()) {
 	                int count = rs.getInt(1);
 	                return count > 0;
 	            }
 
 	        } catch (SQLException e) {
-	        	
+
 	        	throw new infoClienteException("houve um erro na consulta, por favor avise ao administrador");
-	        	
+
 	        } finally {
 	            Db.CloseDb();
 	        }
 
-	        
+
 	        return false;
 	    }
-	
+
+	@Override
 	public void infoCliente (Clientes cliente) {
-	    ArrayList<Object> infoCliente = new ArrayList<Object>();
+	    ArrayList<Object> infoCliente = new ArrayList<>();
 	    infoCliente.add(cliente.getNomeCliente());
 	    infoCliente.add(cliente.getDataNascimentoCliente());
 	    infoCliente.add(cliente.getTelefoneCliente());
 
-	    ArrayList<Object> colunas = new ArrayList<Object>();
+	    ArrayList<Object> colunas = new ArrayList<>();
 	    colunas.add("nome_cliente");
 	    colunas.add("nascimento_cliente");
 	    colunas.add("telefone");
@@ -64,9 +65,9 @@ public class ClienteAtualizarDatabase implements InterfaceClienteUpdates{
 	                pstmt.setString(2, cliente.getCpf());
 	                pstmt.executeUpdate();
 	                pstmt.close();
-	                	                
-	           
-	                
+
+
+
 	            }
 	        }
 	    } catch (Exception e) {
@@ -74,12 +75,13 @@ public class ClienteAtualizarDatabase implements InterfaceClienteUpdates{
 	    } finally {
 	        Db.CloseDb();
 	    }
-	   
-	}
-	
 
+	}
+
+
+	@Override
 	public void enderecoCliente(Clientes cliente) {
-	    ArrayList<Object> enderecoCliente = new ArrayList<Object>();
+	    ArrayList<Object> enderecoCliente = new ArrayList<>();
 	    enderecoCliente.add(cliente.getCepCliente());
 	    enderecoCliente.add(cliente.getEstadoCliente());
 	    enderecoCliente.add(cliente.getCidadeCliente());
@@ -87,7 +89,7 @@ public class ClienteAtualizarDatabase implements InterfaceClienteUpdates{
 	    enderecoCliente.add(cliente.getRuaCliente());
 	    enderecoCliente.add(cliente.getDescricaoRuaCliente());
 
-	    ArrayList<Object> colunas = new ArrayList<Object>();
+	    ArrayList<Object> colunas = new ArrayList<>();
 	    colunas.add("cep");
 	    colunas.add("estado");
 	    colunas.add("cidade");

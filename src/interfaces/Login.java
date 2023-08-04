@@ -1,22 +1,26 @@
 package interfaces;
 
-import conexaoDb.Db;
-
 import java.awt.BorderLayout;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Font;
-
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
+
+import conexaoDb.Db;
 
 public class Login extends JDialog {
 
@@ -41,7 +45,7 @@ public class Login extends JDialog {
     public static void telaLogin() {
         try {
             Login dialog = new Login();
-            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             dialog.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -166,7 +170,8 @@ public class Login extends JDialog {
                 {
                     JButton okButton = new JButton("Entrar");
                     okButton.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
+                        @Override
+						public void actionPerformed(ActionEvent e) {
                             String cpf = CPFfield.getText();
                             String senha = PasswordField.getText();
 
@@ -194,7 +199,8 @@ public class Login extends JDialog {
                 {
                     JButton cancelButton = new JButton("Sair");
                     cancelButton.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
+                        @Override
+						public void actionPerformed(ActionEvent e) {
                             dispose();
                         }
                     });

@@ -1,8 +1,8 @@
 package controladores;
 
-import conexaoDb.Db;
-
 import java.sql.PreparedStatement;
+
+import conexaoDb.Db;
 
 public class PedidosDeleteDb {
 
@@ -13,13 +13,13 @@ public class PedidosDeleteDb {
             PreparedStatement deletePedidoProdutoStmt = Db.Connect().prepareStatement(deletePedidoProdutoQuery);
             deletePedidoProdutoStmt.setString(1, idPedido);
             deletePedidoProdutoStmt.executeUpdate();
-            
+
             String deletePedidoQuery = "DELETE FROM pedido WHERE id_pedido = ?";
             PreparedStatement deletePedidoStmt = Db.Connect().prepareStatement(deletePedidoQuery);
             deletePedidoStmt.setString(1, idPedido);
             int rowsDeleted = deletePedidoStmt.executeUpdate();
 
-            
+
             return rowsDeleted > 0;
         } catch (Exception e) {
             e.printStackTrace();

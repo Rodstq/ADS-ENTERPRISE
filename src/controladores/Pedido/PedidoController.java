@@ -1,14 +1,13 @@
 package controladores.Pedido;
 
-import conexaoDb.Db;
-import controladores.Estoque.EstoqueController;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
+
+import conexaoDb.Db;
+import controladores.Estoque.EstoqueController;
 
 public class PedidoController {
     public static void criarPedido(ArrayList<Integer> ProdutosComprados, String cpf_cliente, String cpf_vendedor) throws SQLException {

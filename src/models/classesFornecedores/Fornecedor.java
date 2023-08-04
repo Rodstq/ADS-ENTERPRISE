@@ -1,7 +1,7 @@
 package models.classesFornecedores;
 
 public class Fornecedor {
-	
+
 	private String nome;
 	private String cnpj;
 
@@ -17,6 +17,6 @@ public class Fornecedor {
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
-	
-	
+
+
 }

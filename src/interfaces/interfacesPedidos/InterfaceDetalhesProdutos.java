@@ -1,11 +1,20 @@
 package interfaces.interfacesPedidos;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import models.classesPedidos.ProdutoDetalhado;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.text.DecimalFormat;
 import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
+
+import models.classesPedidos.ProdutoDetalhado;
 
 public class InterfaceDetalhesProdutos extends JFrame {
 
@@ -15,7 +24,8 @@ public class InterfaceDetalhesProdutos extends JFrame {
 
     public static void AbrirInterfaceDetalhes(List<ProdutoDetalhado> detalhesProdutos) {
         EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 try {
                     InterfaceDetalhesProdutos frame = new InterfaceDetalhesProdutos(detalhesProdutos);
                     frame.setVisible(true);
@@ -27,7 +37,7 @@ public class InterfaceDetalhesProdutos extends JFrame {
     }
 
     public InterfaceDetalhesProdutos(List<ProdutoDetalhado> detalhesProdutos) {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 600, 400);
         setTitle("Detalhes dos Produtos do Pedido");
 

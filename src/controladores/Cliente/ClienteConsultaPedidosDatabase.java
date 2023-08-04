@@ -1,21 +1,19 @@
 package controladores.Cliente;
 
-import conexaoDb.Db;
-import data.tratamento.clients.infoClienteException;
-
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import conexaoDb.Db;
+import data.tratamento.clients.infoClienteException;
+
 public class ClienteConsultaPedidosDatabase {
 
-	
-	
+
+
 	public static List<Object[]> consultaProdutos(String nomeCliente, String cpfCliente) throws infoClienteException {
 	    List<Object[]> resultadosProdutos = new ArrayList<>();
 
@@ -26,7 +24,7 @@ public class ClienteConsultaPedidosDatabase {
 	                "JOIN vendedor ON pedido.cpf_vendedor = vendedor.cpf_vendedor " +
 	                "JOIN cliente ON pedido.cpf_cliente = cliente.cpf_cliente " +
 	                "JOIN pedido_produto ON pedido.id_pedido = pedido_produto.id_pedido ";
-	                
+
 
 	        if (!nomeCliente.isBlank()) {
 	            query += "WHERE cliente.nome_cliente = ?"+"GROUP BY pedido.id_pedido";
@@ -60,12 +58,12 @@ public class ClienteConsultaPedidosDatabase {
 	                Object[] produtosInfo = {id_pedido, cpf_cliente, data_pedido, nome_vendedor, valor_total};
 	                resultadosProdutos.add(produtosInfo);
 	            }
-	        } 
+	        }
 
 	    } catch (Exception e) {
-	    	
+
 	    	throw new infoClienteException("Desculpe, houve um erro na consulta contate seu administrador para corrigir");
-	    	    	
+
 	    } finally {
 	        Db.CloseDb();
 	    }
@@ -73,5 +71,5 @@ public class ClienteConsultaPedidosDatabase {
 	    return resultadosProdutos;
 	}
 
-	
+
 }
