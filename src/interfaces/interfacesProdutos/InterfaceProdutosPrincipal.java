@@ -135,13 +135,11 @@ public class InterfaceProdutosPrincipal extends JFrame {
 		lblNewLabelConsultar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		JTextField txtIdConsultar = new JTextField();
-		
-		//			   nome do campo  metodo usado   classe  qtd limite   tipo de dado a ser inserido
-		txtIdConsultar.setDocument(new Validadora(50, Validadora.dadoInserido.numeroInt));
+		txtIdConsultar.setDocument(new Validadora(10, Validadora.dadoInserido.numeroInt));
 		
 		consultarProduto.add(txtIdConsultar);
 		txtIdConsultar.setBounds(109, 41, 164, 20);
-		txtIdConsultar.setColumns(10);		
+		txtIdConsultar.setColumns(10);	
 		
 		JLabel lblNewLabel_1 = new JLabel("Consultar Por : ");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
